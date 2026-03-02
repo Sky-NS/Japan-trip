@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Фудзикавагутико — у подножия Фудзи</title>
+    <!-- Путь к стилям — папка CSS с большой буквы -->
+    <link rel="stylesheet" href="CSS/style.css">
+    <style>
+        /* Дополнительные стили для страницы Фудзи */
+        .day-highlight {
+            background-color: #fff9f5;
+            border: 1px solid #efebe5;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 8px;
+            border-left: 4px solid #2d7a6e;
+        }
+        
+        .day-highlight h3 {
+            margin-top: 0;
+            color: #1a1a1a;
+            font-size: 1.5rem;
+            border-bottom: 1px solid #efebe5;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .transport-note {
+            background-color: #f5f2eb;
+            padding: 12px 18px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            margin: 15px 0;
+            color: #4a4a4a;
+        }
+        
+        .price-summary {
+            background-color: #f0f5fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            border: 1px solid #d9e2e8;
+        }
+        
+        .route-card {
+            background-color: white;
+            border: 1px solid #efebe5;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+        }
+        
+        .route-title {
+            font-weight: 600;
+            color: #2d2d2d;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .route-detail {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+            padding: 3px 0;
+            border-bottom: 1px dotted #efebe5;
+        }
+        
+        .total-day {
+            background-color: #2d7a6e;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .two-column {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .two-column > div {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .hotel-info {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #2d7a6e;
+        }
+        
+        .attraction-card {
+            background-color: #f9f7f4;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid #efebe5;
+        }
+        
+        .weather-note {
+            background-color: #e6f2f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #2d7a6e;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 30px 0 20px;
+        }
+        
+        .nav-button {
+            background-color: #f5f2eb;
+            color: #2d2d2d;
+            padding: 12px 20px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: 1px solid #efebe5;
+            min-width: 120px;
+            text-align: center;
+        }
+        
+        .nav-button:hover {
+            background-color: #2d7a6e;
+            color: white;
+            border-color: #2d7a6e;
+            transform: translateY(-2px);
+        }
+        
+        .nav-button.active {
+            background-color: #2d7a6e;
+            color: white;
+            border-color: #2d7a6e;
+        }
+        
+        .bus-schedule {
+            background-color: #fff9e6;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            border: 1px solid #efebe5;
+        }
+        
+        .bus-schedule p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="trip-card">
+        <!-- Навигационные кнопки -->
+        <div class="nav-buttons">
+            <a href="index.html" class="nav-button">🏠 Главная</a>
+            <a href="osaka.html" class="nav-button">🌆 Осака</a>
+            <a href="fuji.html" class="nav-button active">🗻 Фудзи</a>
+            <a href="tokyo.html" class="nav-button">🗼 Токио</a>
+            <a href="shanghai.html" class="nav-button">🏙 Шанхай</a>
+        </div>
+
+        <!-- Шапка города -->
+        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
+            <span style="font-size: 4rem;">🗻</span>
+            <div>
+                <h1 style="text-align: left; margin: 0; font-size: 3rem;">Фудзи</h1>
+                <p style="color: #6b5a4a; margin: 5px 0 0; font-size: 1.2rem;">Фудзикавагутико • 18–20 мая 2026 (2 ночи)</p>
+            </div>
+        </div>
+
+        <!-- Бейджи -->
+        <div style="margin-bottom: 20px;">
+            <span class="city-badge" style="background-color: #2d7a6e;">🏠 ID Stay Kawaguchiko</span>
+            <span class="city-badge" style="background-color: #2d7a6e;">🗻 Пагода Чуреито</span>
+            <span class="city-badge" style="background-color: #2d7a6e;">🚠 Канатная дорога</span>
+            <span class="city-badge" style="background-color: #2d7a6e;">♨️ Онсэн</span>
+        </div>
+
+        <!-- ИНФОРМАЦИЯ ОБ ОТЕЛЕ -->
+        <div class="hotel-info">
+            <h3 style="margin-top: 0; color: #2d7a6e;">🏠 ID STAY KAWAGUCHIKO</h3>
+            <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: space-between;">
+                <div>
+                    <p><strong>ID Stay Kawaguchiko 🔑🔑🔑</strong></p>
+                    <p>📍 <strong>Адрес:</strong> 3523-1, Фудзикавагутико, Яманаси, Япония</p>
+                    <p>📅 <strong>Заезд:</strong> 18 мая с 16:00 до 22:00 | <strong>Выезд:</strong> 20 мая до 10:00</p>
+                </div>
+                <div>
+                    <p><strong>🚉 Транспорт:</strong></p>
+                    <p>• От станции Kawaguchiko — такси или пешком (уточнить)</p>
+                    <p>• Ретро-автобусы по району — от ¥1500 за день</p>
+                </div>
+                <div>
+                    <a class="map-button" href="https://www.google.com/maps/search/3523-1+Fujikawaguchiko" target="_blank" style="background-color: #2d7a6e;">🗺 На карте</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ДЕНЬ 8 (18 мая): ПЕРЕЕЗД ИЗ ОСАКИ ===== -->
+        <div class="day-highlight">
+            <h3>🚆 День 8 · 18 мая (пн) — Переезд Осака → Фудзи (через Мисиму)</h3>
+            
+            <div class="route-card">
+                <div class="route-title">🚄 ОСАКА → ФУДЗИКАВАГУТИКО — оптимальный маршрут:</div>
+                
+                <p><strong>Этап 1: От дома до Синкансэна</strong></p>
+                <div class="route-detail"><span>JR Ebie → Shin-Osaka</span><span>¥190</span></div>
+                
+                <p><strong>Этап 2: 🚄 Синкансэн (Shin-Osaka → Mishima)</strong> [citation:6]</p>
+                <div class="route-detail"><span>Синкансэн Hikari / Kodama</span><span>¥11450</span></div>
+                <div class="route-detail" style="font-size: 0.9rem; color: #666;"><span>Время в пути: ~2 ч 15 мин</span><span></span></div>
+                
+                <p><strong>Этап 3: 🚌 Скоростной автобус (Mishima → Kawaguchiko)</strong> [citation:6][citation:10]</p>
+                <div class="route-detail"><span>Автобус Fujikyu City Bus "Mishima Kawaguchiko Liner"</span><span>¥2500</span></div>
+                <div class="route-detail" style="font-size: 0.9rem; color: #666;"><span>Время в пути: ~1 ч 20 мин</span><span></span></div>
+                <div class="route-detail" style="font-size: 0.9rem;"><span>Отправление от южного выхода станции Мисима</span><span></span></div>
+                
+                <div style="border-top: 2px solid #efebe5; margin-top: 15px; padding-top: 15px;">
+                    <div class="route-detail" style="font-weight: 700; font-size: 1.1rem;">
+                        <span>💰 ИТОГО ТРАНСПОРТ (на человека)</span>
+                        <span>¥14140</span>
+                    </div>
+                    <div class="route-detail" style="color: #666;">
+                        <span>⏱ Общее время в пути</span>
+                        <span>~3 ч 45 мин</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Расписание автобусов Мисима → Кавагутико -->
+            <div class="bus-schedule">
+                <p><strong>🚌 Расписание автобусов Mishima → Kawaguchiko (Fujikyu City Bus):</strong> [citation:6]</p>
+                <p>• 07:16 – 08:40 (¥2500, 1ч 24м)</p>
+                <p>• 08:16 – 09:40 (¥2500, 1ч 24м)</p>
+                <p>• 09:16 – 10:50 (¥2500, 1ч 34м)</p>
+                <p>• Далее каждый ~2 часа [citation:2]</p>
+                <p><em>Мы приезжаем в Мисиму ориентировочно в 14:00–15:00 — успеваем на послеобеденный рейс!</em></p>
+            </div>
+            
+            <div class="transport-note">
+                <strong>🏨 Заселение:</strong> Прибытие в Кавагутико ~16:30–17:30. Такси до отеля или пешком. Заезд до 22:00 — успеваем! Вечером — прогулка у озера, онсэн ♨️
+            </div>
+        </div>
+
+        <!-- ===== ДЕНЬ 9 (19 мая): ФУДЗИ ===== -->
+        <div class="day-highlight">
+            <h3>🗻 День 9 · 19 мая (вт) — Панорамы Фудзи</h3>
+            
+            <div class="weather-note">
+                <strong>☀️ ВАЖНО ПРО ПОГОДУ:</strong> Май — хороший месяц, но облачность может меняться. Два дня запланированы специально, чтобы увеличить шансы увидеть Фудзи без облаков! Утром проверяйте веб-камеры [citation:7].
+            </div>
+            
+            <div class="attraction-card">
+                <h4 style="margin-top: 0; color: #2d7a6e;">⛩ Пагода Чуреито (Chureito Pagoda)</h4>
+                <p>Та самая открыточная пагода с видом на Фудзи. Находится в Фудзиёсиде, примерно 20 минут от Кавагутико.</p>
+                
+                <div class="route-detail"><span>🚆 Транспорт:</span><span></span></div>
+                <div class="route-detail"><span>Кавагутико → Shimoyoshida (Fujikyuko Line)</span><span>¥310</span></div>
+                <div class="route-detail"><span>От станции пешком до пагоды</span><span>~10 мин</span></div>
+                <div class="route-detail"><span>Подъём по 400 ступеням</span><span>бесплатно</span></div>
+                <div class="route-detail"><span>Вход в парк</span><span>бесплатно</span></div>
+                <div style="margin-top: 10px;">
+                    <a class="map-button" href="https://www.google.com/maps/search/Chureito+Pagoda" target="_blank" style="background-color: #2d7a6e;">🗺 Пагода на карте</a>
+                </div>
+                <p style="font-size: 0.9rem; margin-top: 10px;"><em>Совет: Лучшие фото после полудня, когда солнце освещает гору спереди [citation:7].</em></p>
+            </div>
+            
+            <div class="attraction-card">
+                <h4 style="margin-top: 0; color: #2d7a6e;">🚠 Канатная дорога (Mt. Fuji Panoramic Ropeway)</h4>
+                <p>Подъём на гору Тэнодзан с видом на озеро Кавагутико и Фудзи.</p>
+                
+                <div class="route-detail"><span>🚌 Транспорт:</span><span></span></div>
+                <div class="route-detail"><span>Ретро-автобус (Kawaguchiko Retro Bus) от станции</span><span>¥400–600</span></div>
+                <div class="route-detail"><span>Канатная дорога (взрослый билет туда-обратно)</span><span>¥900</span></div>
+                <div style="margin-top: 10px;">
+                    <a class="map-button" href="https://www.google.com/maps/search/Mt.+Fuji+Panoramic+Ropeway" target="_blank" style="background-color: #2d7a6e;">🗺 Канатная дорога на карте</a>
+                </div>
+            </div>
+            
+            <div class="attraction-card">
+                <h4 style="margin-top: 0; color: #2d7a6e;">🚤 Озеро Кавагутико (Lake Kawaguchiko)</h4>
+                <p>Прогулка вдоль озера, аренда велосипеда или просто фото.</p>
+                <div class="route-detail"><span>Аренда велосипеда на день</span><span>¥1500–2000</span></div>
+                <div class="route-detail"><span>Прогулка пешком</span><span>бесплатно</span></div>
+            </div>
+            
+            <div class="attraction-card">
+                <h4 style="margin-top: 0; color: #2d7a6e;">♨️ Онсэн (горячие источники)</h4>
+                <p>После дня прогулок — расслабление в онсэне с видом на Фудзи.</p>
+                <div class="route-detail"><span>Вход в онсэн (примерно)</span><span>¥800–1500</span></div>
+                <p><em>Популярные: Yurari Onsen, Fujiyama Onsen</em></p>
+            </div>
+            
+            <!-- Транспорт внутри района -->
+            <div class="route-card" style="margin-top: 20px;">
+                <div class="route-title">🚌 ТРАНСПОРТ В РАЙОНЕ КАВАГУТИКО:</div>
+                <div class="route-detail"><span>Ретро-автобус (зелёная/красная линия) — 1 день</span><span>¥1500</span></div>
+                <div class="route-detail"><span>Разовый проезд на автобусе</span><span>¥400–600</span></div>
+                <div class="route-detail"><span>Такси между достопримечательностями</span><span>¥1000–2000</span></div>
+                <div class="route-detail"><span>Аренда велосипеда на день</span><span>¥1500–2000</span></div>
+            </div>
+            
+            <!-- Пример маршрута на день -->
+            <div class="price-summary">
+                <p><strong>🗺 ПРИМЕРНЫЙ МАРШРУТ НА ДЕНЬ:</strong></p>
+                <ul style="padding-left: 20px;">
+                    <li><strong>Утро:</strong> Автобус до пагоды Чуреито (Shimoyoshida) — ¥310 + ¥310 обратно = ¥620</li>
+                    <li><strong>День:</strong> Ретро-автобус до канатной дороги — ¥600, подъём ¥900</li>
+                    <li><strong>Вечер:</strong> Онсэн — ¥1000, ужин в районе озера</li>
+                </ul>
+            </div>
+            
+            <div class="total-day">
+                <span>💰 ПРИМЕРНЫЙ БЮДЖЕТ НА ДЕНЬ (транспорт + входные):</span>
+                <span>¥3120–4120</span>
+            </div>
+        </div>
+
+        <!-- ===== ДЕНЬ 10 (20 мая): ВЫЕЗД В ТОКИО ===== -->
+        <div class="day-highlight">
+            <h3>🚆 День 10 · 20 мая (ср) — Переезд в Токио</h3>
+            
+            <p><strong>Выезд из отеля до 10:00</strong></p>
+            
+            <div class="route-card">
+                <div class="route-title">🚌 ФУДЗИКАВАГУТИКО → ТОКИО (Синдзюку):</div>
+                
+                <p><strong>Вариант 1: Прямой автобус (рекомендуем)</strong></p>
+                <div class="route-detail"><span>Kawaguchiko Station → Shinjuku Expressway Bus Terminal</span><span>¥2000</span></div>
+                <div class="route-detail" style="font-size: 0.9rem;"><span>Время в пути: ~1 ч 45 мин</span><span></span></div>
+                <div class="route-detail" style="font-size: 0.9rem;"><span>Отправления каждый час</span><span></span></div>
+                
+                <p style="margin-top: 15px;"><strong>Вариант 2: Через Мисиму (как вариант)</strong></p>
+                <div class="route-detail"><span>Kawaguchiko → Mishima (автобус)</span><span>¥2500</span></div>
+                <div class="route-detail"><span>Mishima → Shinagawa (Синкансэн)</span><span>¥... (дороже)</span></div>
+            </div>
+            
+            <div class="transport-note" style="background-color: #e6f2e6;">
+                <strong>🏨 Далее:</strong> Заселение в Ryan inn, Токио (с 15:00 до 22:00). Багаж можно оставить на станции или попросить хозяина о раннем заезде.
+            </div>
+        </div>
+
+        <!-- ===== ТАБЛИЦА РАСХОДОВ ===== -->
+        <h2>📊 Сводка расходов (Фудзи)</h2>
+        
+        <table>
+            <tr>
+                <th>Дата</th>
+                <th>Маршрут/Действие</th>
+                <th>Транспорт</th>
+                <th>Входные</th>
+                <th>ИТОГО</th>
+            </tr>
+            <tr>
+                <td>18 мая</td>
+                <td>Переезд Осака → Фудзи</td>
+                <td>¥14140</td>
+                <td>¥0</td>
+                <td>¥14140</td>
+            </tr>
+            <tr>
+                <td>19 мая</td>
+                <td>Пагода + канатка + озеро</td>
+                <td>~¥2500</td>
+                <td>¥900–1900</td>
+                <td>~¥3400</td>
+            </tr>
+            <tr>
+                <td>20 мая</td>
+                <td>Переезд в Токио</td>
+                <td>¥2000</td>
+                <td>¥0</td>
+                <td>¥2000</td>
+            </tr>
+            <tr style="font-weight: 700; background-color: #f0f0f0;">
+                <td colspan="4" style="text-align: right;">ИТОГО (примерно):</td>
+                <td>¥19540</td>
+            </tr>
+        </table>
+
+        <!-- ===== ПОЛЕЗНЫЕ СОВЕТЫ ===== -->
+        <div class="tip">
+            <strong>🗻 СОВЕТЫ ПО ФУДЗИ:</strong><br><br>
+            
+            <p><strong>🚌 Автобус Mishima → Kawaguchiko:</strong> Билеты можно купить в автомате на станции Мисима (южный выход). Отправления каждые 1–2 часа. Лучше приехать заранее [citation:2][citation:6].</p>
+            
+            <p><strong>☀️ Прогноз погоды:</strong> Используйте сайт Tenki.jp или Fuji Mountain Forecast. Утром проверяйте веб-камеры перед выходом [citation:7].</p>
+            
+            <p><strong>🚌 Транспорт в Кавагутико:</strong> Ретро-автобус (Kawaguchiko Retro Bus) — удобный способ добраться до основных достопримечательностей. Дневной билет (¥1500) окупается при 3+ поездках.</p>
+            
+            <p><strong>🍱 Еда:</strong> В районе станции Кавагутико много ресторанов и кафе. В Фудзиёсиде (у пагоды) есть уютные кафе с матча-латте (¥500) [citation:7].</p>
+            
+            <p><strong>♨️ Онсэн:</strong> Если в вашем отеле нет онсэна, можно посетить общественные. Например, Yurari Onsen с видом на Фудзи (вход ~¥1000).</p>
+        </div>
+
+        <!-- Навигация в конце -->
+        <div class="nav-buttons">
+            <a href="osaka.html" class="nav-button">🌆 Назад: Осака</a>
+            <a href="index.html" class="nav-button">🏠 Главная</a>
+            <a href="tokyo.html" class="nav-button">🗼 Далее: Токио</a>
+        </div>
+
+        <!-- Подвал -->
+        <div class="footer">
+            <p>Фудзикавагутико — 2 ночи у подножия священной горы</p>
+            <p style="font-size: 0.9rem;">18–20 мая 2026 • через Мисиму (Синкансэн + автобус)</p>
+        </div>
+    </div>
+</body>
+</html>
