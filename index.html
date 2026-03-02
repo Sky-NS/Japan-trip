@@ -4,284 +4,308 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Наше путешествие: Япония + Шанхай</title>
-    <!-- ВНИМАНИЕ: папка называется CSS (заглавными буквами) -->
+    <!-- Путь к стилям — папка CSS с большой буквы -->
     <link rel="stylesheet" href="CSS/style.css">
     <style>
-        /* Дополнительные стили для этого обновления */
-        .flight-card {
-            background-color: #e0f2e9;
-            border-radius: 10px;
-            padding: 15px;
-            margin: 15px 0;
-            border-left: 5px solid #2a9d8f;
+        /* Дополнительные стили для главной-навигатора */
+        .city-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
         }
-        .booking-ref {
+        
+        .city-card {
+            background-color: white;
+            border: 1px solid #efebe5;
+            border-radius: 12px;
+            padding: 25px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .city-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            border-color: #b03e3e;
+        }
+        
+        .city-icon {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .city-name {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+        
+        .city-dates {
+            color: #b03e3e;
+            font-weight: 500;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .city-tagline {
+            color: #2d7a6e;
+            font-size: 0.95rem;
+            margin: 10px 0;
+            font-style: italic;
+        }
+        
+        .city-address {
+            color: #6b5a4a;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #efebe5;
+        }
+        
+        .flight-badge {
+            background-color: #f5f2eb;
+            border-radius: 30px;
+            padding: 20px 25px;
+            margin: 20px 0;
+            border-left: 4px solid #2d7a6e;
+        }
+        
+        .flight-row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding: 8px 0;
+            border-bottom: 1px dashed #d4c9bc;
+        }
+        
+        .flight-row:last-child {
+            border-bottom: none;
+        }
+        
+        .pnr-box {
+            background-color: #2d2d2d;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin: 20px 0 30px;
             font-family: monospace;
-            background-color: #f0f0f0;
-            padding: 3px 8px;
-            border-radius: 5px;
-            font-weight: bold;
+            font-size: 1.1rem;
+            text-align: center;
         }
+        
+        .hotel-card {
+            background-color: #f9f7f4;
+            border: 1px solid #efebe5;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .hotel-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        
+        .hotel-dates {
+            color: #b03e3e;
+            font-weight: 500;
+            margin: 5px 0;
+        }
+        
         .hotel-address {
-            font-size: 0.9em;
-            color: #555;
-            margin-top: 5px;
+            color: #6b5a4a;
+            font-size: 0.95rem;
+            margin: 5px 0;
         }
-        .weather-note {
-            background-color: #e0f7fa;
-            border-left: 5px solid #00acc1;
+        
+        .day-trip-note {
+            background-color: #fff9f5;
+            border-left: 4px solid #2d7a6e;
             padding: 12px 18px;
             margin: 15px 0;
-            border-radius: 8px;
-        }
-        .scenario-a {
-            background-color: #fff9c4;
-            border-left: 5px solid #fbc02d;
-        }
-        .scenario-b {
-            background-color: #b2ebf2;
-            border-left: 5px solid #0097a7;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
         }
     </style>
 </head>
 <body>
     <div class="trip-card">
-        <!-- Навигационное меню -->
-        <div class="nav-menu">
-            <a href="index.html">🏠 Главная</a>
-            <a href="osaka.html">🌆 Осака</a>
-            <a href="kyoto.html">⛩ Киото</a>
-            <a href="nara.html">🦌 Нара</a>
-            <a href="kobe.html">🍖 Кобе</a>
-            <a href="fuji.html">🗻 Фудзи</a>
-            <a href="tokyo.html">🗼 Токио</a>
-            <a href="shanghai.html">🏙 Шанхай</a>
-            <a href="#flights">✈️ Билеты</a>
-            <a href="#hotels">🏨 Отели</a>
-        </div>
-
-        <h1>🗾 Наше путешествие: Япония + Шанхай</h1>
-        <div style="text-align: center; font-size: 1.2em; margin-bottom: 20px;">
+        <!-- Заголовок -->
+        <h1>🗾 Наше путешествие</h1>
+        <div style="text-align: center; font-size: 1.2rem; margin-bottom: 30px; color: #4a4a4a;">
             Группа из 6 человек • 11–26 мая 2026
         </div>
 
-        <!-- ВАЖНО: Общая информация по бронированиям -->
-        <div style="background-color: #f0f7ff; padding: 20px; border-radius: 15px; margin-bottom: 30px; border: 2px solid #2a9d8f;">
-            <h3 style="margin-top: 0; color: #2a9d8f;">📌 КОДЫ БРОНИРОВАНИЙ (PNR)</h3>
-            <p><strong>Единый PNR код для всех перелётов:</strong> <span class="booking-ref">PBCRWX</span> (авиакомпания MU - China Eastern)</p>
-            <p><strong>Номера билетов:</strong> <span class="booking-ref">У каждого свои</span></p>
-            <p><em>Сохрани эту информацию — пригодится при регистрации</em></p>
-        </div>
-
-        <!-- ===== ОСАКА (11–18 мая) ===== -->
-        <h2 id="osaka">🌆 Осака (11–18 мая) <a href="osaka.html" style="font-size: 0.6em; margin-left: 15px;">→ подробнее</a></h2>
+        <!-- ===== ВСЕ ПЕРЕЛЁТЫ ===== -->
+        <h2>✈️ Перелёты</h2>
         
-        <div class="flight-card">
-            <p><strong>✈️ Перелёт Москва → Осака (с пересадкой в Шанхае):</strong></p>
-            <ul>
-                <li>10 мая 19:05 — вылет из Шереметьево (SVO, терминал C), рейс MU-592</li>
-                <li>11 мая 08:55 — прилёт в Шанхай (PVG, терминал 1)</li>
-                <li>11 мая 14:45 — вылет из Шанхая, рейс MU-8649</li>
-                <li>11 мая 18:00 — прилёт в Осаку (KIX, терминал 1)</li>
-            </ul>
-        </div>
-
-        <div class="place-card">
-            <div class="place-header">
-                <span class="place-name">🏨 Osaka Station 3min Direct Namba 11min Direct 6min Walk to Station 4BR House</span>
+        <div class="flight-badge">
+            <div class="flight-row">
+                <span>📅 10 мая 19:05</span>
+                <span><strong>Москва (SVO)</strong> → Шанхай (PVG)</span>
+                <span>MU-592</span>
             </div>
-            <p><strong>Заезд:</strong> 11 мая в 21:00 (сообщили хозяину)</p>
-            <p><strong>Выезд:</strong> 18 мая до 12:00</p>
-            <p><strong>Адрес:</strong> 海老江3丁目6–19 Ebie House, Осака</p>
-            <p><strong>Особенности:</strong> 4 спальни для 6 человек, отличная транспортная доступность</p>
-            <a class="map-button" href="https://www.google.com/maps/search/海老江3丁目6–19+Ebie+House+Osaka" target="_blank">🗺 На карте</a>
-        </div>
-
-        <!-- ===== КИОТО, НАРА, КОБЕ (14–17 мая) ===== -->
-        <!-- Здесь кратко, для подробностей будут отдельные страницы -->
-
-        <!-- ===== ФУДЗИ (18–20 мая) ===== -->
-        <h2 id="fuji">🗻 Фудзи (18–20 мая) <a href="fuji.html" style="font-size: 0.6em; margin-left: 15px;">→ подробнее</a></h2>
-
-        <div class="place-card">
-            <div class="place-header">
-                <span class="place-name">🏨 ID Stay Kawaguchiko 🔑🔑🔑</span>
+            <div class="flight-row">
+                <span>📅 11 мая 14:45</span>
+                <span><strong>Шанхай (PVG)</strong> → Осака (KIX)</span>
+                <span>MU-8649</span>
             </div>
-            <p><strong>Заезд:</strong> 18 мая с 16:00 до 22:00</p>
-            <p><strong>Выезд:</strong> 20 мая до 10:00</p>
-            <p><strong>Адрес:</strong> 3523-1, Фудзикавагутико, Яманаси</p>
-            <a class="map-button" href="https://www.google.com/maps/search/3523-1+Fujikawaguchiko" target="_blank">🗺 На карте</a>
-        </div>
-
-        <!-- ===== ТОКИО (20–25 мая) ===== -->
-        <h2 id="tokyo">🗼 Токио (20–25 мая) <a href="tokyo.html" style="font-size: 0.6em; margin-left: 15px;">→ подробнее</a></h2>
-
-        <div class="place-card">
-            <div class="place-header">
-                <span class="place-name">🏨 Ryan inn 99平米 戸建貸切 JR東十条駅徒歩3分</span>
+            <div class="flight-row">
+                <span>📅 25 мая 13:50</span>
+                <span><strong>Токио (NRT)</strong> → Шанхай (PVG)</span>
+                <span>MU-524</span>
             </div>
-            <p><strong>Заезд:</strong> 20 мая с 15:00 до 22:00</p>
-            <p><strong>Выезд:</strong> 25 мая до 10:00</p>
-            <p><strong>Адрес:</strong> グレイスハイム東十条２, Токио</p>
-            <p><strong>Транспорт:</strong> JR Higashi-Jujo (東十条駅) — 3 минуты пешком, линия Keihin-Tohoku</p>
-            <a class="map-button" href="https://www.google.com/maps/search/グレイスハイム東十条２+Tokyo" target="_blank">🗺 На карте</a>
-        </div>
-
-        <div class="flight-card">
-            <div class="place-header">
-                <span class="place-name">День 15: Токио → Шанхай</span>
-                <span>25 мая, пн</span>
+            <div class="flight-row">
+                <span>📅 26 мая 9:25</span>
+                <span><strong>Шанхай (PVG)</strong> → Москва (SVO)</span>
+                <span>MU-247</span>
             </div>
-            <p><strong>Выезд из отеля до 10:00</strong></p>
-            <p><strong>✈️ 13:50</strong> — вылет из Нарита (NRT, терминал 2), рейс MU-524</p>
-            <p><strong>✈️ 16:15</strong> — прилёт в Шанхай (PVG, терминал 1)</p>
         </div>
-
-        <!-- ===== ШАНХАЙ (25–26 мая) — ФИНАЛЬНЫЙ ПЛАН С ПОГОДНЫМ СЦЕНАРИЕМ ===== -->
-        <h2 id="shanghai">🏙 Шанхай (25–26 мая) <a href="shanghai.html" style="font-size: 0.6em; margin-left: 15px;">→ подробнее</a></h2>
-
-        <div class="place-card">
-            <div class="place-header">
-                <span class="place-name">🏨 Ramada Plaza Shanghai Pudong Airport ⭐⭐⭐⭐</span>
-            </div>
-            <p><strong>Заезд:</strong> 25 мая с 14:00 (ориентировочно в 23:00)</p>
-            <p><strong>Выезд:</strong> 26 мая до 12:00 (НО мы выезжаем в 7:30–8:00)</p>
-            <p><strong>Адрес:</strong> 1100 Qi Hang Road, Pudong Airport, Пудун, Шанхай</p>
-            <a class="map-button" href="https://www.google.com/maps/search/1100+Qi+Hang+Road+Shanghai" target="_blank">🗺 На карте</a>
-        </div>
-
-        <!-- ОБЩАЯ ЧАСТЬ (до 20:50) -->
-        <div class="place-card">
-            <div class="place-header">
-                <span class="place-name">🌃 Вечер в Шанхае — общая часть</span>
-                <span>25 мая, пн</span>
-            </div>
-            
-            <p><strong>✈️ 16:15</strong> — прилёт в Пудун (PVG)</p>
-            <p>🛂 Паспортный контроль (16:15–17:15)</p>
-            
-            <div style="background-color: #fff3e0; padding: 10px; border-radius: 8px; margin: 10px 0;">
-                <p><strong>🎒 Камера хранения в аэропорту:</strong></p>
-                <ul>
-                    <li>Работает <strong>до 24:00</strong></li>
-                    <li>Стоимость: 15–30 юаней за 0–4 часа</li>
-                    <li>Где: в правом углу в конце аэропорта</li>
-                </ul>
-            </div>
-            
-            <p><strong>17:45–18:15</strong> — 🚗 Трансфер в <strong>Florentia Village Outlet</strong></p>
-            <p><strong>18:15–20:00</strong> — 🛍 <strong>АУТЛЕТ (1 час 45 минут)</strong> (закрытие в 21:30)</p>
-            <p><strong>20:00–20:50</strong> — 🚇 Трансфер в центр (метро линия 2 до Lujiazui)</p>
-        </div>
-
-        <!-- ПОГОДНЫЙ СЦЕНАРИЙ -->
-        <div class="weather-note">
-            <p style="font-weight: bold; font-size: 1.1em;">🌦 <u>ДАЛЬШЕ ПО ПОГОДЕ (проверяем прогноз перед вылетом из Токио):</u></p>
-            <ul>
-                <li><strong>☀️ ЯСНО:</strong> Идём в Shanghai Tower (чайная/смотровая)</li>
-                <li><strong>☁️ ПАСМУРНО / ДОЖДЬ:</strong> Идём на набережную Вайтань (The Bund) — атмосферно и красиво!</li>
-            </ul>
-        </div>
-
-        <!-- СЦЕНАРИЙ А: ЯСНО -->
-        <div class="place-card scenario-a">
-            <div class="place-header">
-                <span class="place-name">☀️ СЦЕНАРИЙ А: Хорошая погода — Shanghai Tower</span>
-            </div>
-            
-            <p><strong>20:50</strong> — 📥 Вход в Shanghai Tower (успеваем за 40 мин до закрытия!)</p>
-            <p><strong>20:50–22:00</strong> — 🍵 Чайная/смотровая на 86+ этажах:</p>
-            <ul>
-                <li>Лифт 55 секунд до 118 этажа (20.5 м/с)</li>
-                <li>Вид на ночной Шанхай с высоты 632 м</li>
-                <li>Чайная на 86 этаже</li>
-                <li>Билет: 180 юаней</li>
-            </ul>
-            <p><strong>22:00–22:10</strong> — Спуск</p>
-            <p><strong>22:10–22:40</strong> — 🚗 Такси в отель вдоль набережной — <strong>видим Жемчужину Востока в ночной подсветке из окна!</strong></p>
-            <p><strong>23:00</strong> — 🏨 Заселение в Ramada Plaza</p>
-        </div>
-
-        <!-- СЦЕНАРИЙ Б: ПАСМУРНО -->
-        <div class="place-card scenario-b">
-            <div class="place-header">
-                <span class="place-name">☁️ СЦЕНАРИЙ Б: Пасмурно/дождь — Набережная Вайтань (The Bund)</span>
-            </div>
-            
-            <p><strong>20:50</strong> — 🚇 Выход из метро (станция Nanjing Road East)</p>
-            <p><strong>21:10–22:30</strong> — 🌉 Прогулка по набережной Вайтань:</p>
-            <ul>
-                <li>Фото Жемчужины и небоскрёбов Пудуна на фоне облаков</li>
-                <li>Огни отражаются в мокром асфальте — "неоновый нуар"</li>
-                <li>Подсветка небоскрёбов работает до 23:00</li>
-                <li>В пасмурную погоду меньше туристов — очень атмосферно!</li>
-            </ul>
-            <p><strong>22:30</strong> — 🚗 Трансфер в отель</p>
-            <p><strong>23:00</strong> — 🏨 Заселение в Ramada Plaza</p>
-        </div>
-
-        <!-- ВЫЛЕТ -->
-        <div class="flight-card" style="margin-top: 20px;">
-            <div class="place-header">
-                <span class="place-name">✈️ День 16: Вылет из Шанхая</span>
-                <span>26 мая, вт</span>
-            </div>
-            <p><strong>7:30–8:00</strong> — Выезд из отеля</p>
-            <p><strong>9:25</strong> — ✈️ Вылет из Пудуна (PVG, терминал 1), рейс MU-247</p>
-            <p><strong>14:25</strong> — ✈️ Прилёт в Шереметьево (SVO, терминал C)</p>
-        </div>
-
-        <!-- Сводка по всем бронированиям -->
-        <h2>📋 Сводка бронирований</h2>
         
-        <table style="width:100%; border-collapse: collapse; margin: 20px 0;">
-            <tr style="background-color: #2a9d8f; color: white;">
-                <th style="padding: 10px; text-align: left; border-radius: 5px 0 0 0;">Город</th>
-                <th style="padding: 10px; text-align: left;">Даты</th>
-                <th style="padding: 10px; text-align: left;">Ночей</th>
-                <th style="padding: 10px; text-align: left; border-radius: 0 5px 0 0;">Отель</th>
-            </tr>
-            <tr style="background-color: #f5f5f5;">
-                <td style="padding: 10px; border-bottom: 1px solid #ddd;">Осака</td>
-                <td style="padding: 10px; border-bottom: 1px solid #ddd;">11–18 мая</td>
-                <td style="padding: 10px; border-bottom: 1px solid #ddd;">7</td>
-                <td style="padding: 10px; border-bottom: 1px solid #ddd;">4BR House near Osaka Station</td>
-            </tr>
-            <tr>
-                <td style="padding: 10px; border-bottom: 1px solid #ddd;">Фудзи</td>
-                <td style="padding: 10px; border-bottom: 1px solid #ddd;">18–20 мая</td>
-                <td style="padding: 10px; border-bottom: 1px solid #ddd;">2</td>
-                <td style="padding: 10px; border-bottom: 1px solid #ddd;">ID Stay Kawaguchiko</td>
-            </tr>
-            <tr style="background-color: #f5f5f5;">
-                <td style="padding: 10px; border-bottom: 1px solid #ddd;">Токио</td>
-                <td style="padding: 10px; border-bottom: 1px solid #ddd;">20–25 мая</td>
-                <td style="padding: 10px; border-bottom: 1px solid #ddd;">5</td>
-                <td style="padding: 10px; border-bottom: 1px solid #ddd;">Ryan inn (JR Higashi-Jujo)</td>
-            </tr>
-            <tr>
-                <td style="padding: 10px;">Шанхай</td>
-                <td style="padding: 10px;">25–26 мая</td>
-                <td style="padding: 10px;">1</td>
-                <td style="padding: 10px;">Ramada Plaza Pudong Airport</td>
-            </tr>
-        </table>
+        <div class="pnr-box">
+            📌 PNR код для всех рейсов: <strong>PBCRWX</strong> (China Eastern Airlines)
+        </div>
 
+        <!-- ===== ГОРОДА (КАРТОЧКИ-ССЫЛКИ) ===== -->
+        <h2>🏙 Наши города-базы</h2>
+        <p style="color: #6b5a4a; margin-bottom: 20px;">Нажми на город, чтобы увидеть детальный план по дням</p>
+        
+        <div class="city-grid">
+            <!-- Осака -->
+            <a href="osaka.html" class="city-card">
+                <div class="city-icon">🌆</div>
+                <div class="city-name">Осака</div>
+                <div class="city-dates">11–18 мая · 7 ночей</div>
+                <div class="city-tagline">+ Киото, Нара, Кобе</div>
+                <div class="city-address">
+                    Ebie House · 海老江3丁目6–19<br>
+                    JR Ebie · 6 мин пешком
+                </div>
+            </a>
+            
+            <!-- Фудзи -->
+            <a href="fuji.html" class="city-card">
+                <div class="city-icon">🗻</div>
+                <div class="city-name">Фудзи</div>
+                <div class="city-dates">18–20 мая · 2 ночи</div>
+                <div class="city-tagline">озеро Кавагутико</div>
+                <div class="city-address">
+                    ID Stay Kawaguchiko · 3523-1<br>
+                    Вид на Фудзи
+                </div>
+            </a>
+            
+            <!-- Токио -->
+            <a href="tokyo.html" class="city-card">
+                <div class="city-icon">🗼</div>
+                <div class="city-name">Токио</div>
+                <div class="city-dates">20–25 мая · 5 ночей</div>
+                <div class="city-tagline">+ Камакура</div>
+                <div class="city-address">
+                    Ryan inn · JR東十条駅徒歩3分<br>
+                    グレイスハイム東十条２
+                </div>
+            </a>
+            
+            <!-- Шанхай -->
+            <a href="shanghai.html" class="city-card">
+                <div class="city-icon">🏙</div>
+                <div class="city-name">Шанхай</div>
+                <div class="city-dates">25–26 мая · 1 ночь</div>
+                <div class="city-tagline">транзит</div>
+                <div class="city-address">
+                    Ramada Plaza Pudong Airport<br>
+                    1100 Qi Hang Road
+                </div>
+            </a>
+        </div>
+
+        <!-- Пояснение про однодневные поездки -->
+        <div class="day-trip-note">
+            <strong>🚆 Однодневные поездки (day trips):</strong><br>
+            • Из <strong>Осаки</strong> (с возвращением в наш дом): Киото (2 дня), Нара (1 день), Кобе (опционально)<br>
+            • Из <strong>Токио</strong> (с возвращением): Камакура (один из дней 22–23 мая)<br>
+            • Все детали — на страницах соответствующих городов
+        </div>
+
+        <!-- ===== ВСЕ ПРОЖИВАНИЯ ===== -->
+        <h2>🏨 Все проживания</h2>
+        
+        <!-- Осака -->
+        <div class="hotel-card">
+            <div class="hotel-name">🌆 Osaka Station 3min Direct Namba — 4BR House</div>
+            <div class="hotel-dates">📅 11 мая (заезд 21:00) – 18 мая (выезд 12:00) · 7 ночей</div>
+            <div class="hotel-address">📍 海老江3丁目6–19 Ebie House, Осака</div>
+            <div style="margin-top: 10px;">
+                <span class="booking-ref">JR Ebie · 6 мин пешком</span>
+                <span class="booking-ref" style="margin-left: 10px;">до Осаки 3 мин</span>
+                <span class="booking-ref" style="margin-left: 10px;">4 спальни</span>
+            </div>
+            <a class="map-button" href="https://www.google.com/maps/search/海老江3丁目6–19+Ebie+House+Osaka" target="_blank" style="margin-top: 10px; background-color: #2d2d2d;">🗺 На карте</a>
+        </div>
+        
+        <!-- Фудзи -->
+        <div class="hotel-card">
+            <div class="hotel-name">🗻 ID Stay Kawaguchiko 🔑🔑🔑</div>
+            <div class="hotel-dates">📅 18 мая (заезд 16:00–22:00) – 20 мая (выезд 10:00) · 2 ночи</div>
+            <div class="hotel-address">📍 3523-1, Фудзикавагутико, Яманаси</div>
+            <a class="map-button" href="https://www.google.com/maps/search/3523-1+Fujikawaguchiko" target="_blank" style="margin-top: 10px; background-color: #2d7a6e;">🗺 На карте</a>
+        </div>
+        
+        <!-- Токио -->
+        <div class="hotel-card">
+            <div class="hotel-name">🗼 Ryan inn 99平米 戸建貸切 JR東十条駅徒歩3分</div>
+            <div class="hotel-dates">📅 20 мая (заезд 15:00–22:00) – 25 мая (выезд 10:00) · 5 ночей</div>
+            <div class="hotel-address">📍 グレイスハイム東十条２, Токио</div>
+            <div style="margin-top: 10px;">
+                <span class="booking-ref">JR Higashi-Jujo · 3 мин пешком</span>
+                <span class="booking-ref" style="margin-left: 10px;">99 м² · весь дом</span>
+            </div>
+            <a class="map-button" href="https://www.google.com/maps/search/グレイスハイム東十条２+Tokyo" target="_blank" style="margin-top: 10px; background-color: #b03e3e;">🗺 На карте</a>
+        </div>
+        
+        <!-- Шанхай -->
+        <div class="hotel-card">
+            <div class="hotel-name">🏙 Ramada Plaza Shanghai Pudong Airport ⭐⭐⭐⭐</div>
+            <div class="hotel-dates">📅 25 мая (заезд после 16:15) – 26 мая (выезд 7:30) · 1 ночь</div>
+            <div class="hotel-address">📍 1100 Qi Hang Road, Pudong Airport, Шанхай</div>
+            <div style="margin-top: 10px;">
+                <span class="booking-ref">рядом с аэропортом PVG</span>
+                <span class="booking-ref" style="margin-left: 10px;">4 звезды</span>
+            </div>
+            <a class="map-button" href="https://www.google.com/maps/search/1100+Qi+Hang+Road+Shanghai" target="_blank" style="margin-top: 10px; background-color: #2d7a6e;">🗺 На карте</a>
+        </div>
+
+        <!-- ===== ВАЖНЫЕ ЗАМЕТКИ ===== -->
         <div class="tip">
-            <strong>🌟 ВАЖНЫЕ ССЫЛКИ И НАПОМИНАНИЯ:</strong><br>
+            <strong>📌 ВАЖНО:</strong><br>
             • PNR код для всех рейсов: <strong>PBCRWX</strong> (China Eastern Airlines)<br>
-            • Номера билетов: <strong>Ну в начале написал же что у всех свои номера)</strong><br>
-            • Заезд в Осаку: 11 мая в 21:00 (сообщили хозяину)<br>
-            • В Шанхае: аутлет Florentia Village (18:15–20:00), дальше по погоде<br>
-            • Камера хранения в аэропорту Пудун: до 24:00, 15-30 юаней<br>
-            • Камакуру планируем на 22 или 23 мая (определимся на месте по погоде)
+            • Заезд в Осаку: <strong>21:00 11 мая</strong> (сообщить хозяину)<br>
+            • Маршрут до Фудзи: Синкансэн Shin-Osaka → Mishima (¥11450), автобус Mishima → Kawaguchiko (¥2260)<br>
+            • В Шанхае: аутлет Florentia Village, вечером Shanghai Tower (по погоде)<br>
+            • Камера хранения в аэропорту Пудун: до 24:00, 15–30 юаней
         </div>
 
+        <!-- Ссылки на страницы городов -->
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 40px 0 20px;">
+            <a href="osaka.html" class="map-button" style="background-color: #2d2d2d;">🌆 Осака + Киото, Нара, Кобе</a>
+            <a href="fuji.html" class="map-button" style="background-color: #2d7a6e;">🗻 Фудзи</a>
+            <a href="tokyo.html" class="map-button" style="background-color: #b03e3e;">🗼 Токио + Камакура</a>
+            <a href="shanghai.html" class="map-button" style="background-color: #2d7a6e;">🏙 Шанхай</a>
+        </div>
+
+        <!-- Подвал -->
         <div class="footer">
-            С нетерпением ждём 10 мая 2026! 🎌🏙<br>
-            ✈️ Москва → Шанхай → Осака + Киото + Нара + Кобе → Фудзикавагутико → Токио + Камакура → Шанхай → Москва<br>
-            <strong>16 дней, 8 городов, 6 человек, 1 незабываемое приключение!</strong>
+            <p>Москва → Шанхай → Осака → Фудзи → Токио → Шанхай → Москва</p>
+            <p style="font-size: 0.9rem; color: #8b7a6a;">11–26 мая 2026 · 6 человек · 4 города-базы + 4 однодневных поездки</p>
         </div>
     </div>
 </body>
-                   </html>
+</html>
