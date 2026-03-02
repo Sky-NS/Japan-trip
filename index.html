@@ -3,390 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Наше путешествие в Японию: 11–25 мая 2026</title>
-    <style>
-        /* Это CSS-стили, которые делают страницу красивой */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            margin: 0;
-            padding: 20px;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            line-height: 1.6;
-            color: #333;
-        }
-        .trip-card {
-            max-width: 900px;
-            background-color: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            padding: 30px;
-            border: 1px solid rgba(255,255,255,0.3);
-        }
-        h1 {
-            color: #c44536;
-            text-align: center;
-            margin-top: 0;
-            border-bottom: 3px solid #e9c46a;
-            padding-bottom: 15px;
-            font-size: 2.2em;
-        }
-        .subhead {
-            text-align: center;
-            color: #2a9d8f;
-            font-size: 1.2em;
-            margin-top: -5px;
-            margin-bottom: 25px;
-            font-weight: 500;
-        }
-        h2 {
-            color: #2a9d8f;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            font-size: 1.8em;
-            display: flex;
-            align-items: center;
-            border-left: 5px solid #e76f51;
-            padding-left: 15px;
-        }
-        h2:before {
-            content: "🗾";
-            margin-right: 10px;
-            font-size: 1.2em;
-        }
-        .day {
-            background-color: #fefae0;
-            border-left: 5px solid #e9c46a;
-            padding: 18px 22px;
-            margin: 20px 0;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
-        }
-        .day:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
-        .day-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-            flex-wrap: wrap;
-        }
-        .day h3 {
-            margin: 0;
-            color: #e76f51;
-            font-size: 1.5em;
-            font-weight: 600;
-        }
-        .day-date {
-            background-color: #2a9d8f;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 30px;
-            font-size: 0.9em;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-        }
-        .city-tag {
-            display: inline-block;
-            background-color: #e9d8a6;
-            color: #005f73;
-            padding: 3px 12px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .group-split {
-            background-color: #e0f2e9;
-            border-radius: 10px;
-            padding: 12px 15px;
-            margin: 15px 0 5px 0;
-            border-left: 4px solid #2a9d8f;
-        }
-        .group-split p {
-            margin: 5px 0;
-        }
-        .group-a {
-            color: #c44536;
-            font-weight: bold;
-        }
-        .group-b {
-            color: #0a9396;
-            font-weight: bold;
-        }
-        ul {
-            padding-left: 20px;
-            margin: 10px 0 5px 0;
-        }
-        li {
-            margin-bottom: 6px;
-        }
-        li::marker {
-            color: #e76f51;
-        }
-        .tip {
-            background-color: #e9d8a6;
-            border-radius: 50px;
-            padding: 12px 25px;
-            display: inline-block;
-            margin-top: 25px;
-            font-weight: bold;
-            color: #005f73;
-            font-size: 1.05em;
-            border: 1px solid #ca9e6b;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 35px;
-            color: #6b705c;
-            font-style: italic;
-            border-top: 1px dashed #b5b5a5;
-            padding-top: 20px;
-        }
-        .transport-note {
-            font-size: 0.9em;
-            color: #6b705c;
-            margin-top: 8px;
-            font-style: italic;
-        }
-    </style>
+    <title>Наше путешествие: Япония + Шанхай</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="trip-card">
-        <h1>🗾 Идеальное путешествие в Японию</h1>
-        <div class="subhead">Группа из 6 человек • 11–25 мая 2026</div>
+        <!-- Навигационное меню -->
+        <div class="nav-menu">
+            <a href="index.html">🏠 Главная</a>
+            <a href="osaka.html">🌆 Осака</a>
+            <a href="kyoto.html">⛩ Киото</a>
+            <a href="nara.html">🦌 Нара</a>
+            <a href="kobe.html">🍖 Кобе</a>
+            <a href="fuji.html">🗻 Фудзи</a>
+            <a href="kamakura.html">🚃 Камакура</a>
+            <a href="tokyo.html">🗼 Токио</a>
+            <a href="shanghai.html">🏙 Шанхай</a>
+        </div>
 
-        <!-- =============================================== -->
-        <!-- === ДНИ С ТОЧНЫМИ ДАТАМИ И МАРШРУТОМ ОТ TUSURU === -->
-        <!-- =============================================== -->
+        <h1>🗾 Наше путешествие в Японию + Шанхай</h1>
+        <div style="text-align: center; font-size: 1.2em; margin-bottom: 20px;">
+            Группа из 6 человек • 11–26 мая 2026
+        </div>
 
-        <!-- ОСАКА (11–13 мая) -->
-        <h2>🌆 Осака: энергия и еда</h2>
+        <!-- ===== ОСАКА ===== -->
+        <h2>🌆 Осака (11–13 мая) <a href="osaka.html" style="font-size: 0.6em; margin-left: 15px;">→ подробнее</a></h2>
         
-        <div class="day">
-            <div class="day-header">
-                <h3>День 1: Прилёт и адаптация</h3>
-                <span class="day-date">11 мая, пн</span>
+        <div class="place-card">
+            <div class="place-header">
+                <span class="place-name">День 1: Прилёт и адаптация</span>
+                <span>11 мая, пн</span>
             </div>
-            <span class="city-tag">🏨 Осака (Namba/Umeda)</span>
+            <p><strong>✈️ 18:00</strong> — прилёт в аэропорт Кансай</p>
+            <p>Трансфер в отель (район Namba/Umeda). Лёгкий ужин рядом.</p>
+            <a class="map-button" href="https://www.google.com/maps/search/Namba+Osaka" target="_blank">🗺 Район Намба на карте</a>
+        </div>
+
+        <div class="place-card">
+            <div class="place-header">
+                <span class="place-name">День 2: Dotonbori, Shinsaibashi, Kuromon Market</span>
+                <span>12 мая, вт</span>
+            </div>
+            <div class="price-info">
+                <div class="price-item"><span class="price-label">Рынок Куромон:</span><span class="price-value">вход бесплатно, еда от ¥500</span></div>
+                <div class="price-item"><span class="price-label">Umeda Sky Building:</span><span class="price-value">¥1500 взрослый</span></div>
+            </div>
+            <a class="map-button" href="https://www.google.com/maps/search/Dotonbori+Osaka" target="_blank">🗺 Dotonbori на карте</a>
+        </div>
+
+        <div class="place-card">
+            <div class="place-header">
+                <span class="place-name">День 3: Universal Studios / Город</span>
+                <span>13 мая, ср</span>
+            </div>
+            <div class="price-info">
+                <div class="price-item"><span class="price-label">Universal Studios:</span><span class="price-value">¥9800 (онлайн)</span></div>
+                <div class="price-item"><span class="price-label">Замок Осаки:</span><span class="price-value">¥600</span></div>
+            </div>
+        </div>
+
+        <!-- ===== КИОТО ===== -->
+        <h2>⛩ Киото (14–15 мая) <a href="kyoto.html" style="font-size: 0.6em; margin-left: 15px;">→ подробнее</a></h2>
+        
+        <div class="place-card">
+            <div class="place-header">
+                <span class="place-name">День 4: Фусими Инари, Гион</span>
+                <span>14 мая, чт</span>
+            </div>
+            <div class="price-info">
+                <div class="price-item"><span class="price-label">Синкансэн Осака→Киото:</span><span class="price-value">¥1420</span></div>
+                <div class="price-item"><span class="price-label">Фусими Инари:</span><span class="price-value">бесплатно</span></div>
+            </div>
+        </div>
+
+        <div class="place-card">
+            <div class="place-header">
+                <span class="place-name">День 5: Кинкаку-дзи, Арасияма</span>
+                <span>15 мая, пт</span>
+            </div>
+            <div class="price-info">
+                <div class="price-item"><span class="price-label">Кинкаку-дзи:</span><span class="price-value">¥400</span></div>
+                <div class="price-item"><span class="price-label">Парк обезьян:</span><span class="price-value">¥550</span></div>
+            </div>
+        </div>
+
+        <!-- ===== НАРА ===== -->
+        <h2>🦌 Нара (16 мая) <a href="nara.html" style="font-size: 0.6em; margin-left: 15px;">→ подробнее</a></h2>
+        
+        <div class="place-card">
+            <div class="place-header">
+                <span class="place-name">День 6: Нара</span>
+                <span>16 мая, сб</span>
+            </div>
+            <div class="price-info">
+                <div class="price-item"><span class="price-label">Киото→Нара:</span><span class="price-value">¥720</span></div>
+                <div class="price-item"><span class="price-label">Тодай-дзи:</span><span class="price-value">¥600</span></div>
+                <div class="price-item"><span class="price-label">Касуга-тайся:</span><span class="price-value">бесплатно</span></div>
+            </div>
+        </div>
+
+        <!-- ===== КОБЕ ===== -->
+        <h2>🍖 Кобе (17 мая) <a href="kobe.html" style="font-size: 0.6em; margin-left: 15px;">→ подробнее</a></h2>
+        
+        <div class="place-card">
+            <div class="place-header">
+                <span class="place-name">День 7: Кобе / свободный день</span>
+                <span>17 мая, вс</span>
+            </div>
+        </div>
+
+        <!-- ===== ФУДЗИ ===== -->
+        <h2>🗻 Фудзи (18–19 мая) <a href="fuji.html" style="font-size: 0.6em; margin-left: 15px;">→ подробнее</a></h2>
+        
+        <div class="place-card">
+            <div class="place-header">
+                <span class="place-name">День 8: Переезд к Фудзи</span>
+                <span>18 мая, пн</span>
+            </div>
+            <div class="price-info">
+                <div class="price-item"><span class="price-label">Синкансэн Осака→Токио:</span><span class="price-value">¥13690</span></div>
+                <div class="price-item"><span class="price-label">Автобус Токио→Кавагутико:</span><span class="price-value">¥2000</span></div>
+            </div>
+        </div>
+
+        <div class="place-card">
+            <div class="place-header">
+                <span class="place-name">День 9: Чуреито, панорамы</span>
+                <span>19 мая, вт</span>
+            </div>
+            <div class="price-info">
+                <div class="price-item"><span class="price-label">Канатная дорога:</span><span class="price-value">¥900</span></div>
+            </div>
+        </div>
+
+        <!-- ===== КАМАКУРА ===== -->
+        <h2>🚃 Камакура (20 мая) <a href="kamakura.html" style="font-size: 0.6em; margin-left: 15px;">→ подробнее</a></h2>
+        
+        <div class="place-card">
+            <div class="place-header">
+                <span class="place-name">День 10: Камакура → Токио</span>
+                <span>20 мая, ср</span>
+            </div>
+            <div class="price-info">
+                <div class="price-item"><span class="price-label">Большой Будда:</span><span class="price-value">¥300</span></div>
+                <div class="price-item"><span class="price-label">Хасэ-дэра:</span><span class="price-value">¥400</span></div>
+            </div>
+        </div>
+
+        <!-- ===== ТОКИО ===== -->
+        <h2>🗼 Токио (21–25 мая) <a href="tokyo.html" style="font-size: 0.6em; margin-left: 15px;">→ подробнее</a></h2>
+        
+        <div class="place-card">
+            <div class="place-header">
+                <span class="place-name">День 11: Асакуса, Skytree</span>
+                <span>21 мая, чт</span>
+            </div>
+            <div class="price-info">
+                <div class="price-item"><span class="price-label">Tokyo Skytree:</span><span class="price-value">¥2100</span></div>
+            </div>
+        </div>
+
+        <div class="place-card">
+            <div class="place-header">
+                <span class="place-name">День 12: Disney / Сибуя</span>
+                <span>22 мая, пт</span>
+            </div>
+            <div class="price-info">
+                <div class="price-item"><span class="price-label">Disneyland/Sea:</span><span class="price-value">¥8400</span></div>
+            </div>
+        </div>
+
+        <div class="place-card">
+            <div class="place-header">
+                <span class="place-name">День 13: Синдзюку, смотровые</span>
+                <span>23 мая, сб</span>
+            </div>
+            <div class="price-info">
+                <div class="price-item"><span class="price-label">Shibuya Sky:</span><span class="price-value">¥2000</span></div>
+            </div>
+        </div>
+
+        <div class="place-card">
+            <div class="place-header">
+                <span class="place-name">День 14: teamLab, Йокогама</span>
+                <span>24 мая, вс</span>
+            </div>
+            <div class="price-info">
+                <div class="price-item"><span class="price-label">teamLab Planets:</span><span class="price-value">¥3200</span></div>
+            </div>
+        </div>
+
+        <div class="place-card">
+            <div class="place-header">
+                <span class="place-name">День 15: Вылет → Шанхай</span>
+                <span>25 мая, пн</span>
+            </div>
+            <p><strong>✈️ Вылет из Токио в 13:00</strong></p>
+            <p><strong>✈️ Прилёт в Шанхай ~15:30 (местное время)</strong></p>
+        </div>
+
+        <!-- ===== ШАНХАЙ ===== -->
+        <h2>🏙 Шанхай (25–26 мая) <a href="shanghai.html" style="font-size: 0.6em; margin-left: 15px;">→ подробнее</a></h2>
+        
+        <div class="place-card">
+            <div class="place-header">
+                <span class="place-name">День 15 (вечер): Ночной Шанхай</span>
+                <span>25 мая, пн</span>
+            </div>
             <ul>
-                <li><strong>✈️ 18:00</strong> — прилёт в аэропорт Кансай (KIX). Трансфер и заселение в отель.</li>
-                <li>Лёгкий ужин рядом с отелем. Никаких активностей — только отдых и адаптация после перелёта.</li>
+                <li>Трансфер в отель (район Бунд / Наныдзин-роуд)</li>
+                <li>Вечерняя прогулка по набережной Вайтань (вид на небоскрёбы Пудуна)</li>
+                <li>Ужин с видом на телебашню "Жемчужина Востока"</li>
             </ul>
-            <div class="transport-note">🚌 Трансфер: автобус или Nankai Line до Namba (~50 мин)</div>
+            <div class="price-info">
+                <div class="price-item"><span class="price-label">Такси аэропорт→город:</span><span class="price-value">¥200 (≈2800 ₽)</span></div>
+                <div class="price-item"><span class="price-label">Метро аэропорт→город:</span><span class="price-value">¥50 (≈700 ₽)</span></div>
+            </div>
+            <a class="map-button" href="https://www.google.com/maps/search/The+Bund+Shanghai" target="_blank">🗺 Набережная Вайтань на карте</a>
         </div>
 
-        <div class="day">
-            <div class="day-header">
-                <h3>День 2: Сердце Осаки</h3>
-                <span class="day-date">12 мая, вт</span>
+        <div class="place-card">
+            <div class="place-header">
+                <span class="place-name">День 16: Шанхай → вылет</span>
+                <span>26 мая, вт</span>
             </div>
-            <span class="city-tag">🏨 Осака</span>
             <ul>
-                <li><strong>Рынок Куромон (Kuromon Market)</strong> — завтрак и дегустация свежих морепродуктов.</li>
-                <li>Прогулка по торговым улицам <strong>Shinsaibashi</strong> и <strong>Dotonbori</strong> (днём и вечером).</li>
-                <li>Вечером — смотровая площадка <strong>Umeda Sky Building</strong> (панорама города).</li>
+                <li>Посещение сада Юй Юань (Yuyuan Garden)</li>
+                <li>Прогулка по Старому городу</li>
+                <li>Подъём на башню "Жемчужина Востока"</li>
+                <li>Выезд в аэропорт (Пудун) в зависимости от времени вылета</li>
             </ul>
-        </div>
-
-        <div class="day">
-            <div class="day-header">
-                <h3>День 3: Раздвоение группы</h3>
-                <span class="day-date">13 мая, ср</span>
-            </div>
-            <span class="city-tag">🏨 Осака</span>
-            <div class="group-split">
-                <p><span class="group-a">🎢 Группа А (Universal):</span> Universal Studios Japan — целый день в парке развлечений.</p>
-                <p><span class="group-b">🏙 Группа Б (Город):</span> Замок Осаки (Osaka Castle) • район Shinsekai • кафе-hopping.</p>
-            </div>
-            <p><em>Вечером группы встречаются для совместного ужина.</em></p>
-        </div>
-
-        <!-- КИОТО И НАРА (14–16 мая) -->
-        <h2>⛩ Киото: храмы и традиции</h2>
-
-        <div class="day">
-            <div class="day-header">
-                <h3>День 4: Переезд в Киото + Фусими</h3>
-                <span class="day-date">14 мая, чт</span>
-            </div>
-            <span class="city-tag">🏨 Киото</span>
-            <ul>
-                <li><strong>🚄 Осака → Киото:</strong> быстрый переезд (~30 мин).</li>
-                <li>Тысячи тории в святилище <strong>Фусими Инари (Fushimi Inari)</strong>.</li>
-                <li>Вечерний район <strong>Гион (Gion)</strong> и улочки <strong>Понточо (Pontocho)</strong> с традиционными ресторанами.</li>
-            </ul>
-        </div>
-
-        <div class="day">
-            <div class="day-header">
-                <h3>День 5: Киото классический</h3>
-                <span class="day-date">15 мая, пт</span>
-            </div>
-            <span class="city-tag">🏨 Киото</span>
-            <ul>
-                <li>Золотой павильон <strong>Кинкаку-дзи (Kinkaku-ji)</strong>.</li>
-                <li>Район <strong>Арасияма (Arashiyama)</strong>: бамбуковая роща и парк обезьян.</li>
-                <li>Прогулка по Философской тропе или чайная церемония (по желанию).</li>
-            </ul>
-        </div>
-
-        <div class="day">
-            <div class="day-header">
-                <h3>День 6: Нара и олени</h3>
-                <span class="day-date">16 мая, сб</span>
-            </div>
-            <span class="city-tag">🏨 Осака (возвращение)</span>
-            <ul>
-                <li><strong>🚄 Киото → Нара:</strong> 45 мин.</li>
-                <li>Парк Нары: олени 🦌, храм <strong>Тодай-дзи (Todai-ji)</strong> с гигантским Буддой, святилище <strong>Касуга-тайся</strong>.</li>
-                <li><strong>Вечером:</strong> переезд в Осаку для удобной логистики перед выездом к Фудзи.</li>
-            </ul>
-        </div>
-
-        <!-- КОБЕ / ОСАКА (17 мая) -->
-        <h2>🍖 Свободный день</h2>
-        <div class="day">
-            <div class="day-header">
-                <h3>День 7: Кобе или отдых</h3>
-                <span class="day-date">17 мая, вс</span>
-            </div>
-            <span class="city-tag">🏨 Осака</span>
-            <ul>
-                <li><strong>Вариант 1 (поездка):</strong> Кобе — знаменитая говядина Кобе, гора Рокко с панорамой.</li>
-                <li><strong>Вариант 2 (релакс):</strong> Свободный день в Осаке: неспешный шопинг, кафе, отдых.</li>
-            </ul>
-        </div>
-
-        <!-- ФУДЗИ (18–19 мая) -->
-        <h2>🗻 Фудзи: два дня для верности</h2>
-        <div class="day">
-            <div class="day-header">
-                <h3>День 8: Переезд к Фудзи</h3>
-                <span class="day-date">18 мая, пн</span>
-            </div>
-            <span class="city-tag">🏨 Фудзикавагутико</span>
-            <ul>
-                <li><strong>🚄 Осака → Фудзикавагутико:</strong> через Токио на Синкансэне (~2,5 ч).</li>
-                <li>Заселение в отель с видом на гору.</li>
-                <li>Прогулка у озера Кавагутико и вечерний онсэн (горячие источники) ♨️.</li>
-            </ul>
-        </div>
-
-        <div class="day">
-            <div class="day-header">
-                <h3>День 9: Панорамы Фудзи</h3>
-                <span class="day-date">19 мая, вт</span>
-            </div>
-            <span class="city-tag">🏨 Фудзикавагутико</span>
-            <ul>
-                <li>Пагода <strong>Чуреито (Chureito Pagoda)</strong> — открыточный вид.</li>
-                <li>Канатная дорога (ropeway) на гору Тэнодзан.</li>
-                <li><em>Два дня запланированы специально, чтобы увеличить шансы увидеть Фудзи без облаков.</em></li>
-            </ul>
-        </div>
-
-        <!-- КАМАКУРА → ТОКИО (20 мая) -->
-        <h2>🚃 Камакура: храмы и море</h2>
-        <div class="day">
-            <div class="day-header">
-                <h3>День 10: Камакура → Токио</h3>
-                <span class="day-date">20 мая, ср</span>
-            </div>
-            <span class="city-tag">🏨 Токио</span>
-            <ul>
-                <li><strong>🚄 Фудзи → Камакура:</strong> переезд (~3 ч).</li>
-                <li>Великий Будда (Котоку-ин), храм Хасэ-дэра и прогулка по побережью.</li>
-                <li><strong>Вечером:</strong> переезд в Токио (~1 ч) и заселение.</li>
-            </ul>
-        </div>
-
-        <!-- ТОКИО (21–25 мая) -->
-        <h2>🗼 Токио: энергия мегаполиса</h2>
-
-        <div class="day">
-            <div class="day-header">
-                <h3>День 11: Старый Токио</h3>
-                <span class="day-date">21 мая, чт</span>
-            </div>
-            <span class="city-tag">🏨 Токио</span>
-            <ul>
-                <li>Район <strong>Асакуса (Asakusa)</strong>: храм Сэнсо-дзи, улица Накамисэ.</li>
-                <li>Смотровая площадка <strong>Tokyo Skytree</strong> (по желанию).</li>
-                <li>Парк <strong>Уэно (Ueno)</strong> и/или район <strong>Акихабара (Akihabara)</strong> для любителей электроники и аниме.</li>
-            </ul>
-        </div>
-
-        <div class="day">
-            <div class="day-header">
-                <h3>День 12: Снова раздвоение</h3>
-                <span class="day-date">22 мая, пт</span>
-            </div>
-            <span class="city-tag">🏨 Токио</span>
-            <div class="group-split">
-                <p><span class="group-a">🎢 Группа А (Disney):</span> Tokyo Disneyland или DisneySea — целый день в парке.</p>
-                <p><span class="group-b">🏙 Группа Б (Молодёжный Токио):</span> <strong>Сибуя (Shibuya)</strong> (перекрёсток, Hachiko) • <strong>Харадзюку (Harajuku)</strong> (Takeshita Street) • святилище Мэйдзи.</p>
+            <div class="price-info">
+                <div class="price-item"><span class="price-label">Сад Юй Юань:</span><span class="price-value">¥40 (≈560 ₽)</span></div>
+                <div class="price-item"><span class="price-label">Башня Жемчужина Востока:</span><span class="price-value">¥220 (≈3100 ₽)</span></div>
             </div>
         </div>
 
-        <div class="day">
-            <div class="day-header">
-                <h3>День 13: Все вместе</h3>
-                <span class="day-date">23 мая, сб</span>
-            </div>
-            <span class="city-tag">🏨 Токио</span>
-            <ul>
-                <li>Район <strong>Синдзюку (Shinjuku)</strong>: небоскрёбы, Омотэсандо (роскошные бутики).</li>
-                <li>Смотровая площадка: <strong>Shibuya Sky</strong> или бесплатная <strong>Tokyo Metropolitan Government Building</strong>.</li>
-                <li>Вечером — знаменитый квартал баров <strong>Golden Gai</strong>.</li>
-            </ul>
-        </div>
-
-        <div class="day">
-            <div class="day-header">
-                <h3>День 14: Финальный</h3>
-                <span class="day-date">24 мая, вс</span>
-            </div>
-            <span class="city-tag">🏨 Токио</span>
-            <ul>
-                <li>Цифровой музей <strong>teamLab Planets</strong> (обязательно бронировать заранее!).</li>
-                <li>Поездка в <strong>Йокогаму</strong> (чайна-таун, порт) или финальный шопинг (район Гиндза).</li>
-                <li>Сбор чемоданов.</li>
-            </ul>
-        </div>
-
-        <div class="day">
-            <div class="day-header">
-                <h3>День 15: Вылет</h3>
-                <span class="day-date">25 мая, пн</span>
-            </div>
-            <span class="city-tag">🛫 Домой</span>
-            <ul>
-                <li><strong>✈️ Вылет в 13:00</strong> из аэропорта Ханэда (HND) или Нарита (NRT).</li>
-                <li>Выезд из отеля в 8:30–9:00.</li>
-            </ul>
-        </div>
-
-        <!-- ИТОГ -->
+        <!-- Советы -->
         <div class="tip">
-            ✨ Почему этот план удачный: <br>
-            • Нет рваных переездов<br>
-            • Парки (USJ, Disney) не подряд — группа не выматывается<br>
-            • Фудзи с запасом по погоде (2 дня)<br>
-            • Токио — в конце поездки, максимум эмоций!<br>
-            👥 Идеально для компании из 6 человек.
+            <strong>🌟 ПОЛЕЗНЫЕ ССЫЛКИ:</strong><br>
+            • <a href="https://www.japan-guide.com" target="_blank">Japan Guide</a> — всё о Японии<br>
+            • <a href="https://www.jrailpass.com" target="_blank">Japan Rail Pass</a> — проездной (окупается, если брать на 14 дней)<br>
+            • <a href="https://www.travelchinaguide.com" target="_blank">Travel China Guide</a> — информация о Шанхае<br>
+            • Виза в Китай для россиян: сейчас нужна, оформление 5–7 дней
         </div>
 
         <div class="footer">
             С нетерпением ждём 11 мая 2026! 🎌<br>
-            ✈️ Комфортный темп, никакой спешки
+            ✈️ Япония + Шанхай: идеальное комбо
         </div>
     </div>
 </body>
