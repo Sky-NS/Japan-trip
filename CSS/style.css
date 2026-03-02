@@ -1,0 +1,187 @@
+/* ===== ОБЩИЕ СТИЛИ ДЛЯ ВСЕГО САЙТА ===== */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Навигационное меню */
+.nav-menu {
+    background-color: #2a9d8f;
+    padding: 15px;
+    border-radius: 50px;
+    margin-bottom: 30px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.nav-menu a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 20px;
+    transition: background-color 0.3s;
+}
+
+.nav-menu a:hover {
+    background-color: #e76f51;
+}
+
+/* Основная карточка контента */
+.trip-card {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    padding: 30px;
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+/* Заголовки */
+h1 {
+    color: #c44536;
+    text-align: center;
+    margin-top: 0;
+    border-bottom: 3px solid #e9c46a;
+    padding-bottom: 15px;
+    font-size: 2.2em;
+}
+
+h2 {
+    color: #2a9d8f;
+    margin-top: 30px;
+    font-size: 1.8em;
+    border-left: 5px solid #e76f51;
+    padding-left: 15px;
+}
+
+h3 {
+    color: #e76f51;
+    margin: 20px 0 10px;
+}
+
+/* Карточки мест */
+.place-card {
+    background-color: #fefae0;
+    border-left: 5px solid #e9c46a;
+    padding: 18px 22px;
+    margin: 20px 0;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.place-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.place-name {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #e76f51;
+}
+
+/* Цены и информация */
+.price-info {
+    background-color: #e9d8a6;
+    padding: 12px 18px;
+    border-radius: 10px;
+    margin: 15px 0;
+}
+
+.price-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px 0;
+    border-bottom: 1px dashed #b5b5a5;
+    padding-bottom: 5px;
+}
+
+.price-label {
+    font-weight: bold;
+    color: #005f73;
+}
+
+.price-value {
+    color: #c44536;
+}
+
+/* Кнопка Google Maps */
+.map-button {
+    display: inline-block;
+    background-color: #4285F4;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 500;
+    margin: 10px 0;
+    transition: background-color 0.3s;
+}
+
+.map-button:hover {
+    background-color: #3367D6;
+}
+
+/* Подсказки */
+.tip {
+    background-color: #e9d8a6;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin: 20px 0;
+    font-weight: 500;
+    color: #005f73;
+    border-left: 5px solid #e76f51;
+}
+
+/* Городские теги */
+.city-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.city-icon {
+    font-size: 3em;
+}
+
+.city-title {
+    font-size: 2.5em;
+    color: #2a9d8f;
+    margin: 0;
+}
+
+/* Подвал */
+.footer {
+    text-align: center;
+    margin-top: 40px;
+    color: #6b705c;
+    font-style: italic;
+    border-top: 2px dashed #e9c46a;
+    padding-top: 20px;
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 600px) {
+    .nav-menu a {
+        display: inline-block;
+        margin: 5px;
+    }
+    
+    .city-title {
+        font-size: 1.8em;
+    }
+}
