@@ -15,12 +15,6 @@
             margin: 30px 0;
         }
         
-        .map-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        
         .city-badge {
             display: inline-block;
             background: rgba(43, 127, 255, 0.1);
@@ -111,6 +105,77 @@
             padding: 15px;
             margin: 20px 0;
         }
+
+        .toimap-card {
+            background: linear-gradient(135deg, #1a2a3a 0%, #0f1a24 100%);
+            border: 1px solid #2a4a6a;
+            border-radius: 24px;
+            padding: 30px;
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .toimap-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #4af0a0;
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .error-message {
+            background: rgba(255, 70, 70, 0.1);
+            border: 1px solid #ff4646;
+            color: #ff8a8a;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+
+        .big-button {
+            display: inline-block;
+            background: #2b7fff;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            border: none;
+            margin: 20px 0;
+        }
+
+        .big-button:hover {
+            background: #1a5bbf;
+            transform: scale(1.05);
+        }
+
+        .screenshot-hint {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid #ffc107;
+            color: #ffd966;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
     </style>
 </head>
 <body>
@@ -123,7 +188,7 @@
         <!-- Заголовок -->
         <h1>🚽 Карта туалетов в Японии</h1>
         <p style="color: var(--text-secondary); margin-bottom: 30px;">
-            Сервис TOIMAP — официальная карта общественных туалетов для туристов. А также приложения для всех городов вашего маршрута.
+            Сервис TOIMAP и мобильные приложения для поиска туалетов во всех городах вашего маршрута.
         </p>
 
         <!-- Информация о покрытии городов -->
@@ -136,13 +201,67 @@
                 <span class="city-badge" style="background: rgba(255,165,0,0.1); border-color: orange; color: orange;">🟡 Нара (приложения)</span>
                 <span class="city-badge" style="background: rgba(255,165,0,0.1); border-color: orange; color: orange;">🟡 Кобе (приложения)</span>
                 <span class="city-badge" style="background: rgba(255,165,0,0.1); border-color: orange; color: orange;">🟡 Камакура (приложения)</span>
+                <span class="city-badge" style="background: rgba(255,165,0,0.1); border-color: orange; color: orange;">🟡 Фудзи (приложения)</span>
             </div>
         </div>
 
-        <!-- Карта через iframe (для Осаки и Киото) -->
+        <!-- TOIMAP карточка (вместо iframe) -->
         <h2>🗺️ TOIMAP — карта для Осаки и Киото</h2>
-        <div class="map-container">
-            <iframe src="https://toimap.jp/en" title="TOIMAP - туалеты в Японии"></iframe>
+        
+        <div class="toimap-card">
+            <div style="font-size: 3rem; margin-bottom: 15px;">🚻</div>
+            <h3 style="color: white; margin-bottom: 10px;">TOIMAP</h3>
+            <p style="color: #a0b8cc; max-width: 600px; margin: 0 auto;">
+                Transforming Toilets from "Cost" to "Asset"<br>
+                Creating cities where everyone can live comfortably with Toilet Information DX.
+            </p>
+
+            <!-- Статистика с вашего скриншота -->
+            <div class="toimap-stats">
+                <div class="stat-item">
+                    <div class="stat-value">✅ 完全無料</div>
+                    <div class="stat-label">Полностью бесплатно</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">✅ インストール不要</div>
+                    <div class="stat-label">Не требует установки</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">30,000件</div>
+                    <div class="stat-label">Более 30,000 мест</div>
+                </div>
+            </div>
+
+            <!-- Сообщение об ошибке (как на скриншоте) -->
+            <div class="error-message">
+                <strong>⚠️ API Error</strong><br>
+                Наш сайт не может отобразить карту TOIMAP напрямую из-за технических ограничений. 
+                Но вы можете открыть её в отдельном окне!
+            </div>
+
+            <!-- Большая синяя кнопка (рабочая) -->
+            <a href="https://toimap.jp/en" target="_blank" class="big-button">
+                🔍 Find Toilet Map Nearby
+            </a>
+
+            <p style="color: #a0b8cc; margin-top: 15px; font-size: 0.9rem;">
+                * Откроется в новой вкладке — карта будет работать идеально!
+            </p>
+        </div>
+
+        <!-- Инструкция по использованию TOIMAP -->
+        <div class="info-box">
+            <h4>🗺️ Как пользоваться TOIMAP:</h4>
+            <ol style="color: var(--text-secondary); margin-top: 10px;">
+                <li>Нажмите на синюю кнопку "Find Toilet Map Nearby" выше</li>
+                <li>Сайт откроется в новой вкладке браузера</li>
+                <li>Разрешите доступ к геолокации, чтобы увидеть туалеты рядом</li>
+                <li>Используйте фильтры (доступность, пеленальные столики)</li>
+                <li>Нажимайте на значки туалетов, чтобы увидеть фото и отзывы</li>
+            </ol>
+            <p style="color: var(--accent-green); margin-top: 10px;">
+                💡 Совет: Добавьте TOIMAP в закладки браузера на телефоне — будет быстрый доступ без установки приложений!
+            </p>
         </div>
 
         <!-- Приложения для всех городов -->
@@ -171,6 +290,7 @@
                 </div>
                 <div class="app-buttons">
                     <a href="https://www.toiletsearch.jp/" target="_blank" class="store-button">🌐 Веб-версия</a>
+                    <a href="https://play.google.com/store/apps/details?id=jp.toilet.search" target="_blank" class="store-button">📱 Google Play</a>
                 </div>
             </div>
 
@@ -207,8 +327,10 @@
             <ul style="color: var(--text-secondary);">
                 <li>Панель управления обычно сбоку или на стене</li>
                 <li>Кнопка с изображением "сидячего человека" — поднимает/опускает сиденье</li>
-                <li>"おしり" (Oshiri) — для гигиены, "ビデ" (Bide) — биде</li>
-                <li>"止" (Tome) — остановить, "流す" (Nagasu) — смыть</li>
+                <li><strong>「おしり」</strong> (Oshiri) — для гигиены</li>
+                <li><strong>「ビデ」</strong> (Bide) — биде</li>
+                <li><strong>「止」</strong> (Tome) — остановить</li>
+                <li><strong>「流す」</strong> (Nagasu) — смыть</li>
                 <li>В некоторых местах бумагу нельзя смывать — выбрасывайте в урну рядом</li>
             </ul>
             
@@ -217,13 +339,9 @@
                 <li>Крупные универмаги (всегда чистые и бесплатные)</li>
                 <li>Станции метро и JR (есть почти на всех)</li>
                 <li>Парки (обычно есть, но могут быть закрыты вечером)</li>
-                <li>Konbini (круглосуточные магазины) — но обычно только для персонала, вежливо попросите</li>
+                <li><strong>Konbini</strong> (круглосуточные магазины) — обычно только для персонала, но вежливо попросите</li>
                 <li>Храмы и святилища — обычно есть бесплатные туалеты</li>
             </ul>
-            
-            <div style="margin-top: 20px;">
-                <a class="map-button" href="https://toimap.jp/en" target="_blank" style="background-color: #2d7a6e;">🔗 Открыть TOIMAP в новом окне</a>
-            </div>
         </div>
 
         <!-- Кнопка на главную -->
@@ -234,7 +352,7 @@
         <!-- Подвал -->
         <div class="footer">
             <p>Карта туалетов для путешественников в Японии</p>
-            <p style="font-size: 0.9rem;">Данные из открытых источников и официальных приложений префектур</p>
+            <p style="font-size: 0.9rem;">TOIMAP: 完全無料 · インストール不要 · 30,000件掲載</p>
         </div>
     </div>
 </body>
