@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Осака — база для Киото, Нара, Кобе</title>
+    <!-- Путь к стилям — папка CSS с большой буквы -->
+    <link rel="stylesheet" href="CSS/style.css">
+    <style>
+        /* Дополнительные стили для страницы Осаки */
+        .day-highlight {
+            background-color: #fff9f5;
+            border: 1px solid #efebe5;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 8px;
+            border-left: 4px solid #b03e3e;
+        }
+        
+        .day-highlight h3 {
+            margin-top: 0;
+            color: #1a1a1a;
+            font-size: 1.5rem;
+            border-bottom: 1px solid #efebe5;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .transport-note {
+            background-color: #f5f2eb;
+            padding: 12px 18px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            margin: 15px 0;
+            color: #4a4a4a;
+        }
+        
+        .price-summary {
+            background-color: #f0f5fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            border: 1px solid #d9e2e8;
+        }
+        
+        .route-card {
+            background-color: white;
+            border: 1px solid #efebe5;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+        }
+        
+        .route-title {
+            font-weight: 600;
+            color: #2d2d2d;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .route-detail {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+            padding: 3px 0;
+            border-bottom: 1px dotted #efebe5;
+        }
+        
+        .total-day {
+            background-color: #b03e3e;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .two-column {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .two-column > div {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .hotel-info {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #b03e3e;
+        }
+        
+        .attraction-card {
+            background-color: #f9f7f4;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid #efebe5;
+            transition: transform 0.2s;
+        }
+        
+        .attraction-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .attraction-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .attraction-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid #b03e3e;
+        }
+        
+        .attraction-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        
+        .attraction-details {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        
+        .weather-note {
+            background-color: #e6f2f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #2d7a6e;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 30px 0 20px;
+        }
+        
+        .nav-button {
+            background-color: #f5f2eb;
+            color: #2d2d2d;
+            padding: 12px 20px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: 1px solid #efebe5;
+            min-width: 120px;
+            text-align: center;
+        }
+        
+        .nav-button:hover {
+            background-color: #b03e3e;
+            color: white;
+            border-color: #b03e3e;
+            transform: translateY(-2px);
+        }
+        
+        .nav-button.active {
+            background-color: #b03e3e;
+            color: white;
+            border-color: #b03e3e;
+        }
+        
+        .city-badge {
+            display: inline-block;
+            background-color: #b03e3e;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .day-trip-header {
+            background-color: #fff0e0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 30px 0 15px;
+            border-left: 4px solid #2d7a6e;
+            font-weight: 600;
+            color: #2d7a6e;
+        }
+
+        .photo-credit {
+            font-size: 0.8rem;
+            color: #8b7a6a;
+            margin-top: 5px;
+        }
+
+        .attraction-badge {
+            background-color: #b03e3e;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="trip-card">
+        <!-- Навигационные кнопки -->
+        <div class="nav-buttons">
+            <a href="index.html" class="nav-button">🏠 Главная</a>
+            <a href="osaka.html" class="nav-button active">🌆 Осака</a>
+            <a href="fuji.html" class="nav-button">🗻 Фудзи</a>
+            <a href="tokyo.html" class="nav-button">🗼 Токио</a>
+            <a href="shanghai.html" class="nav-button">🏙 Шанхай</a>
+        </div>
+
+        <!-- Шапка города -->
+        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
+            <span style="font-size: 4rem;">🌆</span>
+            <div>
+                <h1 style="text-align: left; margin: 0; font-size: 3rem;">Осака</h1>
+                <p style="color: #6b5a4a; margin: 5px 0 0; font-size: 1.2rem;">Наша база на 7 ночей • 11–18 мая 2026</p>
+            </div>
+        </div>
+
+        <!-- Бейджи городов, которые посетим -->
+        <div style="margin-bottom: 20px;">
+            <span class="city-badge">🏠 Осака (дом)</span>
+            <span class="city-badge">⛩ Киото (2 дня)</span>
+            <span class="city-badge">🦌 Нара (1 день)</span>
+            <span class="city-badge">🍖 Кобе (1 день)</span>
+        </div>
+
+        <!-- ИНФОРМАЦИЯ О ДОМЕ -->
+        <div class="hotel-info">
+            <h3 style="margin-top: 0; color: #b03e3e;">🏠 НАШ ДОМ В ОСАКЕ</h3>
+            <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: space-between;">
+                <div>
+                    <p><strong>Osaka Station 3min Direct Namba 11min Direct 6min Walk to Station 4BR House</strong></p>
+                    <p>📍 <strong>Адрес:</strong> 海老江3丁目6–19 Ebie House, Осака</p>
+                    <p>📅 <strong>Заезд:</strong> 11 мая, 21:00 | <strong>Выезд:</strong> 18 мая, 12:00</p>
+                </div>
+                <div>
+                    <p><strong>🚉 Транспортная доступность:</strong></p>
+                    <p>• JR станция <strong>Ebie</strong> — 6 мин пешком</p>
+                    <p>• До станции <strong>Osaka (Umeda)</strong> — 3 мин на поезде</p>
+                    <p>• До <strong>Namba</strong> — 11 мин прямым поездом</p>
+                </div>
+                <div>
+                    <a class="map-button" href="https://www.google.com/maps/search/海老江3丁目6–19+Ebie+House+Osaka" target="_blank">🗺 На карте</a>
+                    <a class="map-button" href="https://www.booking.com/Share-FVKrDuX" target="_blank" style="background-color: #003580;">🔗 Booking.com</a>
+                </div>
+            </div>
+            <div class="transport-note" style="margin-bottom: 0; background-color: #e6f2e6;">
+                <strong>🏠 ВАЖНО:</strong> Каждый день мы возвращаемся ночевать в этот дом! Все маршруты построены с учётом возвращения.
+            </div>
+        </div>
+
+        <!-- ===== ДЕНЬ 1: Прилёт ===== -->
+        <div class="day-highlight">
+            <h3>🇯🇵 День 1 · 11 мая (пн) — Прилёт и адаптация</h3>
+            
+            <div class="route-card">
+                <div class="route-title">✈️ Аэропорт Кансай (KIX) → Наш дом</div>
+                <div class="route-detail"><span>Nankai Line (аэропорт → Namba)</span><span>¥930</span></div>
+                <div class="route-detail"><span>Metro (Namba → Ebie / Higashi-Umeda)</span><span>¥240</span></div>
+                <div class="route-detail" style="border-bottom: none; font-weight: 600;"><span>ИТОГО трансфер</span><span>¥1170</span></div>
+            </div>
+            
+            <p><strong>🕒 Прилёт в 18:00</strong> → паспортный контроль (1 ч) → трансфер → <strong>заселение в 21:00</strong></p>
+            <p>Лёгкий ужин рядом с домом, отдых после перелёта.</p>
+        </div>
+
+        <!-- ===== ДЕНЬ 2: Осака ===== -->
+        <div class="day-highlight">
+            <h3>🍣 День 2 · 12 мая (вт) — Осака: Dotonbori, Shinsaibashi, Kuromon Market</h3>
+            
+            <div class="route-card">
+                <div class="route-title">🚆 МАРШРУТ ПО ОСАКЕ:</div>
+                
+                <p><strong>Утро: Дом → Kuromon Market</strong></p>
+                <div class="route-detail"><span>JR Ebie → JR Namba</span><span>¥190</span></div>
+                
+                <p><strong>День: Kuromon → Shinsaibashi → Dotonbori</strong></p>
+                <div class="route-detail"><span>Пешком (все в одном районе)</span><span>0</span></div>
+                
+                <p><strong>Вечер: Dotonbori → Umeda Sky Building</strong></p>
+                <div class="route-detail"><span>Metro (Namba → Umeda)</span><span>¥240</span></div>
+                
+                <p><strong>Возвращение: Umeda → Дом</strong></p>
+                <div class="route-detail"><span>JR (Osaka → Ebie)</span><span>¥140</span></div>
+                
+                <div style="border-top: 2px solid #efebe5; margin-top: 10px; padding-top: 10px;">
+                    <div class="route-detail" style="font-weight: 700;"><span>ВСЕГО ТРАНСПОРТ</span><span>¥570</span></div>
+                </div>
+            </div>
+
+            <!-- Kuromon Market -->
+            <div class="attraction-card">
+                <div class="attraction-header">
+                    <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/aa/3a/af/caption.jpg?w=300&h=300&s=1" alt="Kuromon Market" class="attraction-image">
+                    <div>
+                        <div class="attraction-title">🐟 Kuromon Market</div>
+                        <div><span class="attraction-badge">🍜 Еда</span> <span class="attraction-badge">🎁 Сувениры</span></div>
+                    </div>
+                </div>
+                <p>Рынок, который называют "кухней Осаки". Более 150 магазинов с морепродуктами, суши, такояки и другими японскими деликатесами. Открыт с 9:00 до 18:00.</p>
+                <div class="attraction-details">
+                    <div class="price-info" style="margin: 5px 0; padding: 8px;">
+                        <div class="price-item"><span>Вход</span><span>бесплатно</span></div>
+                        <div class="price-item"><span>Еда</span><span>¥500–1500</span></div>
+                    </div>
+                    <a class="map-button" href="https://www.google.com/maps/search/Kuromon+Market+Osaka" target="_blank">🗺 На карте</a>
+                </div>
+                <div class="photo-credit">Фото: Kuromon Market</div>
+            </div>
+
+            <!-- Shinsaibashi -->
+            <div class="attraction-card">
+                <div class="attraction-header">
+                    <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2a/6b/f9/19/caption.jpg?w=300&h=300&s=1" alt="Shinsaibashi" class="attraction-image">
+                    <div>
+                        <div class="attraction-title">🛍 Shinsaibashi</div>
+                        <div><span class="attraction-badge">Шопинг</span> <span class="attraction-badge">Улица</span></div>
+                    </div>
+                </div>
+                <p>Крытая торговая улица длиной 600 метров с множеством магазинов — от люксовых брендов до уютных японских лавок.</p>
+                <div class="attraction-details">
+                    <a class="map-button" href="https://www.google.com/maps/search/Shinsaibashi+Osaka" target="_blank">🗺 На карте</a>
+                </div>
+            </div>
+
+            <!-- Dotonbori -->
+            <div class="attraction-card">
+                <div class="attraction-header">
+                    <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/8c/f1/0d/20181123-184236-largejpg.jpg?w=300&h=300&s=1" alt="Dotonbori" class="attraction-image">
+                    <div>
+                        <div class="attraction-title">🌃 Dotonbori</div>
+                        <div><span class="attraction-badge">Ночная жизнь</span> <span class="attraction-badge">Еда</span></div>
+                    </div>
+                </div>
+                <p>Самый известный район Осаки с яркими неоновыми вывесками, гигантскими крабами и осьминогами. Лучшее место для ужина и фото.</p>
+                <div class="attraction-details">
+                    <a class="map-button" href="https://www.google.com/maps/search/Dotonbori+Osaka" target="_blank">🗺 На карте</a>
+                </div>
+            </div>
+
+            <!-- Umeda Sky Building -->
+            <div class="attraction-card">
+                <div class="attraction-header">
+                    <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/3a/0c/21/caption.jpg?w=300&h=300&s=1" alt="Umeda Sky Building" class="attraction-image">
+                    <div>
+                        <div class="attraction-title">🌆 Umeda Sky Building</div>
+                        <div><span class="attraction-badge">Смотровая</span> <span class="attraction-badge">¥1500</span></div>
+                    </div>
+                </div>
+                <p>Небоскрёб с уникальной "парящей" смотровой площадкой на высоте 173 м. Открыт до 22:00.</p>
+                <div class="attraction-details">
+                    <div class="price-info" style="margin: 5px 0; padding: 8px;">
+                        <div class="price-item"><span>Вход</span><span>¥1500</span></div>
+                    </div>
+                    <a class="map-button" href="https://www.google.com/maps/search/Umeda+Sky+Building+Osaka" target="_blank">🗺 На карте</a>
+                </div>
+            </div>
+
+            <div class="total-day">
+                <span>💰 ИТОГО НА ДЕНЬ (транспорт + входные):</span>
+                <span>¥2070</span>
+            </div>
+        </div>
+
+        <!-- ===== ДЕНЬ 3: Universal Studios ===== -->
+        <div class="day-highlight">
+            <h3>🎢 День 3 · 13 мая (ср) — Universal Studios / Город</h3>
+            
+            <div style="display: flex; gap: 25px; flex-wrap: wrap;">
+                <!-- Группа А -->
+                <div style="flex: 1; min-width: 280px;">
+                    <div class="attraction-card" style="background-color: #fff0f0; margin:0;">
+                        <div class="attraction-header">
+                            <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/62/1b/0f/caption.jpg?w=300&h=300&s=1" alt="Universal Studios Japan" class="attraction-image">
+                            <div>
+                                <div class="attraction-title" style="color: #b03e3e;">🎢 Группа А — Universal Studios</div>
+                            </div>
+                        </div>
+                        <p>Один из самых посещаемых парков развлечений в мире. Здесь есть Super Nintendo World, Гарри Поттер, Миньоны и другие зоны.</p>
+                        <div class="route-detail"><span>JR Ebie → JR Universal City</span><span>¥220</span></div>
+                        <div class="route-detail"><span>Universal City → Ebie (обратно)</span><span>¥220</span></div>
+                        <div class="price-info" style="margin-top:10px;">
+                            <div class="price-item"><span>Билет Universal Studios</span><span>¥9800</span></div>
+                        </div>
+                        <a class="map-button" href="https://www.google.com/maps/search/Universal+Studios+Japan+Osaka" target="_blank">🗺 На карте</a>
+                    </div>
+                </div>
+                
+                <!-- Группа Б -->
+                <div style="flex: 1; min-width: 280px;">
+                    <div class="attraction-card" style="background-color: #f0f5f0; margin:0;">
+                        <div class="attraction-header">
+                            <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0e/db/fe/90/osaka-castle.jpg?w=300&h=300&s=1" alt="Osaka Castle" class="attraction-image">
+                            <div>
+                                <div class="attraction-title" style="color: #2d7a6e;">🏙 Группа Б — Город</div>
+                            </div>
+                        </div>
+                        
+                        <p><strong>🏯 Замок Осаки (Osaka Castle):</strong></p>
+                        <div class="price-info">
+                            <div class="price-item"><span>Вход</span><span>¥600</span></div>
+                        </div>
+                        <a class="map-button" href="https://www.google.com/maps/search/Osaka+Castle" target="_blank">🗺 На карте</a>
+                        
+                        <p style="margin-top:15px;"><strong>🎪 Shinsekai:</strong> Район с атмосферой старой Осаки, башня Цутэнкаку (¥900).</p>
+                        <a class="map-button" href="https://www.google.com/maps/search/Shinsekai+Osaka" target="_blank">🗺 На карте</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ДЕНЬ 4: Киото (день 1) ===== -->
+        <div class="day-trip-header">
+            <strong>⛩ КИОТО — ДЕНЬ 1 (из Осаки, с возвращением)</strong>
+        </div>
+        
+        <div class="day-highlight">
+            <h3>⛩ День 4 · 14 мая (чт) — Киото: Фусими Инари, Гион, Понточо</h3>
+            
+            <div class="route-card">
+                <div class="route-title">🚆 ПОЛНЫЙ МАРШРУТ (туда и обратно в Осаку):</div>
+                <div class="route-detail"><span>ВСЕГО ТРАНСПОРТ</span><span>¥2180</span></div>
+            </div>
+
+            <!-- Fushimi Inari -->
+            <div class="attraction-card">
+                <div class="attraction-header">
+                    <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/28/e6/56/47/caption.jpg?w=300&h=300&s=1" alt="Fushimi Inari" class="attraction-image">
+                    <div>
+                        <div class="attraction-title">⛩ Фусими Инари (Fushimi Inari)</div>
+                        <div><span class="attraction-badge">бесплатно</span></div>
+                    </div>
+                </div>
+                <p>Знаменитое святилище с тысячами красных тории. Можно пройти часть тропы или подняться на всю гору.</p>
+                <div class="attraction-details">
+                    <a class="map-button" href="https://www.google.com/maps/search/Fushimi+Inari+Taisha+Kyoto" target="_blank">🗺 На карте</a>
+                </div>
+            </div>
+
+            <!-- Gion -->
+            <div class="attraction-card">
+                <div class="attraction-header">
+                    <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/03/2c/43/gion.jpg?w=300&h=300&s=1" alt="Gion" class="attraction-image">
+                    <div>
+                        <div class="attraction-title">🎭 Гион (Gion)</div>
+                        <div><span class="attraction-badge">бесплатно</span></div>
+                    </div>
+                </div>
+                <p>Район гейш с традиционными деревянными домами. Вечером можно встретить настоящих гейко (гейш).</p>
+                <div class="attraction-details">
+                    <a class="map-button" href="https://www.google.com/maps/search/Gion+Kyoto" target="_blank">🗺 На карте</a>
+                </div>
+            </div>
+
+            <!-- Pontocho -->
+            <div class="attraction-card">
+                <div class="attraction-header">
+                    <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/11/b0/d1/cb/pontocho-alley.jpg?w=300&h=300&s=1" alt="Pontocho" class="attraction-image">
+                    <div>
+                        <div class="attraction-title">🍜 Понточо (Pontocho)</div>
+                        <div><span class="attraction-badge">рестораны</span></div>
+                    </div>
+                </div>
+                <p>Узкая улочка с ресторанами и чайными домами вдоль реки Камо. Идеально для ужина.</p>
+                <div class="attraction-details">
+                    <a class="map-button" href="https://www.google.com/maps/search/Pontocho+Kyoto" target="_blank">🗺 На карте</a>
+                </div>
+            </div>
+
+            <div class="total-day">
+                <span>💰 ИТОГО НА ДЕНЬ:</span>
+                <span>¥2180</span>
+            </div>
+        </div>
+
+        <!-- ===== ДЕНЬ 5: Киото (день 2) ===== -->
+        <div class="day-trip-header">
+            <strong>⛩ КИОТО — ДЕНЬ 2 (из Осаки, с возвращением)</strong>
+        </div>
+        
+        <div class="day-highlight">
+            <h3>🎋 День 5 · 15 мая (пт) — Киото: Кинкаку-дзи, Арасияма</h3>
+            
+            <div class="route-card">
+                <div class="route-title">🚆 ПОЛНЫЙ МАРШРУТ (туда и обратно в Осаку):</div>
+                <div class="route-detail"><span>ВСЕГО ТРАНСПОРТ</span><span>¥2180</span></div>
+            </div>
+
+            <!-- Kinkaku-ji -->
+            <div class="attraction-card">
+                <div class="attraction-header">
+                    <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/40/33/26/caption.jpg?w=300&h=300&s=1" alt="Kinkaku-ji" class="attraction-image">
+                    <div>
+                        <div class="attraction-title">✨ Кинкаку-дзи (Kinkaku-ji)</div>
+                        <div><span class="attraction-badge">¥400</span></div>
+                    </div>
+                </div>
+                <p>Золотой павильон — самый узнаваемый храм Киото, покрытый сусальным золотом.</p>
+                <div class="attraction-details">
+                    <a class="map-button" href="https://www.google.com/maps/search/Kinkaku-ji+Kyoto" target="_blank">🗺 На карте</a>
+                </div>
+            </div>
+
+            <!-- Arashiyama Bamboo -->
+            <div class="attraction-card">
+                <div class="attraction-header">
+                    <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/c7/f1/fe/arashiyama-bamboo-forest.jpg?w=300&h=300&s=1" alt="Arashiyama Bamboo Forest" class="attraction-image">
+                    <div>
+                        <div class="attraction-title">🎋 Бамбуковая роща Арасияма</div>
+                        <div><span class="attraction-badge">бесплатно</span></div>
+                    </div>
+                </div>
+                <p>Знаменитый лес из высоких бамбуков. Лучше приходить рано утром, чтобы избежать толп.</p>
+                <div class="attraction-details">
+                    <a class="map-button" href="https://www.google.com/maps/search/Arashiyama+Bamboo+Forest+Kyoto" target="_blank">🗺 На карте</a>
+                </div>
+            </div>
+
+            <!-- Monkey Park -->
+            <div class="attraction-card">
+                <div class="attraction-header">
+                    <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/93/74/75/caption.jpg?w=300&h=300&s=1" alt="Iwatayama Monkey Park" class="attraction-image">
+                    <div>
+                        <div class="attraction-title">🐒 Парк обезьян Иватаяма</div>
+                        <div><span class="attraction-badge">¥550</span></div>
+                    </div>
+                </div>
+                <p>Парк на горе с более чем 170 дикими японскими макаками. Оттуда открывается отличный вид на Киото.</p>
+                <div class="attraction-details">
+                    <a class="map-button" href="https://www.google.com/maps/search/Iwatayama+Monkey+Park+Kyoto" target="_blank">🗺 На карте</a>
+                </div>
+            </div>
+
+            <div class="total-day">
+                <span>💰 ИТОГО НА ДЕНЬ:</span>
+                <span>¥2580</span>
+            </div>
+        </div>
+
+        <!-- ===== ДЕНЬ 6: Нара ===== -->
+        <div class="day-trip-header">
+            <strong>🦌 НАРА (из Осаки, с возвращением)</strong>
+        </div>
+        
+        <div class="day-highlight">
+            <h3>🦌 День 6 · 16 мая (сб) — Нара: олени, Тодай-дзи, Касуга-тайша</h3>
+            
+            <div class="route-card">
+                <div class="route-title">🚆 ПОЛНЫЙ МАРШРУТ (туда и обратно в Осаку):</div>
+                <div class="route-detail"><span>ВСЕГО ТРАНСПОРТ</span><span>¥1840</span></div>
+            </div>
+
+            <!-- Todai-ji -->
+            <div class="attraction-card">
+                <div class="attraction-header">
+                    <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/7b/ed/21/caption.jpg?w=300&h=300&s=1" alt="Todai-ji" class="attraction-image">
+                    <div>
+                        <div class="attraction-title">🦌 Тодай-дзи (Todai-ji)</div>
+                        <div><span class="attraction-badge">¥600</span></div>
+                    </div>
+                </div>
+                <p>Один из самых знаменитых храмов Японии с гигантским 15-метровым Буддой внутри.</p>
+                <div class="attraction-details">
+                    <a class="map-button" href="https://www.google.com/maps/search/Todai-ji+Nara" target="_blank">🗺 На карте</a>
+                </div>
+            </div>
+
+            <!-- Nara Park -->
+            <div class="attraction-card">
+                <div class="attraction-header">
+                    <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/e9/db/0f/nara-park.jpg?w=300&h=300&s=1" alt="Nara Park" class="attraction-image">
+                    <div>
+                        <div class="attraction-title">🦌 Парк Нары</div>
+                        <div><span class="attraction-badge">бесплатно</span></div>
+                    </div>
+                </div>
+                <p>Более 1200 ручных оленей, которые считаются священными посланниками. Можно купить крекеры (¥200) и кормить их.</p>
+                <div class="attraction-details">
+                    <a class="map-button" href="https://www.google.com/maps/search/Nara+Park" target="_blank">🗺 На карте</a>
+                </div>
+            </div>
+
+            <div class="total-day">
+                <span>💰 ИТОГО НА ДЕНЬ:</span>
+                <span>¥2440</span>
+            </div>
+        </div>
+
+        <!-- ===== ДЕНЬ 7: Кобе ===== -->
+        <div class="day-trip-header">
+            <strong>🍖 КОБЕ (из Осаки, с возвращением)</strong>
+        </div>
+        
+        <div class="day-highlight">
+            <h3>🍖 День 7 · 17 мая (вс) — Кобе (говядина, гора Рокко)</h3>
+            
+            <div class="route-card">
+                <div class="route-title">🚆 ПОЛНЫЙ МАРШРУТ (туда и обратно в Осаку):</div>
+                <div class="route-detail"><span>ВСЕГО ТРАНСПОРТ</span><span>¥2050</span></div>
+            </div>
+
+            <!-- Kobe Beef -->
+            <div class="attraction-card">
+                <div class="attraction-header">
+                    <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/5b/11/77/kobe-beef.jpg?w=300&h=300&s=1" alt="Kobe Beef" class="attraction-image">
+                    <div>
+                        <div class="attraction-title">🥩 Говядина Кобе</div>
+                        <div><span class="attraction-badge">от ¥8000</span></div>
+                    </div>
+                </div>
+                <p>Знаменитая на весь мир мраморная говядина. В Кобе множество ресторанов, где можно попробовать оригинал.</p>
+                <a class="map-button" href="https://www.google.com/maps/search/Kobe+Beef+restaurants+Kobe" target="_blank">🗺 На карте</a>
+            </div>
+
+            <!-- Mt. Rokko -->
+            <div class="attraction-card">
+                <div class="attraction-header">
+                    <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/09/40/af/4c/mt-rokkosan.jpg?w=300&h=300&s=1" alt="Mt. Rokko" class="attraction-image">
+                    <div>
+                        <div class="attraction-title">⛰ Гора Рокко</div>
+                        <div><span class="attraction-badge">¥950 канатка</span></div>
+                    </div>
+                </div>
+                <p>Гора с панорамным видом на Кобе и Осакский залив. Можно подняться на канатной дороге.</p>
+                <a class="map-button" href="https://www.google.com/maps/search/Mt.+Rokko+Kobe" target="_blank">🗺 На карте</a>
+            </div>
+
+            <div class="total-day">
+                <span>💰 ИТОГО НА ДЕНЬ:</span>
+                <span>¥3000</span>
+            </div>
+        </div>
+
+        <!-- ===== ДЕНЬ 8: Переезд к Фудзи ===== -->
+        <div class="day-highlight">
+            <h3>🚆 День 8 · 18 мая (пн) — Переезд к Фудзи (выезд из дома до 12:00)</h3>
+            
+            <div class="route-card">
+                <div class="route-title">🚄 Осака → Фудзикавагутико (через Мисиму):</div>
+                <div class="route-detail"><span>JR Ebie → Shin-Osaka</span><span>¥190</span></div>
+                <div class="route-detail"><span>Shin-Osaka → Mishima (Синкансэн)</span><span>¥11450</span></div>
+                <div class="route-detail"><span>Mishima → Kawaguchiko (автобус)</span><span>¥2260</span></div>
+                <div style="border-top: 2px solid #efebe5; margin-top: 10px; padding-top: 10px;">
+                    <div class="route-detail" style="font-weight: 700;"><span>ИТОГО ПЕРЕЕЗД</span><span>¥13900</span></div>
+                </div>
+            </div>
+            
+            <div class="transport-note">
+                <strong>🏨 Следующий отель:</strong> ID Stay Kawaguchiko (заезд до 22:00)
+            </div>
+        </div>
+
+        <!-- СВОДНАЯ ТАБЛИЦА -->
+        <h2>📊 Сводка расходов за 7 дней в Осаке</h2>
+        
+        <table>
+            <tr>
+                <th>День</th>
+                <th>Маршрут</th>
+                <th>Транспорт</th>
+                <th>Входные</th>
+                <th>ИТОГО</th>
+            </tr>
+            <tr>
+                <td>День 1</td>
+                <td>Прилёт</td>
+                <td>¥1170</td>
+                <td>¥0</td>
+                <td>¥1170</td>
+            </tr>
+            <tr>
+                <td>День 2</td>
+                <td>Осака</td>
+                <td>¥570</td>
+                <td>¥1500</td>
+                <td>¥2070</td>
+            </tr>
+            <tr>
+                <td>День 3 (А)</td>
+                <td>Universal</td>
+                <td>¥440</td>
+                <td>¥9800</td>
+                <td>¥10240</td>
+            </tr>
+            <tr>
+                <td>День 3 (Б)</td>
+                <td>Город</td>
+                <td>¥740</td>
+                <td>¥1500</td>
+                <td>¥2240</td>
+            </tr>
+            <tr>
+                <td>День 4</td>
+                <td>Киото (1)</td>
+                <td>¥2180</td>
+                <td>¥0</td>
+                <td>¥2180</td>
+            </tr>
+            <tr>
+                <td>День 5</td>
+                <td>Киото (2)</td>
+                <td>¥2180</td>
+                <td>¥400</td>
+                <td>¥2580</td>
+            </tr>
+            <tr>
+                <td>День 6</td>
+                <td>Нара</td>
+                <td>¥1840</td>
+                <td>¥600</td>
+                <td>¥2440</td>
+            </tr>
+            <tr>
+                <td>День 7</td>
+                <td>Кобе</td>
+                <td>¥2050</td>
+                <td>¥950</td>
+                <td>¥3000</td>
+            </tr>
+            <tr style="font-weight: 700; background-color: #f0f0f0;">
+                <td colspan="4" style="text-align: right;">ИТОГО (мин):</td>
+                <td>¥16280–24280</td>
+            </tr>
+        </table>
+
+        <!-- СОВЕТЫ -->
+        <div class="tip">
+            <strong>🍜 СОВЕТЫ ПО ТРАНСПОРТУ В ОСАКЕ:</strong><br><br>
+            
+            <p><strong>ICOCA карта:</strong> Покупается в автоматах на JR станциях (депозит ¥500, пополняется). Работает на всех поездах, метро, автобусах. Рекомендуем пополнить на ¥15000–20000 на все дни.</p>
+            
+            <p><strong>До Киото:</strong> JR Special Rapid Service (¥580, 30 мин) — самый быстрый и удобный.</p>
+            
+            <p><strong>До Нары:</strong> JR Yamatoji Line (¥780, 50 мин) или Kintetsu Line (¥720, 40 мин) — JR удобнее, так как отправляется с той же станции Osaka.</p>
+            
+            <p><strong>До Кобе:</strong> JR Special Rapid Service (¥410, 20 мин) до станции Sannomiya.</p>
+            
+            <p><strong>От станции Ebie до дома:</strong> 6 минут пешком (выход к северу, вдоль главной дороги).</p>
+        </div>
+
+        <!-- Навигация в конце -->
+        <div class="nav-buttons">
+            <a href="index.html" class="nav-button">🏠 Главная</a>
+            <a href="fuji.html" class="nav-button">🗻 Далее: Фудзи</a>
+        </div>
+
+        <!-- Подвал -->
+        <div class="footer">
+            <p>Осака — база для Киото, Нары и Кобе</p>
+            <p style="font-size: 0.9rem;">7 ночей в Ebie House • каждый день с возвращением домой 🏠</p>
+        </div>
+    </div>
+</body>
+  </html>
