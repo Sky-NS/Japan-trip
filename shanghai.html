@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шанхай — транзит с шопингом и ночным видом</title>
+    <!-- Путь к стилям — папка CSS с большой буквы -->
+    <link rel="stylesheet" href="CSS/style.css">
+    <style>
+        /* Дополнительные стили для страницы Шанхая */
+        .day-highlight {
+            background-color: #fff9f5;
+            border: 1px solid #efebe5;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 8px;
+            border-left: 4px solid #2d7a6e;
+        }
+        
+        .day-highlight h3 {
+            margin-top: 0;
+            color: #1a1a1a;
+            font-size: 1.5rem;
+            border-bottom: 1px solid #efebe5;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .transport-note {
+            background-color: #f5f2eb;
+            padding: 12px 18px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            margin: 15px 0;
+            color: #4a4a4a;
+        }
+        
+        .price-summary {
+            background-color: #f0f5fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            border: 1px solid #d9e2e8;
+        }
+        
+        .route-card {
+            background-color: white;
+            border: 1px solid #efebe5;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+        }
+        
+        .route-title {
+            font-weight: 600;
+            color: #2d2d2d;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .route-detail {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+            padding: 3px 0;
+            border-bottom: 1px dotted #efebe5;
+        }
+        
+        .total-day {
+            background-color: #2d7a6e;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .two-column {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .two-column > div {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .hotel-info {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #2d7a6e;
+        }
+        
+        .attraction-card {
+            background-color: #f9f7f4;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid #efebe5;
+            transition: transform 0.2s;
+        }
+        
+        .attraction-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .attraction-card img {
+            width: 100%;
+            max-width: 650px;  /* Увеличено до 650px */
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .attraction-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+        
+        .attraction-badge {
+            display: inline-block;
+            background-color: #2d7a6e;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 8px;
+        }
+        
+        .weather-note {
+            background-color: #e6f2f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #2d7a6e;
+        }
+        
+        .city-badge {
+            display: inline-block;
+            background-color: #2d7a6e;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .scenario-card {
+            background-color: #fff9e6;
+            border-left: 4px solid #f0b400;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .scenario-a {
+            background-color: #e6f2ff;
+            border-left-color: #0066cc;
+        }
+        
+        .scenario-b {
+            background-color: #e6f2e6;
+            border-left-color: #2d7a6e;
+        }
+        
+        .locker-info {
+            background-color: #fff0e0;
+            border-left: 4px solid #ff8c00;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .currency-note {
+            background-color: #fff9e6;
+            border-left: 4px solid #f0b400;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+
+        /* ===== БУРГЕР-МЕНЮ ===== */
+        .burger-menu {
+            position: relative;
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 30px;
+            z-index: 100;
+        }
+
+        #menu-toggle {
+            display: none;
+        }
+
+        .menu-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: #b03e3e; /* красный квадрат */
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .menu-btn:hover {
+            background-color: #8c2e2e;
+        }
+
+        .menu-btn span,
+        .menu-btn span::before,
+        .menu-btn span::after {
+            display: block;
+            width: 30px;
+            height: 3px;
+            background-color: white;
+            border-radius: 3px;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .menu-btn span::before {
+            content: '';
+            top: -8px;
+            position: absolute;
+        }
+
+        .menu-btn span::after {
+            content: '';
+            top: 8px;
+            position: absolute;
+        }
+
+        #menu-toggle:checked + .menu-btn span {
+            background: transparent;
+        }
+
+        #menu-toggle:checked + .menu-btn span::before {
+            transform: rotate(45deg);
+            top: 0;
+        }
+
+        #menu-toggle:checked + .menu-btn span::after {
+            transform: rotate(-45deg);
+            top: 0;
+        }
+
+        .menu-box {
+            position: absolute;
+            top: 60px;
+            right: 0;
+            width: 220px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            padding: 10px 0;
+            list-style: none;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: 0.3s;
+            z-index: 99;
+        }
+
+        #menu-toggle:checked ~ .menu-box {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .menu-box li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu-box a {
+            display: block;
+            padding: 12px 20px;
+            color: #2d2d2d;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .menu-box a:hover {
+            background-color: #f5f2eb;
+        }
+
+        .menu-box a.active {
+            background-color: #b03e3e;
+            color: white;
+        }
+
+        /* Адаптация для мобильных */
+        @media (max-width: 768px) {
+            .menu-box {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="trip-card">
+        <!-- Бургер-меню (текущая страница – Шанхай) -->
+        <div class="burger-menu">
+            <input id="menu-toggle" type="checkbox" />
+            <label class="menu-btn" for="menu-toggle">
+                <span></span>
+            </label>
+            <ul class="menu-box">
+                <li><a href="index.html">🏠 Главная</a></li>
+                <li><a href="osaka.html">🌆 Осака</a></li>
+                <li><a href="fuji.html">🗻 Фудзи</a></li>
+                <li><a href="tokyo.html">🗼 Токио</a></li>
+                <li><a href="shanghai.html" class="active">🏙 Шанхай</a></li>
+                <li><a href="toilet-map.html">🚽 Карта туалетов</a></li>
+                <li><a href="visa.html">🛂 Всё для визы</a></li>
+            </ul>
+        </div>
+
+        <!-- Шапка города -->
+        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
+            <span style="font-size: 4rem;">🏙️</span>
+            <div>
+                <h1 style="text-align: left; margin: 0; font-size: 3rem;">Шанхай</h1>
+                <p style="color: #6b5a4a; margin: 5px 0 0; font-size: 1.2rem;">Транзит • 25–26 мая 2026 (1 ночь)</p>
+            </div>
+        </div>
+
+        <!-- Курс валют (юань → рубль) -->
+        <div class="currency-note">
+            <strong>💱 КУРС ВАЛЮТ (расчётный):</strong> 1 китайский юань (CNY) ≈ 14 рублей (RUB). Все цены указаны в юанях и рублях для удобства планирования.
+        </div>
+
+        <!-- Бейджи -->
+        <div style="margin-bottom: 20px;">
+            <span class="city-badge">🏨 Ramada Plaza Pudong Airport</span>
+            <span class="city-badge">🛍 Florentia Village Outlet</span>
+            <span class="city-badge">🗼 Shanghai Tower (по погоде)</span>
+            <span class="city-badge">🌉 Набережная Вайтань</span>
+            <span class="city-badge">🎒 Камера хранения в аэропорту</span>
+        </div>
+
+        <!-- ИНФОРМАЦИЯ ОБ ОТЕЛЕ -->
+        <div class="hotel-info">
+            <h3 style="margin-top: 0; color: #2d7a6e;">🏨 RAMADA PLAZA SHANGHAI PUDONG AIRPORT</h3>
+            <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: space-between;">
+                <div>
+                    <p><strong>Ramada Plaza Shanghai Pudong Airport ⭐⭐⭐⭐</strong></p>
+                    <p>📍 <strong>Адрес:</strong> 1100 Qi Hang Road, Pudong Airport, Пудун, Шанхай, Китай</p>
+                    <p>📅 <strong>Заезд:</strong> 25 мая с 14:00 | <strong>Выезд:</strong> 26 мая до 12:00</p>
+                    <p><em>Фактически выезжаем в 7:30–8:00 утра 26 мая</em></p>
+                </div>
+                <div>
+                    <p><strong>🚉 Расположение:</strong></p>
+                    <p>• Рядом с аэропортом Пудун (PVG) — 5–10 мин на такси</p>
+                    <p>• Бесплатный трансфер до аэропорта (уточнить в отеле)</p>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <a class="map-button" href="https://www.google.com/maps/search/1100+Qi+Hang+Road+Shanghai" target="_blank" style="background-color: #2d7a6e;">🗺 На карте</a>
+                    <a class="map-button" href="https://www.booking.com/Share-8FxhAs" target="_blank" style="background-color: #003580;">🔗 Booking.com</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ИНФОРМАЦИЯ О КАМЕРЕ ХРАНЕНИЯ ===== -->
+        <div class="locker-info">
+            <h4 style="margin-top: 0; color: #ff8c00;">🎒 КАМЕРА ХРАНЕНИЯ В АЭРОПОРТУ ПУДУН (PVG)</h4>
+            <p>В аэропорту Пудун есть камеры хранения, работающие до полуночи.</p>
+            
+            <div style="background-color: white; padding: 12px; border-radius: 6px; margin: 10px 0;">
+                <div class="route-detail"><span>📍 Где искать:</span><span>Уровень прибытия (1 этаж) в терминалах T1 и T2</span></div>
+                <div class="route-detail"><span>🕒 Часы работы:</span><span>6:00–24:00</span></div>
+                <div class="route-detail"><span>💰 Цены (на 4 часа):</span><span>маленькая сумка ¥20 ≈ 280 ₽, большой чемодан ¥50 ≈ 700 ₽</span></div>
+                <div class="route-detail"><span>💳 Оплата:</span><span>наличные юани или WeChat Pay</span></div>
+            </div>
+            
+            <p><strong>Важно:</strong> Забрать вещи нужно до полуночи. Мы прилетаем в 16:15 и заберём чемоданы около 23:00–23:30 — успеваем!</p>
+        </div>
+
+        <!-- ===== ДЕНЬ 15 (25 мая): ПРИЛЁТ И ШОПИНГ ===== -->
+        <div class="day-highlight">
+            <h3>✈️ День 15 · 25 мая (пн) — Прилёт в Шанхай + аутлет Florentia Village</h3>
+            
+            <div class="route-card">
+                <div class="route-title">✈️ ПЕРЕЛЁТ ТОКИО → ШАНХАЙ:</div>
+                <div class="route-detail"><span>Вылет из Нариты (NRT, терминал 2)</span><span>13:50</span></div>
+                <div class="route-detail"><span>Прилёт в Пудун (PVG, терминал 1)</span><span>16:15</span></div>
+                <div class="route-detail"><span>Рейс MU-524 (China Eastern Airlines)</span><span></span></div>
+            </div>
+            
+            <div class="route-card">
+                <div class="route-title">🚗 ПЛАН ПОСЛЕ ПРИЛЁТА:</div>
+                
+                <p><strong>16:15–17:15</strong> — Паспортный контроль + получение багажа</p>
+                <p><strong>17:15–17:45</strong> — 🎒 Камера хранения в аэропорту (¥50 ≈ 700 ₽ за чемодан)</p>
+                <p><strong>17:45–18:30</strong> — 🚗 Такси до аутлета (¥50–80 ≈ 700–1120 ₽)</p>
+                <p><strong>18:30–20:30</strong> — 🛍 Шопинг в Florentia Village (до 21:30)</p>
+            </div>
+            
+            <!-- Florentia Village -->
+            <div class="attraction-card">
+                <img src="https://via.placeholder.com/650x400?text=Florentia+Village+Outlet" alt="Florentia Village">
+                <div class="attraction-title">🛍 Florentia Village — аутлет премиум-класса</div>
+                <span class="attraction-badge">шопинг</span>
+                <p>Итальянский аутлет-деревня рядом с аэропортом Пудун. Более 150 брендов: Prada, Gucci, Armani, Zegna и другие.</p>
+                <div class="price-info" style="margin: 10px 0;">
+                    <div class="price-item"><span>🕒 Часы работы</span><span>9:30–21:30</span></div>
+                    <div class="price-item"><span>🚌 Бесплатный шаттл</span><span>от аэропорта (уточнить)</span></div>
+                </div>
+                <a class="map-button" href="https://www.google.com/maps/search/Florentia+Village+Pudong+Shanghai" target="_blank" style="background-color: #2d7a6e;">🗺 На карте</a>
+            </div>
+            
+            <div class="transport-note">
+                <strong>🍽 Ужин:</strong> В аутлете есть фуд-корт и рестораны. Рекомендуем поесть здесь, чтобы не терять время.
+            </div>
+        </div>
+
+        <!-- ===== ВЕЧЕР 25 МАЯ — ДАЛЬШЕ ПО ПОГОДЕ ===== -->
+        <div style="margin: 30px 0 20px;">
+            <h4 style="color: #2d7a6e; border-bottom: 1px solid #efebe5; padding-bottom: 10px;">🌦 ДАЛЬШЕ ПО ПОГОДЕ (проверяем прогноз перед вылетом из Токио)</h4>
+            <p><em>От аутлета дальнейший маршрут зависит от погоды. Два сценария:</em></p>
+        </div>
+
+        <!-- СЦЕНАРИЙ А: ЯСНО (Shanghai Tower) -->
+        <div class="scenario-card scenario-a">
+            <h4 style="margin-top: 0; color: #0066cc;">☀️ СЦЕНАРИЙ А: ХОРОШАЯ ПОГОДА — Shanghai Tower</h4>
+            
+            <div class="attraction-card" style="margin-top: 10px;">
+                <img src="https://via.placeholder.com/650x400?text=Shanghai+Tower" alt="Shanghai Tower">
+                <div class="attraction-title">🗼 Shanghai Tower — самая высокая башня Китая</div>
+                <span class="attraction-badge">¥180–220 ≈ 2520–3080 ₽</span>
+                <p>Подъём на 118–119 этаж, панорамный вид на город. Ночной Шанхай особенно красив.</p>
+                <div class="price-info" style="margin: 10px 0;">
+                    <div class="price-item"><span>🕒 Часы работы</span><span>8:30–22:00 (вход до 21:30)</span></div>
+                    <div class="price-item"><span>⏱ Время подъёма</span><span>55 секунд</span></div>
+                    <div class="price-item"><span>📍 Адрес</span><span>No. 501 Yincheng Road, Lujiazui</span></div>
+                </div>
+                <a class="map-button" href="https://www.google.com/maps/search/Shanghai+Tower" target="_blank" style="background-color: #0066cc;">🗺 На карте</a>
+            </div>
+            
+            <div class="route-card" style="background-color: white; margin-top: 10px;">
+                <div class="route-detail"><span>20:30</span><span>Выход из аутлета</span></div>
+                <div class="route-detail"><span>20:30–21:10</span><span>Такси до Shanghai Tower (¥80–100 ≈ 1120–1400 ₽)</span></div>
+                <div class="route-detail"><span>21:30</span><span>Вход в башню (последний вход)</span></div>
+                <div class="route-detail"><span>22:30–23:00</span><span>Спуск, выход</span></div>
+                <div class="route-detail"><span>23:00–23:30</span><span>Такси до аэропорта (¥100–120 ≈ 1400–1680 ₽)</span></div>
+                <div class="route-detail"><span>23:30</span><span>Забираем чемоданы (камера до 24:00)</span></div>
+                <div class="route-detail"><span>23:45</span><span>Трансфер в Ramada Plaza (бесплатно или ¥50)</span></div>
+            </div>
+            
+            <div class="total-day" style="background-color: #0066cc;">
+                <span>💰 БЮДЖЕТ НА СЦЕНАРИЙ А:</span>
+                <span>¥550–620 + билет ≈ ¥730–840 ≈ 10220–11760 ₽</span>
+            </div>
+        </div>
+
+        <!-- СЦЕНАРИЙ Б: ПАСМУРНО (The Bund) -->
+        <div class="scenario-card scenario-b">
+            <h4 style="margin-top: 0; color: #2d7a6e;">☁️ СЦЕНАРИЙ Б: ПАСМУРНО / ДОЖДЬ — Набережная Вайтань (The Bund)</h4>
+            
+            <div class="attraction-card" style="margin-top: 10px;">
+                <img src="https://via.placeholder.com/650x400?text=The+Bund+Shanghai" alt="The Bund">
+                <div class="attraction-title">🌉 Набережная Вайтань (The Bund)</div>
+                <span class="attraction-badge">бесплатно</span>
+                <p>Знаменитая набережная с видом на небоскрёбы Пудуна. В пасмурную погоду — особенно атмосферно.</p>
+                <div class="price-info" style="margin: 10px 0;">
+                    <div class="price-item"><span>🕒 Часы работы</span><span>круглосуточно, подсветка до ~23:00</span></div>
+                </div>
+                <a class="map-button" href="https://www.google.com/maps/search/The+Bund+Shanghai" target="_blank" style="background-color: #2d7a6e;">🗺 На карте</a>
+            </div>
+            
+            <div class="route-card" style="background-color: white; margin-top: 10px;">
+                <div class="route-detail"><span>20:30</span><span>Выход из аутлета</span></div>
+                <div class="route-detail"><span>20:30–21:10</span><span>Такси до The Bund (¥100–120 ≈ 1400–1680 ₽)</span></div>
+                <div class="route-detail"><span>21:10–22:30</span><span>Прогулка по набережной</span></div>
+                <div class="route-detail"><span>22:30–23:00</span><span>Такси до аэропорта (¥120–150 ≈ 1680–2100 ₽)</span></div>
+                <div class="route-detail"><span>23:30</span><span>Забираем чемоданы</span></div>
+                <div class="route-detail"><span>23:45</span><span>Трансфер в Ramada Plaza</span></div>
+            </div>
+            
+            <div class="total-day" style="background-color: #2d7a6e;">
+                <span>💰 БЮДЖЕТ НА СЦЕНАРИЙ Б:</span>
+                <span>¥220–270 ≈ 3080–3780 ₽</span>
+            </div>
+        </div>
+
+        <!-- ===== ДЕНЬ 16 (26 мая): ВЫЛЕТ ===== -->
+        <div class="day-highlight">
+            <h3>✈️ День 16 · 26 мая (вт) — Вылет в Москву</h3>
+            
+            <div class="route-card">
+                <div class="route-title">🏨 ОТЕЛЬ → АЭРОПОРТ:</div>
+                <p><strong>7:30</strong> — Выезд из Ramada Plaza</p>
+                <div class="route-detail"><span>Такси до аэропорта Пудун (PVG)</span><span>~¥50 ≈ 700 ₽ (5–10 мин)</span></div>
+                <p><em>В отеле можно узнать про бесплатный шаттл.</em></p>
+            </div>
+            
+            <div class="route-card">
+                <div class="route-title">✈️ ПЕРЕЛЁТ ШАНХАЙ → МОСКВА:</div>
+                <div class="route-detail"><span>Вылет из Пудуна (PVG, терминал 1)</span><span>9:25</span></div>
+                <div class="route-detail"><span>Прилёт в Шереметьево (SVO, терминал C)</span><span>14:25</span></div>
+                <div class="route-detail"><span>Рейс MU-247 (China Eastern Airlines)</span><span></span></div>
+            </div>
+            
+            <div class="transport-note">
+                <strong>⏰ Важно:</strong> В аэропорту нужно быть за 2 часа до вылета — в 7:25. Выезжаем в 7:00–7:30.
+            </div>
+        </div>
+
+        <!-- ===== ТАБЛИЦА РАСХОДОВ ===== -->
+        <h2>📊 Сводка расходов (Шанхай)</h2>
+        
+        <table>
+            <tr>
+                <th>Дата</th>
+                <th>Маршрут/Действие</th>
+                <th>Юани (CNY)</th>
+                <th>Рубли (≈)</th>
+            </tr>
+            <tr>
+                <td>25 мая</td>
+                <td>Камера хранения PVG (за чемодан)</td>
+                <td>¥50</td>
+                <td>700 ₽</td>
+            </tr>
+            <tr>
+                <td>25 мая</td>
+                <td>Аэропорт → Аутлет</td>
+                <td>¥50–80</td>
+                <td>700–1120 ₽</td>
+            </tr>
+            <tr>
+                <td>25 мая (А)</td>
+                <td>Аутлет → Shanghai Tower</td>
+                <td>¥80–100</td>
+                <td>1120–1400 ₽</td>
+            </tr>
+            <tr>
+                <td>25 мая (А)</td>
+                <td>Вход в Shanghai Tower</td>
+                <td>¥180–220</td>
+                <td>2520–3080 ₽</td>
+            </tr>
+            <tr>
+                <td>25 мая (А)</td>
+                <td>Башня → Аэропорт</td>
+                <td>¥100–120</td>
+                <td>1400–1680 ₽</td>
+            </tr>
+            <tr>
+                <td>25 мая (Б)</td>
+                <td>Аутлет → The Bund</td>
+                <td>¥100–120</td>
+                <td>1400–1680 ₽</td>
+            </tr>
+            <tr>
+                <td>25 мая (Б)</td>
+                <td>The Bund → Аэропорт</td>
+                <td>¥120–150</td>
+                <td>1680–2100 ₽</td>
+            </tr>
+            <tr>
+                <td>26 мая</td>
+                <td>Отель → Аэропорт</td>
+                <td>¥50</td>
+                <td>700 ₽</td>
+            </tr>
+            <tr style="font-weight: 700; background-color: #f0f0f0;">
+                <td colspan="3" style="text-align: right;">ИТОГО (сценарий А):</td>
+                <td>¥730–840 ≈ 10220–11760 ₽</td>
+            </tr>
+            <tr style="font-weight: 700; background-color: #f0f0f0;">
+                <td colspan="3" style="text-align: right;">ИТОГО (сценарий Б):</td>
+                <td>¥320–400 ≈ 4480–5600 ₽</td>
+            </tr>
+        </table>
+
+        <!-- ===== ПОЛЕЗНЫЕ СОВЕТЫ ===== -->
+        <div class="tip">
+            <strong>🏙 СОВЕТЫ ПО ШАНХАЮ:</strong><br><br>
+            
+            <p><strong>🎒 Камера хранения:</strong> В аэропорту Пудун работает до 24:00. Находится на 1 этаже в терминалах T1 и T2. Цены: маленькая сумка ¥20/4ч (≈280 ₽), большой чемодан ¥50/4ч (≈700 ₽). Оплата наличными или WeChat Pay.</p>
+            
+            <p><strong>🗼 Shanghai Tower:</strong> Билеты онлайн от ¥180–220 (≈2520–3080 ₽). Последний вход в 21:30. В ясную погоду вид отличный.</p>
+            
+            <p><strong>🛍 Аутлет Florentia Village:</strong> Работает до 21:30. На входе возьмите карту и купон на скидку.</p>
+            
+            <p><strong>📱 Полезные приложения:</strong> WeChat, Maps.me, VPN (обязательно).</p>
+            
+            <p><strong>🛂 Виза:</strong> Гражданам РФ нужна виза в Китай. Проверить правила ближе к дате.</p>
+        </div>
+
+        <!-- Подвал -->
+        <div class="footer">
+            <p>Шанхай — транзит с шопингом и ночными видами</p>
+            <p style="font-size: 0.9rem;">25–26 мая 2026 • аутлет + Shanghai Tower / The Bund по погоде</p>
+        </div>
+    </div>
+</body>
+  </html>
