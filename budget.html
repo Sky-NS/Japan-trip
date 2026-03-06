@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Общий бюджет путешествия</title>
+    <link rel="stylesheet" href="CSS/style.css">
+    <style>
+        .budget-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .budget-table th {
+            background-color: #b03e3e;
+            color: white;
+            font-weight: 600;
+            padding: 12px;
+            text-align: left;
+        }
+        .budget-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #efebe5;
+        }
+        .budget-table tr:last-child td {
+            border-bottom: none;
+        }
+        .budget-table tr:hover {
+            background-color: #f9f7f4;
+        }
+        .city-total {
+            background-color: #f0f0f0;
+            font-weight: 700;
+        }
+        .grand-total {
+            background-color: #2d7a6e;
+            color: white;
+            font-weight: 700;
+        }
+        .grand-total td {
+            color: white;
+        }
+        .currency-note {
+            background-color: #fff9e6;
+            border-left: 4px solid #f0b400;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+        .city-badge {
+            display: inline-block;
+            background-color: #2d7a6e;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="trip-card">
+        <!-- Бургер-меню (текущая страница – бюджет) -->
+        <div class="burger-menu">
+            <input id="menu-toggle" type="checkbox" />
+            <label class="menu-btn" for="menu-toggle">
+                <span></span>
+            </label>
+            <ul class="menu-box">
+                <li><a href="index.html">🏠 Главная</a></li>
+                <li><a href="osaka.html">🌆 Осака</a></li>
+                <li><a href="fuji.html">🗻 Фудзи</a></li>
+                <li><a href="tokyo.html">🗼 Токио</a></li>
+                <li><a href="shanghai.html">🏙 Шанхай</a></li>
+                <li><a href="toilet-map.html">🚽 Карта туалетов</a></li>
+                <li><a href="visa.html">🛂 Всё для визы</a></li>
+                <li><a href="budget.html" class="active">💰 Общий бюджет</a></li>
+            </ul>
+        </div>
+
+        <h1>💰 Общий бюджет путешествия</h1>
+        <p style="text-align: center; color: #6b5a4a;">Группа из 6 человек • 11–26 мая 2026</p>
+
+        <div class="currency-note">
+            <strong>💱 КУРС ВАЛЮТ (расчётный):</strong><br>
+            • 100 японских йен (JPY) ≈ 50 рублей (RUB)<br>
+            • 1 китайский юань (CNY) ≈ 14 рублей (RUB)<br>
+            Все суммы указаны в местной валюте и рублях. Опциональные расходы (где есть выбор) включены как диапазон.
+        </div>
+
+        <h2>📅 Расходы по дням</h2>
+        <table class="budget-table">
+            <thead>
+                <tr>
+                    <th>Дата</th>
+                    <th>Город</th>
+                    <th>Описание</th>
+                    <th>Местная валюта</th>
+                    <th>Рубли (≈)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- ОСАКА -->
+                <tr>
+                    <td>11 мая</td>
+                    <td>Осака</td>
+                    <td>Прилёт (трансфер)</td>
+                    <td>¥1170</td>
+                    <td>585 ₽</td>
+                </tr>
+                <tr>
+                    <td>12 мая</td>
+                    <td>Осака</td>
+                    <td>Город (транспорт + Umeda Sky)</td>
+                    <td>¥2070</td>
+                    <td>1035 ₽</td>
+                </tr>
+                <tr>
+                    <td>13 мая</td>
+                    <td>Осака</td>
+                    <td>Замок + Universal + Shinsekai</td>
+                    <td>¥11220</td>
+                    <td>5610 ₽</td>
+                </tr>
+                <tr>
+                    <td>14 мая</td>
+                    <td>Осака → Киото</td>
+                    <td>Фусими, Фунда-ин, Гион</td>
+                    <td>¥2680</td>
+                    <td>1340 ₽</td>
+                </tr>
+                <tr>
+                    <td>15 мая</td>
+                    <td>Осака → Киото</td>
+                    <td>Арасияма, лодка, Отаги, Кинкаку</td>
+                    <td>¥7580</td>
+                    <td>3790 ₽</td>
+                </tr>
+                <tr>
+                    <td>16 мая</td>
+                    <td>Осака → Нара</td>
+                    <td>Тодай-дзи, парк</td>
+                    <td>¥2440</td>
+                    <td>1220 ₽</td>
+                </tr>
+                <tr>
+                    <td>17 мая</td>
+                    <td>Осака → Кобе</td>
+                    <td>Кобе (половина дня, транспорт)</td>
+                    <td>¥1100</td>
+                    <td>550 ₽</td>
+                </tr>
+                <tr class="city-total">
+                    <td colspan="3" style="text-align: right;"><strong>ИТОГО Осака (без еды и опций):</strong></td>
+                    <td><strong>¥28260</strong></td>
+                    <td><strong>14130 ₽</strong></td>
+                </tr>
+
+                <!-- ФУДЗИ -->
+                <tr>
+                    <td>18 мая</td>
+                    <td>Фудзи</td>
+                    <td>Переезд Осака → Фудзи</td>
+                    <td>¥13900</td>
+                    <td>6950 ₽</td>
+                </tr>
+                <tr>
+                    <td>18 мая</td>
+                    <td>Фудзи</td>
+                    <td>Kasuitei Ooya (доля с группы)</td>
+                    <td>¥333–500</td>
+                    <td>165–250 ₽</td>
+                </tr>
+                <tr>
+                    <td>19 мая</td>
+                    <td>Фудзи</td>
+                    <td>Трансфер Хаконе (доля с группы)</td>
+                    <td>¥6667–8333</td>
+                    <td>3333–4165 ₽</td>
+                </tr>
+                <tr>
+                    <td>19 мая</td>
+                    <td>Фудзи</td>
+                    <td>Аренда электровелосипеда</td>
+                    <td>¥2500</td>
+                    <td>1250 ₽</td>
+                </tr>
+                <tr>
+                    <td>19 мая</td>
+                    <td>Фудзи</td>
+                    <td>Канатная дорога</td>
+                    <td>¥900</td>
+                    <td>450 ₽</td>
+                </tr>
+                <tr>
+                    <td>19 мая</td>
+                    <td>Фудзи</td>
+                    <td>Музей Куботы</td>
+                    <td>¥1300</td>
+                    <td>650 ₽</td>
+                </tr>
+                <tr>
+                    <td>19 мая</td>
+                    <td>Фудзи</td>
+                    <td>Kasuitei Ooya вечером (доля с группы)</td>
+                    <td>¥333–500</td>
+                    <td>165–250 ₽</td>
+                </tr>
+                <tr>
+                    <td>20 мая</td>
+                    <td>Фудзи</td>
+                    <td>Переезд в Токио</td>
+                    <td>¥2200–4130</td>
+                    <td>1100–2065 ₽</td>
+                </tr>
+                <tr class="city-total">
+                    <td colspan="3" style="text-align: right;"><strong>ИТОГО Фудзи (диапазон):</strong></td>
+                    <td><strong>¥25900–32000</strong></td>
+                    <td><strong>12950–16000 ₽</strong></td>
+                </tr>
+
+                <!-- ТОКИО -->
+                <tr>
+                    <td>20 мая</td>
+                    <td>Токио</td>
+                    <td>Переезд Фудзи → Токио (транспорт)</td>
+                    <td>¥2420</td>
+                    <td>1210 ₽</td>
+                </tr>
+                <tr>
+                    <td>21 мая</td>
+                    <td>Токио</td>
+                    <td>Асакуса / Skytree</td>
+                    <td>¥2880</td>
+                    <td>1440 ₽</td>
+                </tr>
+                <tr>
+                    <td>22 мая</td>
+                    <td>Токио</td>
+                    <td>Disney (группа А)</td>
+                    <td>¥9280</td>
+                    <td>4640 ₽</td>
+                </tr>
+                <tr>
+                    <td>22 мая</td>
+                    <td>Токио</td>
+                    <td>Сибуя (группа Б)</td>
+                    <td>¥800–2800</td>
+                    <td>400–1400 ₽</td>
+                </tr>
+                <tr>
+                    <td>23 мая</td>
+                    <td>Токио</td>
+                    <td>Камакура + Эносима</td>
+                    <td>¥4500–7000</td>
+                    <td>2250–3500 ₽</td>
+                </tr>
+                <tr>
+                    <td>24 мая</td>
+                    <td>Токио</td>
+                    <td>Синдзюку (со смотровыми опц.)</td>
+                    <td>¥660–5860</td>
+                    <td>330–2930 ₽</td>
+                </tr>
+                <tr class="city-total">
+                    <td colspan="3" style="text-align: right;"><strong>ИТОГО Токио (диапазон):</strong></td>
+                    <td><strong>¥12500–28000</strong></td>
+                    <td><strong>6250–14000 ₽</strong></td>
+                </tr>
+
+                <!-- ШАНХАЙ -->
+                <tr>
+                    <td>25 мая</td>
+                    <td>Шанхай</td>
+                    <td>Камера хранения (за чемодан)</td>
+                    <td>¥50</td>
+                    <td>700 ₽</td>
+                </tr>
+                <tr>
+                    <td>25 мая</td>
+                    <td>Шанхай</td>
+                    <td>Аэропорт → Аутлет</td>
+                    <td>¥50–80</td>
+                    <td>700–1120 ₽</td>
+                </tr>
+                <tr>
+                    <td>25 мая</td>
+                    <td>Шанхай</td>
+                    <td>Сценарий А (Shanghai Tower + такси)</td>
+                    <td>¥730–840</td>
+                    <td>10220–11760 ₽</td>
+                </tr>
+                <tr>
+                    <td>25 мая</td>
+                    <td>Шанхай</td>
+                    <td>Сценарий Б (The Bund + такси)</td>
+                    <td>¥320–400</td>
+                    <td>4480–5600 ₽</td>
+                </tr>
+                <tr>
+                    <td>26 мая</td>
+                    <td>Шанхай</td>
+                    <td>Отель → Аэропорт</td>
+                    <td>¥50</td>
+                    <td>700 ₽</td>
+                </tr>
+                <tr class="city-total">
+                    <td colspan="3" style="text-align: right;"><strong>ИТОГО Шанхай (сценарий А):</strong></td>
+                    <td><strong>¥880–1020</strong></td>
+                    <td><strong>12320–14280 ₽</strong></td>
+                </tr>
+                <tr class="city-total">
+                    <td colspan="3" style="text-align: right;"><strong>ИТОГО Шанхай (сценарий Б):</strong></td>
+                    <td><strong>¥470–580</strong></td>
+                    <td><strong>6580–8120 ₽</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>📊 Общий бюджет</h2>
+        <table class="budget-table">
+            <tr>
+                <th>Город</th>
+                <th>Минимум (руб)</th>
+                <th>Максимум (руб)</th>
+            </tr>
+            <tr>
+                <td>Осака</td>
+                <td>14130</td>
+                <td>14130</td>
+            </tr>
+            <tr>
+                <td>Фудзи</td>
+                <td>12950</td>
+                <td>16000</td>
+            </tr>
+            <tr>
+                <td>Токио</td>
+                <td>6250</td>
+                <td>14000</td>
+            </tr>
+            <tr>
+                <td>Шанхай (сценарий А)</td>
+                <td>12320</td>
+                <td>14280</td>
+            </tr>
+            <tr>
+                <td>Шанхай (сценарий Б)</td>
+                <td>6580</td>
+                <td>8120</td>
+            </tr>
+            <tr class="grand-total">
+                <td><strong>ВСЕГО (сценарий А)</strong></td>
+                <td><strong>14130 + 12950 + 6250 + 12320 = 45650 ₽</strong></td>
+                <td><strong>14130 + 16000 + 14000 + 14280 = 58410 ₽</strong></td>
+            </tr>
+            <tr class="grand-total">
+                <td><strong>ВСЕГО (сценарий Б)</strong></td>
+                <td><strong>14130 + 12950 + 6250 + 6580 = 39910 ₽</strong></td>
+                <td><strong>14130 + 16000 + 14000 + 8120 = 52250 ₽</strong></td>
+            </tr>
+        </table>
+
+        <div class="tip">
+            <strong>📌 Примечания:</strong><br>
+            • Все суммы указаны в расчёте на одного человека, если не указано иное.<br>
+            • В Осаку включены только обязательные входные билеты и транспорт (без еды и сувениров).<br>
+            • В Фудзи включены все запланированные активности (канатка, музей, онсэн).<br>
+            • В Токио для Disney и Сибуя показаны раздельные строки (выбирается один из вариантов).<br>
+            • В Шанхае два сценария в зависимости от погоды; итог зависит от выбранного вечернего маршрута.<br>
+            • Реальные расходы могут отличаться из-за курса валют и личных трат (еда, шопинг).
+        </div>
+
+        <!-- Подвал -->
+        <div class="footer">
+            <p>Общий бюджет поездки (предварительный)</p>
+            <p style="font-size: 0.9rem;">Курс: 100 JPY = 50 RUB, 1 CNY = 14 RUB</p>
+        </div>
+    </div>
+</body>
+</html>
