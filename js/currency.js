@@ -38,7 +38,7 @@ fetch('https://api.exchangerate.host/latest?base=JPY&symbols=RUB')
             // fallback на статический курс 0.5 (100 JPY = 50 RUB)
             updatePrices(0.5);
             if (document.getElementById('exchangeRatePlaceholder')) {
-                document.getElementById('exchangeRatePlaceholder').textContent = '100 JPY ≈ 50 RUB (офлайн)';
+                document.getElementById('exchangeRatePlaceholder').textContent = '100 JPY ≈ 50 RUB (офлайн на статический)';
             }
         }
     })
@@ -46,6 +46,6 @@ fetch('https://api.exchangerate.host/latest?base=JPY&symbols=RUB')
         // fallback при ошибке сети
         updatePrices(0.5);
         if (document.getElementById('exchangeRatePlaceholder')) {
-            document.getElementById('exchangeRatePlaceholder').textContent = '100 JPY ≈ 50 RUB (офлайн)';
+            document.getElementById('exchangeRatePlaceholder').textContent = '100 JPY ≈ 50 RUB (офлайн по ошибке)';
         }
     });
