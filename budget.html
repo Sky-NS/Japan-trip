@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Общий бюджет путешествия</title>
+    <link rel="stylesheet" href="CSS/style.css">
+    <style>
+        .budget-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .budget-table th {
+            background-color: #b03e3e;
+            color: white;
+            font-weight: 600;
+            padding: 12px;
+            text-align: left;
+        }
+        .budget-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #efebe5;
+        }
+        .budget-table tr:last-child td {
+            border-bottom: none;
+        }
+        .budget-table tr:hover {
+            background-color: #f9f7f4;
+        }
+        .city-total {
+            background-color: #f0f0f0;
+            font-weight: 700;
+        }
+        .grand-total {
+            background-color: #2d7a6e;
+            color: white;
+            font-weight: 700;
+        }
+        .grand-total td {
+            color: white;
+        }
+        .currency-note {
+            background-color: #fff9e6;
+            border-left: 4px solid #f0b400;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+        .burger-menu {
+            position: relative;
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 30px;
+            z-index: 100;
+        }
+        #menu-toggle { display: none; }
+        .menu-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: #b03e3e;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .menu-btn:hover { background-color: #8c2e2e; }
+        .menu-btn span,
+        .menu-btn span::before,
+        .menu-btn span::after {
+            display: block;
+            width: 30px;
+            height: 3px;
+            background-color: white;
+            border-radius: 3px;
+            transition: 0.3s;
+            position: relative;
+        }
+        .menu-btn span::before { content: ''; top: -8px; position: absolute; }
+        .menu-btn span::after { content: ''; top: 8px; position: absolute; }
+        #menu-toggle:checked + .menu-btn span { background: transparent; }
+        #menu-toggle:checked + .menu-btn span::before { transform: rotate(45deg); top: 0; }
+        #menu-toggle:checked + .menu-btn span::after { transform: rotate(-45deg); top: 0; }
+        .menu-box {
+            position: absolute;
+            top: 60px;
+            right: 0;
+            width: 220px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            padding: 10px 0;
+            list-style: none;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: 0.3s;
+            z-index: 99;
+        }
+        #menu-toggle:checked ~ .menu-box { opacity: 1; visibility: visible; transform: translateY(0); }
+        .menu-box li { margin: 0; padding: 0; }
+        .menu-box a {
+            display: block;
+            padding: 12px 20px;
+            color: #2d2d2d;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+        .menu-box a:hover { background-color: #f5f2eb; }
+        .menu-box a.active { background-color: #b03e3e; color: white; }
+        @media (max-width: 768px) { .menu-box { width: 200px; } }
+    </style>
+</head>
+<body>
+    <div class="trip-card">
+        <div class="burger-menu">
+            <input id="menu-toggle" type="checkbox" />
+            <label class="menu-btn" for="menu-toggle">
+                <span></span>
+            </label>
+            <ul class="menu-box">
+                <li><a href="index.html">🏠 Главная</a></li>
+                <li><a href="osaka.html">🌆 Осака</a></li>
+                <li><a href="fuji.html">🗻 Фудзи</a></li>
+                <li><a href="tokyo.html">🗼 Токио</a></li>
+                <li><a href="shanghai.html">🏙 Шанхай</a></li>
+                <li><a href="budget.html" class="active">💰 Общий бюджет</a></li>
+                <li><a href="toilet-map.html">🚽 Карта туалетов</a></li>
+                <li><a href="visa.html">🛂 Всё для визы</a></li>
+            </ul>
+        </div>
+
+        <h1>💰 Общий бюджет путешествия</h1>
+        <p style="text-align: center; color: #6b5a4a;">Группа из 6 человек • 11–26 мая 2026</p>
+
+        <div class="currency-note">
+            <strong>💱 КУРС ВАЛЮТ (расчётный):</strong><br>
+            • <span id="jpyRatePlaceholder">100 JPY ≈ загрузка...</span><br>
+            • <span id="cnyRatePlaceholder">1 CNY ≈ загрузка...</span>
+        </div>
+
+        <h2>📅 Расходы по дням</h2>
+        <table class="budget-table" id="budget-table">
+            <thead>
+                <tr>
+                    <th>Дата</th>
+                    <th>Город</th>
+                    <th>Описание</th>
+                    <th>Местная валюта</th>
+                    <th>Рубли (≈)</th>
+                 </>
+            </thead>
+            <tbody>
+                <!-- ОСАКА (JPY) -->
+                <tr><td>11 мая</td><td>Осака</td><td>Прилёт (трансфер)</td><td>¥<span data-jpy="1170">1170</span></td><td><span class="rub-value" data-jpy="1170"></span></td></tr>
+                <tr><td>12 мая</td><td>Осака</td><td>Город (транспорт + Umeda Sky)</td><td>¥<span data-jpy="2070">2070</span></td><td><span class="rub-value" data-jpy="2070"></span></td></tr>
+                <tr><td>13 мая</td><td>Осака</td><td>Замок + Universal + Shinsekai</td><td>¥<span data-jpy="11220">11220</span></td><td><span class="rub-value" data-jpy="11220"></span></td></tr>
+                <tr><td>14 мая</td><td>Осака → Киото</td><td>Фусими, Фунда-ин, Гион</td><td>¥<span data-jpy="2680">2680</span></td><td><span class="rub-value" data-jpy="2680"></span></td></tr>
+                <tr><td>15 мая</td><td>Осака → Киото</td><td>Арасияма, поезд, лодка, Отаги, Сайходзи</td><td>¥<span data-jpy="5880">5880</span></td><td><span class="rub-value" data-jpy="5880"></span></td></tr>
+                <tr><td>16 мая</td><td>Осака → Нара</td><td>Тодай-дзи, парк, Касуга-тайша</td><td>¥<span data-jpy="2440">2440</span>–<span data-jpy="2940">2940</span></td><td><span class="rub-range" data-min="2440" data-max="2940"></span></td></tr>
+                <tr><td>17 мая</td><td>Осака</td><td>Свободный день (Киото или Осака)</td><td>¥<span data-jpy="1000">1000</span>–<span data-jpy="3000">3000</span></td><td><span class="rub-range" data-min="1000" data-max="3000"></span></td></tr>
+                <tr class="city-total"><td colspan="3" style="text-align: right;"><strong>ИТОГО Осака (диапазон):</strong></td><td><strong>¥<span data-jpy="28460">28460</span>–<span data-jpy="30460">30460</span></strong></td><td><strong><span class="rub-range" data-min="28460" data-max="30460"></span></strong></td></tr>
+
+                <!-- ФУДЗИ (JPY) -->
+                <tr><td>18 мая</td><td>Фудзи</td><td>Переезд Осака → Фудзи</td><td>¥<span data-jpy="13900">13900</span></td><td><span class="rub-value" data-jpy="13900"></span></td></tr>
+                <tr><td>18 мая</td><td>Фудзи</td><td>Kasuitei Ooya (доля с группы)</td><td>¥<span data-jpy="333">333</span>–<span data-jpy="500">500</span></td><td><span class="rub-range" data-min="333" data-max="500"></span></td></tr>
+                <tr><td>19 мая</td><td>Фудзи</td><td>Трансфер Хаконе (доля с группы)</td><td>¥<span data-jpy="6667">6667</span>–<span data-jpy="8333">8333</span></td><td><span class="rub-range" data-min="6667" data-max="8333"></span></td></tr>
+                <tr><td>19 мая</td><td>Фудзи</td><td>Аренда электровелосипеда</td><td>¥<span data-jpy="2500">2500</span></td><td><span class="rub-value" data-jpy="2500"></span></td></tr>
+                <tr><td>19 мая</td><td>Фудзи</td><td>Канатная дорога</td><td>¥<span data-jpy="900">900</span></td><td><span class="rub-value" data-jpy="900"></span></td></tr>
+                <tr><td>19 мая</td><td>Фудзи</td><td>Музей Куботы</td><td>¥<span data-jpy="1300">1300</span></td><td><span class="rub-value" data-jpy="1300"></span></td></tr>
+                <tr><td>19 мая</td><td>Фудзи</td><td>Kasuitei Ooya вечером (доля с группы)</td><td>¥<span data-jpy="333">333</span>–<span data-jpy="500">500</span></td><td><span class="rub-range" data-min="333" data-max="500"></span></td></tr>
+                <tr><td>20 мая</td><td>Фудзи</td><td>Переезд в Токио</td><td>¥<span data-jpy="2200">2200</span>–<span data-jpy="4130">4130</span></td><td><span class="rub-range" data-min="2200" data-max="4130"></span></td></tr>
+                <tr class="city-total"><td colspan="3" style="text-align: right;"><strong>ИТОГО Фудзи (диапазон):</strong></td><td><strong>¥<span data-jpy="25900">25900</span>–<span data-jpy="32000">32000</span></strong></td><td><strong><span class="rub-range" data-min="25900" data-max="32000"></span></strong></td></tr>
+
+                <!-- ТОКИО (JPY) -->
+                <tr><td>20 мая</td><td>Токио</td><td>Переезд Фудзи → Токио</td><td>¥<span data-jpy="2420">2420</span></td><td><span class="rub-value" data-jpy="2420"></span></td></tr>
+                <tr><td>21 мая</td><td>Токио</td><td>Асакуса / Skytree</td><td>¥<span data-jpy="2880">2880</span></td><td><span class="rub-value" data-jpy="2880"></span></td></tr>
+                <tr><td>22 мая</td><td>Токио</td><td>Disney (группа А)</td><td>¥<span data-jpy="9280">9280</span></td><td><span class="rub-value" data-jpy="9280"></span></td></tr>
+                <tr><td>22 мая</td><td>Токио</td><td>Сибуя (группа Б)</td><td>¥<span data-jpy="800">800</span>–<span data-jpy="2800">2800</span></td><td><span class="rub-range" data-min="800" data-max="2800"></span></td></tr>
+                <tr><td>23 мая</td><td>Токио</td><td>Камакура + Эносима</td><td>¥<span data-jpy="4500">4500</span>–<span data-jpy="7000">7000</span></td><td><span class="rub-range" data-min="4500" data-max="7000"></span></td></tr>
+                <tr><td>24 мая</td><td>Токио</td><td>Синдзюку (со смотровыми опц.)</td><td>¥<span data-jpy="660">660</span>–<span data-jpy="5860">5860</span></td><td><span class="rub-range" data-min="660" data-max="5860"></span></td></tr>
+                <tr class="city-total"><td colspan="3" style="text-align: right;"><strong>ИТОГО Токио (диапазон):</strong></td><td><strong>¥<span data-jpy="12500">12500</span>–<span data-jpy="28000">28000</span></strong></td><td><strong><span class="rub-range" data-min="12500" data-max="28000"></span></strong></td></tr>
+
+                <!-- ШАНХАЙ (CNY) -->
+                <tr><td>25 мая</td><td>Шанхай</td><td>Камера хранения (за чемодан)</td><td>¥<span data-cny="50">50</span></td><td><span class="rub-value-cny" data-cny="50"></span></td></tr>
+                <tr><td>25 мая</td><td>Шанхай</td><td>Аэропорт → Аутлет</td><td>¥<span data-cny="50">50</span>–<span data-cny="80">80</span></td><td><span class="rub-range-cny" data-min="50" data-max="80"></span></td></tr>
+                <tr><td>25 мая (А)</td><td>Шанхай</td><td>Сценарий А (Shanghai Tower + такси)</td><td>¥<span data-cny="730">730</span>–<span data-cny="840">840</span></td><td><span class="rub-range-cny" data-min="730" data-max="840"></span></td></tr>
+                <tr><td>25 мая (Б)</td><td>Шанхай</td><td>Сценарий Б (The Bund + такси)</td><td>¥<span data-cny="320">320</span>–<span data-cny="400">400</span></td><td><span class="rub-range-cny" data-min="320" data-max="400"></span></td></tr>
+                <tr><td>26 мая</td><td>Шанхай</td><td>Отель → Аэропорт</td><td>¥<span data-cny="50">50</span></td><td><span class="rub-value-cny" data-cny="50"></span></td></tr>
+                <tr class="city-total"><td colspan="3" style="text-align: right;"><strong>ИТОГО Шанхай (сценарий А):</strong></td><td><strong>¥<span data-cny="880">880</span>–<span data-cny="1020">1020</span></strong></td><td><strong><span class="rub-range-cny" data-min="880" data-max="1020"></span></strong></td></tr>
+                <tr class="city-total"><td colspan="3" style="text-align: right;"><strong>ИТОГО Шанхай (сценарий Б):</strong></td><td><strong>¥<span data-cny="470">470</span>–<span data-cny="580">580</span></strong></td><td><strong><span class="rub-range-cny" data-min="470" data-max="580"></span></strong></td></tr>
+            </tbody>
+         </table>
+
+        <h2>📊 Общий бюджет</h2>
+        <table class="budget-table">
+            <thead><tr><th>Город</th><th>Минимум (руб)</th><th>Максимум (руб)</th></tr></thead>
+            <tbody>
+                <tr><td>Осака</td><td id="osaka-min">–</td><td id="osaka-max">–</td></tr>
+                <tr><td>Фудзи</td><td id="fuji-min">–</td><td id="fuji-max">–</td></tr>
+                <tr><td>Токио</td><td id="tokyo-min">–</td><td id="tokyo-max">–</td></tr>
+                <tr><td>Шанхай (сценарий А)</td><td id="shanghai-a-min">–</td><td id="shanghai-a-max">–</td></tr>
+                <tr><td>Шанхай (сценарий Б)</td><td id="shanghai-b-min">–</td><td id="shanghai-b-max">–</td></tr>
+                <tr class="grand-total"><td><strong>ВСЕГО (сценарий А)</strong></td><td id="total-a-min">–</td><td id="total-a-max">–</td></tr>
+                <tr class="grand-total"><td><strong>ВСЕГО (сценарий Б)</strong></td><td id="total-b-min">–</td><td id="total-b-max">–</td></tr>
+            </tbody>
+        </table>
+
+        <div class="tip">
+            <strong>📌 Примечания:</strong><br>
+            • Все суммы указаны в расчёте на одного человека.<br>
+            • В Осаку включены только обязательные входные билеты и транспорт.<br>
+            • В Фудзи включены все запланированные активности.<br>
+            • В Токио учтён вариант с Disney (группа А) и Сибуя (группа Б).<br>
+            • В Шанхае два сценария в зависимости от погоды.<br>
+            • Курс обновляется автоматически из открытых API.
+        </div>
+
+        <div class="footer">
+            <p>Общий бюджет поездки (предварительный)</p>
+            <p style="font-size: 0.9rem;">Курс обновляется автоматически</p>
+        </div>
+    </div>
+
+    <script src="js/rates.js"></script>
+    <script>
+        function updateTotals() {
+            function parseRange(text) {
+                let match = text.match(/≈\s*(\d+)\D+(\d+)/);
+                if (match) return { min: parseInt(match[1]), max: parseInt(match[2]) };
+                let num = parseInt(text.replace(/[^\d]/g, ''));
+                return { min: num, max: num };
+            }
+            
+            const totals = document.querySelectorAll('.city-total');
+            if (totals.length < 5) return;
+            
+            const osaka = parseRange(totals[0].querySelector('td:last-child').textContent);
+            const fuji = parseRange(totals[1].querySelector('td:last-child').textContent);
+            const tokyo = parseRange(totals[2].querySelector('td:last-child').textContent);
+            const shA = parseRange(totals[3].querySelector('td:last-child').textContent);
+            const shB = parseRange(totals[4].querySelector('td:last-child').textContent);
+            
+            document.getElementById('osaka-min').textContent = osaka.min + ' ₽';
+            document.getElementById('osaka-max').textContent = osaka.max + ' ₽';
+            document.getElementById('fuji-min').textContent = fuji.min + ' ₽';
+            document.getElementById('fuji-max').textContent = fuji.max + ' ₽';
+            document.getElementById('tokyo-min').textContent = tokyo.min + ' ₽';
+            document.getElementById('tokyo-max').textContent = tokyo.max + ' ₽';
+            document.getElementById('shanghai-a-min').textContent = shA.min + ' ₽';
+            document.getElementById('shanghai-a-max').textContent = shA.max + ' ₽';
+            document.getElementById('shanghai-b-min').textContent = shB.min + ' ₽';
+            document.getElementById('shanghai-b-max').textContent = shB.max + ' ₽';
+            
+            document.getElementById('total-a-min').textContent = (osaka.min + fuji.min + tokyo.min + shA.min) + ' ₽';
+            document.getElementById('total-a-max').textContent = (osaka.max + fuji.max + tokyo.max + shA.max) + ' ₽';
+            document.getElementById('total-b-min').textContent = (osaka.min + fuji.min + tokyo.min + shB.min) + ' ₽';
+            document.getElementById('total-b-max').textContent = (osaka.max + fuji.max + tokyo.max + shB.max) + ' ₽';
+        }
+        
+        setTimeout(updateTotals, 1000);
+        const observer = new MutationObserver(updateTotals);
+        observer.observe(document.body, { childList: true, subtree: true, characterData: true });
+    </script>
+</body>
+                  </html>
