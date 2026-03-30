@@ -47,6 +47,6 @@ fetch('https://api.frankfurter.app/latest?from=JPY&to=RUB')
         // fallback при ошибке сети
         updatePrices(0.5);
         if (document.getElementById('exchangeRatePlaceholder')) {
-            document.getElementById('exchangeRatePlaceholder').textContent = '100 JPY ≈ 50 RUB (офлайн по ошибке)';
+            document.getElementById('exchangeRatePlaceholder').textContent = '100 JPY ≈ 50 RUB (офлайн выставлен статичный курс по ошибке)';
         }
     });
