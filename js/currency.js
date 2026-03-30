@@ -27,12 +27,12 @@ function updatePrices(rubPerJpy) {
     }
 }
 
-// Запрос к API Frankfurter (поддерживает CORS)
-fetch('https://api.frankfurter.app/latest?from=JPY&to=RUB')
+// Запрос к currency-api на jsDelivr (поддерживает CORS, нет ключа)
+fetch('https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/jpy/rub.json')
     .then(response => response.json())
     .then(data => {
-        if (data && data.rates && data.rates.RUB) {
-            const rubPerJpy = data.rates.RUB;
+        if (data && data.rub) {
+            const rubPerJpy = data.rub;   // здесь уже курс 1 JPY в RUB
             updatePrices(rubPerJpy);
         } else {
             // fallback на статический курс 0.5 (100 JPY = 50 RUB)
@@ -47,6 +47,6 @@ fetch('https://api.frankfurter.app/latest?from=JPY&to=RUB')
         // fallback при ошибке сети
         updatePrices(0.5);
         if (document.getElementById('exchangeRatePlaceholder')) {
-            document.getElementById('exchangeRatePlaceholder').textContent = '100 JPY ≈ 50 RUB (офлайн выставлен статичный курс по ошибке)';
+            document.getElementById('exchangeRatePlaceholder').textContent = '100 JPY ≈ 50 RUB (офлайн, статический курс по ошибке)';
         }
     });
