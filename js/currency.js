@@ -9,7 +9,7 @@ function updatePrices(rubPerJpy) {
         }
     });
 
-    // Обновляем диапазонные цены (элементы с классом rub-range и атрибутами data-min / data-max)
+    // Обновляем диапазонные цены
     document.querySelectorAll('.rub-range').forEach(el => {
         let minJpy = parseFloat(el.getAttribute('data-min'));
         let maxJpy = parseFloat(el.getAttribute('data-max'));
@@ -20,15 +20,15 @@ function updatePrices(rubPerJpy) {
         }
     });
 
-    // Обновляем блок с курсом валют (если есть)
+    // Обновляем блок с курсом
     let rateDisplay = document.getElementById('exchangeRatePlaceholder');
     if (rateDisplay) {
         rateDisplay.textContent = `100 JPY ≈ ${Math.round(100 * rubPerJpy)} RUB`;
     }
 }
 
-// Запрос к API exchangerate.host (бесплатный, без ключа)
-fetch('https://api.exchangerate.host/latest?base=JPY&symbols=RUB')
+// Запрос к API Frankfurter (поддерживает CORS)
+fetch('https://api.frankfurter.app/latest?from=JPY&to=RUB')
     .then(response => response.json())
     .then(data => {
         if (data && data.rates && data.rates.RUB) {
@@ -38,14 +38,15 @@ fetch('https://api.exchangerate.host/latest?base=JPY&symbols=RUB')
             // fallback на статический курс 0.5 (100 JPY = 50 RUB)
             updatePrices(0.5);
             if (document.getElementById('exchangeRatePlaceholder')) {
-                document.getElementById('exchangeRatePlaceholder').textContent = '100 JPY ≈ 50 RUB (офлайн на статический)';
+                document.getElementById('exchangeRatePlaceholder').textContent = '100 JPY ≈ 50 RUB (офлайн)';
             }
         }
     })
-    .catch(() => {
+    .catch(error => {
+        console.error('Ошибка получения курса:', error);
         // fallback при ошибке сети
         updatePrices(0.5);
         if (document.getElementById('exchangeRatePlaceholder')) {
-            document.getElementById('exchangeRatePlaceholder').textContent = '100 JPY ≈ 50 RUB (офлайн по ошибке)';
+            document.getElementById('exchangeRatePlaceholder').textContent = '100 JPY ≈ 50 RUB (офлайн)';
         }
     });
