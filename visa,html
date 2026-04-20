@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>😺 Котик в наушниках</title>
+    <link rel="stylesheet" href="CSS/style.css">
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #1a1a2e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+        }
+        .visa-replacement {
+            background: #16213e;
+            border-radius: 30px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            max-width: 600px;
+            width: 90%;
+        }
+        h1 {
+            color: #e94560;
+            margin-bottom: 10px;
+        }
+        .gif-container {
+            margin: 20px 0;
+        }
+        .gif-container img {
+            max-width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 0 30px #e94560;
+        }
+        .music-control {
+            margin: 20px 0;
+        }
+        .music-btn {
+            background: #0f3460;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 2px solid #e94560;
+        }
+        .music-btn:hover {
+            background: #e94560;
+        }
+        .note {
+            color: #aaa;
+            margin-top: 20px;
+        }
+        a {
+            color: #e94560;
+        }
+    </style>
+</head>
+<body>
+    <div class="visa-replacement">
+        <h1>🎧 Визовый кот отдыхает</h1>
+        <div class="gif-container">
+            <img src="images/cat-headphones.gif" alt="Котик в наушниках">
+        </div>
+        <div class="music-control">
+            <button id="musicToggle" class="music-btn">🔇 Включить музыку</button>
+        </div>
+        <p class="note">Фоновая музыка играет локально (music/background.mp3).<br>
+        Нажми на кнопку, чтобы включить/выключить.</p>
+        <p class="note">← <a href="index.html">Вернуться на главную</a></p>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="music/background.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const audio = document.getElementById('bgMusic');
+        const btn = document.getElementById('musicToggle');
+        let isPlaying = false;
+
+        btn.addEventListener('click', () => {
+            if (isPlaying) {
+                audio.pause();
+                btn.textContent = '🔇 Включить музыку';
+            } else {
+                audio.play().catch(e => {
+                    alert('Не удалось воспроизвести музыку. Проверьте файл music/background.mp3');
+                });
+                btn.textContent = '🔊 Выключить музыку';
+            }
+            isPlaying = !isPlaying;
+        });
+
+        // Если музыка не загружается, показать ошибку в консоли
+        audio.addEventListener('error', () => {
+            console.warn('Файл music/background.mp3 не найден или не поддерживается');
+        });
+    </script>
+</body>
+</html>
