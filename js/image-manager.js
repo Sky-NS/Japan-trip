@@ -1,143 +1,147 @@
-// Менеджер локальных изображений для карточек достопримечательностей
-// Имена файлов: images/{day}_{index}.jpg
-// Загруженные изображения сохраняются в localStorage в виде Data URL
-
+// Менеджер ссылок на изображения из внешнего JSON
 (function() {
-    const STORAGE_PREFIX = 'img_';
+    const JSON_URL = 'data/images.json';
+    let currentData = {};
+    let cityName = '';
 
-    // Функция получения ключа для localStorage
-    function getStorageKey(day, index) {
-        return STORAGE_PREFIX + day + '_' + index;
+    // Определяем текущий город по URL или атрибуту body
+    function detectCity() {
+        const path = window.location.pathname;
+        if (path.includes('osaka')) return 'osaka';
+        if (path.includes('fuji')) return 'fuji';
+        if (path.includes('tokyo')) return 'tokyo';
+        if (path.includes('shanghai')) return 'shanghai';
+        return null;
     }
 
-    // Создание кнопки загрузки
-    function createUploadButton(container, img, day, index) {
-        const btn = document.createElement('button');
-        btn.textContent = '📁 Загрузить изображение';
-        btn.className = 'upload-image-btn';
-        btn.style.cssText = `
-            display: block;
-            margin: 10px auto;
-            padding: 8px 16px;
-            background: #b03e3e;
-            color: white;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.9rem;
-        `;
-        
-        const fileInput = document.createElement('input');
-        fileInput.type = 'file';
-        fileInput.accept = 'image/jpeg,image/png,image/gif';
-        fileInput.style.display = 'none';
-        
-        btn.addEventListener('click', () => fileInput.click());
-        
-        fileInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
-            
-            const reader = new FileReader();
-            reader.onload = (ev) => {
-                const dataUrl = ev.target.result;
-                // Сохраняем в localStorage
-                try {
-                    localStorage.setItem(getStorageKey(day, index), dataUrl);
-                    img.src = dataUrl;
-                    // Удаляем кнопку, если она есть
-                    if (btn.parentNode) btn.remove();
-                    // Показываем подсказку о двойном клике
-                    showReplaceHint(container);
-                } catch (err) {
-                    alert('Ошибка сохранения: возможно, изображение слишком большое.');
-                }
-            };
-            reader.readAsDataURL(file);
-        });
-        
-        container.appendChild(btn);
-        container.appendChild(fileInput);
-    }
-
-    // Показать подсказку о замене по двойному клику
-    function showReplaceHint(container) {
-        let hint = container.querySelector('.replace-hint');
-        if (!hint) {
-            hint = document.createElement('small');
-            hint.className = 'replace-hint';
-            hint.style.cssText = 'display:block; text-align:center; opacity:0.7; font-size:0.8rem; margin-top:5px;';
-            hint.textContent = '🖱️ Двойной клик по картинке — заменить';
-            container.appendChild(hint);
+    // Загрузка JSON
+    async function loadImageData() {
+        try {
+            const response = await fetch(JSON_URL);
+            if (!response.ok) throw new Error('JSON not loaded');
+            currentData = await response.json();
+        } catch (err) {
+            console.warn('Не удалось загрузить images.json, используется localStorage');
+            const saved = localStorage.getItem('imageLinks');
+            if (saved) {
+                currentData = JSON.parse(saved);
+            } else {
+                currentData = { [cityName]: {} };
+            }
         }
+        // Слияние с localStorage (приоритет у localStorage)
+        const saved = localStorage.getItem('imageLinks');
+        if (saved) {
+            const local = JSON.parse(saved);
+            if (local[cityName]) {
+                currentData[cityName] = { ...currentData[cityName], ...local[cityName] };
+            }
+        }
+        applyLinks();
     }
 
-    // Инициализация всех изображений на странице
-    function initImages() {
+    // Применение ссылок к карточкам
+    function applyLinks() {
         const cards = document.querySelectorAll('.attraction-card');
-        
         cards.forEach(card => {
             const img = card.querySelector('img');
             if (!img) return;
-            
             const day = card.dataset.day;
             const index = card.dataset.index;
-            if (!day || !index) {
-                console.warn('Карточка без data-day или data-index:', card);
-                return;
-            }
-            
-            // Создаём контейнер для картинки и кнопки
-            const imgContainer = document.createElement('div');
-            imgContainer.className = 'attraction-img-container';
-            img.parentNode.insertBefore(imgContainer, img);
-            imgContainer.appendChild(img);
-            
-            // Проверяем localStorage
-            const saved = localStorage.getItem(getStorageKey(day, index));
-            if (saved) {
-                img.src = saved;
-                showReplaceHint(imgContainer);
+            if (!day || !index) return;
+            const key = `${day}_${index}`;
+            const link = currentData[cityName]?.[key];
+            if (link) {
+                img.src = link;
             } else {
-                // Если изображение не загружено, оставляем src как есть (может быть локальный путь)
-                // Но если src пуст или битый, показываем кнопку загрузки
-                if (!img.src || img.src.endsWith('images/.jpg') || img.src === '') {
-                    createUploadButton(imgContainer, img, day, index);
-                } else {
-                    // Проверяем, загружено ли изображение с сервера (для локальных файлов)
-                    // Для локального запуска file:// проверка не сработает, поэтому просто доверяем src
-                    // Если нужно, можно добавить обработку onerror для показа кнопки при битой ссылке
-                    img.onerror = () => {
-                        createUploadButton(imgContainer, img, day, index);
-                    };
-                    showReplaceHint(imgContainer);
-                }
+                // Можно оставить заглушку или текущий src
             }
-            
-            // Двойной клик для замены
-            img.addEventListener('dblclick', () => {
-                const input = document.createElement('input');
-                input.type = 'file';
-                input.accept = 'image/jpeg,image/png,image/gif';
-                input.onchange = (e) => {
-                    const file = e.target.files[0];
-                    if (!file) return;
-                    const reader = new FileReader();
-                    reader.onload = (ev) => {
-                        const dataUrl = ev.target.result;
-                        localStorage.setItem(getStorageKey(day, index), dataUrl);
-                        img.src = dataUrl;
-                        // Убираем кнопку загрузки, если она есть
-                        const existingBtn = imgContainer.querySelector('.upload-image-btn');
-                        if (existingBtn) existingBtn.remove();
-                        showReplaceHint(imgContainer);
-                    };
-                    reader.readAsDataURL(file);
-                };
-                input.click();
+            // Добавляем подсказку
+            let hint = card.querySelector('.link-hint');
+            if (!hint) {
+                hint = document.createElement('small');
+                hint.className = 'link-hint';
+                hint.style.cssText = 'display:block; text-align:center; opacity:0.7; font-size:0.8rem; margin-top:5px;';
+                hint.textContent = '🖱️ Двойной клик — изменить ссылку';
+                card.appendChild(hint);
+            }
+        });
+    }
+
+    // Редактирование ссылки по двойному клику
+    function setupEditMode() {
+        document.querySelectorAll('.attraction-card').forEach(card => {
+            const img = card.querySelector('img');
+            if (!img) return;
+            img.addEventListener('dblclick', (e) => {
+                e.stopPropagation();
+                const day = card.dataset.day;
+                const index = card.dataset.index;
+                if (!day || !index) return;
+                const key = `${day}_${index}`;
+                const currentLink = currentData[cityName]?.[key] || '';
+                const newLink = prompt('Введите новую ссылку на изображение (URL):', currentLink);
+                if (newLink !== null) {
+                    // Сохраняем в объект
+                    if (!currentData[cityName]) currentData[cityName] = {};
+                    currentData[cityName][key] = newLink;
+                    // Обновляем картинку
+                    if (newLink) {
+                        img.src = newLink;
+                    } else {
+                        // Если пусто, можно вернуть исходную заглушку
+                        img.src = `images/${key}.jpg`; // fallback
+                    }
+                    // Сохраняем в localStorage
+                    localStorage.setItem('imageLinks', JSON.stringify(currentData));
+                    alert('Ссылка сохранена локально. Не забудьте экспортировать JSON и обновить файл в репозитории!');
+                }
             });
         });
     }
 
-    document.addEventListener('DOMContentLoaded', initImages);
+    // Кнопка экспорта JSON
+    function addExportButton() {
+        const btn = document.createElement('button');
+        btn.textContent = '📤 Экспорт ссылок (JSON)';
+        btn.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 999;
+            padding: 10px 20px;
+            background: #2d7a6e;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        `;
+        btn.onclick = () => {
+            const dataStr = JSON.stringify(currentData, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'images.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        };
+        document.body.appendChild(btn);
+    }
+
+    // Инициализация
+    async function init() {
+        cityName = detectCity();
+        if (!cityName) {
+            console.warn('Город не определён, менеджер изображений не запущен');
+            return;
+        }
+        await loadImageData();
+        setupEditMode();
+        addExportButton();
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
 })();
