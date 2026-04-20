@@ -1,0 +1,60 @@
+{
+  "osaka": {
+    "2_1": "images/2_1.jpg",
+    "2_2": "images/2_2.jpg",
+    "2_3": "images/2_3.jpg",
+    "2_4": "images/2_4.jpg",
+    "3_1": "images/3_1.jpg",
+    "3_2": "images/3_2.jpg",
+    "3_3": "images/3_3.jpg",
+    "4_1": "images/4_1.jpg",
+    "4_2": "images/4_2.jpg",
+    "4_3": "images/4_3.jpg",
+    "5_1": "images/5_1.jpg",
+    "5_2": "images/5_2.jpg",
+    "5_3": "images/5_3.jpg",
+    "5_4": "images/5_4.jpg",
+    "5_5": "images/5_5.jpg",
+    "6_1": "images/6_1.jpg",
+    "6_2": "images/6_2.jpg",
+    "6_3": "images/6_3.jpg"
+  },
+  "fuji": {
+    "8_1": "images/8_1.jpg",
+    "9_1": "images/9_1.jpg",
+    "9_4": "images/9_4.jpg",
+    "9_5": "images/9_5.jpg",
+    "9_6": "images/9_6.jpg",
+    "9_7": "images/9_7.jpg",
+    "9_8": "images/9_8.jpg",
+    "9_9": "images/9_9.jpg",
+    "9_10": "images/9_10.jpg",
+    "9_11": "images/9_11.jpg",
+    "9_12": "images/9_12.jpg",
+    "9_13": "images/9_13.jpg",
+    "9_14": "images/9_14.jpg",
+    "9_15": "images/9_15.jpg",
+    "9_16": "images/9_16.jpg",
+    "9_17": "images/9_17.jpg"
+  },
+  "tokyo": {
+    "11_1": "images/11_1.jpg",
+    "11_2": "images/11_2.jpg",
+    "11_3": "images/11_3.jpg",
+    "12_1": "images/12_1.jpg",
+    "12_2": "images/12_2.jpg",
+    "13_1": "images/13_1.jpg",
+    "13_2": "images/13_2.jpg",
+    "13_3": "images/13_3.jpg",
+    "13_4": "images/13_4.jpg",
+    "13_5": "images/13_5.jpg",
+    "14_1": "images/14_1.jpg",
+    "14_2": "images/14_2.jpg",
+    "14_3": "images/14_3.jpg"
+  },
+  "shanghai": {
+    "15_1": "images/15_1.jpg",
+    "15_2": "images/15_2.jpg",
+    "15_3": "images/15_3.jpg"
+  }
+}
