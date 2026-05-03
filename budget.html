@@ -30,7 +30,6 @@
         <h1>💰 Общий бюджет путешествия</h1>
         <p style="text-align: center; color: #6b5a4a;">Группа из 6 человек • 11–26 мая 2026</p>
 
-        <!-- Панель управления курсами -->
         <div class="currency-control">
             <div class="currency-input">
                 <label>🇯🇵 100 JPY =</label>
@@ -52,18 +51,18 @@
         <h2 id="daily">📅 Расходы по дням</h2>
         <table class="budget-table" id="budget-table">
             <thead>
-                <tr><th>Дата</th><th>Город</th><th>Описание</th><th>Местная валюта</th><th>Рубли (≈)</th>  </tr>
+                <tr><th>Дата</th><th>Город</th><th>Описание</th><th>Местная валюта</th><th>Рубли (≈)</th></tr>
             </thead>
             <tbody>
                 <!-- ОСАКА (JPY) -->
                 <tr><td>11 мая</td><td>Осака</td><td>Прилёт (трансфер)</td><td>¥1170</td><td class="rub-jpy" data-jpy="1170">≈ 585 ₽</td></tr>
                 <tr><td>12 мая</td><td>Осака</td><td>Город (транспорт + Umeda Sky)</td><td>¥2070</td><td class="rub-jpy" data-jpy="2070">≈ 1035 ₽</td></tr>
-                <tr><td>13 мая</td><td>Осака</td><td>Замок + Universal + Shinsekai</td><td>¥11220</td><td class="rub-jpy" data-jpy="11220">≈ 5610 ₽</td></tr>
-                <tr><td>14 мая</td><td>Осака → Киото</td><td>Фусими, Фунда-ин, Гион</td><td>¥2680</td><td class="rub-jpy" data-jpy="2680">≈ 1340 ₽</td></tr>
-                <tr><td>15 мая</td><td>Осака → Киото</td><td>Арасияма, поезд, лодка, Отаги, Сайходзи</td><td>¥5880</td><td class="rub-jpy" data-jpy="5880">≈ 2940 ₽</td></tr>
+                <tr><td>13 мая</td><td>Осака</td><td>Замок + Universal + Shinsekai</td><td>¥11320</td><td class="rub-jpy" data-jpy="11320">≈ 5660 ₽</td></tr>
+                <tr><td>14 мая</td><td>Осака → Киото</td><td>Арасияма, поезд, лодка, Отаги</td><td>¥8540</td><td class="rub-jpy" data-jpy="8540">≈ 4270 ₽</td></tr>
+                <tr><td>15 мая</td><td>Осака → Киото</td><td>Фусими, Фунда-ин, Гион</td><td>¥2680</td><td class="rub-jpy" data-jpy="2680">≈ 1340 ₽</td></tr>
                 <tr><td>16 мая</td><td>Осака → Нара</td><td>Тодай-дзи, парк, Касуга-тайша</td><td>¥2440–2940</td><td class="rub-range-jpy" data-min="2440" data-max="2940">≈ 1220–1470 ₽</td></tr>
                 <tr><td>17 мая</td><td>Осака</td><td>Свободный день (Киото или Осака)</td><td>¥1000–3000</td><td class="rub-range-jpy" data-min="1000" data-max="3000">≈ 500–1500 ₽</td></tr>
-                <tr class="city-total"><td colspan="3" style="text-align: right;"><strong>ИТОГО Осака (диапазон):</strong></td><td><strong>¥28460–30460</strong></td><td class="rub-range-jpy" id="osaka-total" data-min="28460" data-max="30460">≈ 14230–15230 ₽</td></tr>
+                <tr class="city-total"><td colspan="3" style="text-align: right;"><strong>ИТОГО Осака (диапазон):</strong></td><td><strong>¥29220–30720</strong></td><td class="rub-range-jpy" id="osaka-total" data-min="29220" data-max="30720">≈ 14610–15360 ₽</td></tr>
 
                 <!-- ФУДЗИ (JPY) -->
                 <tr><td>18 мая</td><td>Фудзи</td><td>Переезд Осака → Фудзи</td><td>¥13900</td><td class="rub-jpy" data-jpy="13900">≈ 6950 ₽</td></tr>
@@ -73,17 +72,18 @@
                 <tr><td>19 мая</td><td>Фудзи</td><td>Канатная дорога</td><td>¥900</td><td class="rub-jpy" data-jpy="900">≈ 450 ₽</td></tr>
                 <tr><td>19 мая</td><td>Фудзи</td><td>Музей Куботы</td><td>¥1300</td><td class="rub-jpy" data-jpy="1300">≈ 650 ₽</td></tr>
                 <tr><td>19 мая</td><td>Фудзи</td><td>Kasuitei Ooya вечером (доля с группы)</td><td>¥333–500</td><td class="rub-range-jpy" data-min="333" data-max="500">≈ 165–250 ₽</td></tr>
-                <tr><td>20 мая</td><td>Фудзи</td><td>Переезд в Токио</td><td>¥2200–4130</td><td class="rub-range-jpy" data-min="2200" data-max="4130">≈ 1100–2065 ₽</td></tr>
-                <tr class="city-total"><td colspan="3" style="text-align: right;"><strong>ИТОГО Фудзи (диапазон):</strong></td><td><strong>¥25900–32000</strong></td><td class="rub-range-jpy" id="fuji-total" data-min="25900" data-max="32000">≈ 12950–16000 ₽</td></tr>
+                <tr><td>20 мая</td><td>Фудзи</td><td>Переезд в Токио (поездом)</td><td>≈¥2710</td><td class="rub-jpy" data-jpy="2710">≈ 1355 ₽</td></tr>
+                <tr class="city-total"><td colspan="3" style="text-align: right;"><strong>ИТОГО Фудзи (диапазон):</strong></td><td><strong>¥28643–30643</strong></td><td class="rub-range-jpy" id="fuji-total" data-min="28643" data-max="30643">≈ 14321–15321 ₽</td></tr>
 
                 <!-- ТОКИО (JPY) -->
-                <tr><td>20 мая</td><td>Токио</td><td>Переезд Фудзи → Токио</td><td>¥2420</td><td class="rub-jpy" data-jpy="2420">≈ 1210 ₽</td></tr>
-                <tr><td>21 мая</td><td>Токио</td><td>Асакуса / Skytree</td><td>¥2880</td><td class="rub-jpy" data-jpy="2880">≈ 1440 ₽</td></tr>
-                <tr><td>22 мая</td><td>Токио</td><td>Disney (группа А)</td><td>¥9280</td><td class="rub-jpy" data-jpy="9280">≈ 4640 ₽</td></tr>
-                <tr><td>22 мая</td><td>Токио</td><td>Сибуя (группа Б)</td><td>¥800–2800</td><td class="rub-range-jpy" data-min="800" data-max="2800">≈ 400–1400 ₽</td></tr>
+                <tr><td>20 мая</td><td>Токио</td><td>Приезд + Skytree + Асакуса</td><td>¥5610</td><td class="rub-jpy" data-jpy="5610">≈ 2805 ₽</td></tr>
+                <tr><td>21 мая</td><td>Токио</td><td>Акихабара + Синдзюку</td><td>¥730</td><td class="rub-jpy" data-jpy="730">≈ 365 ₽</td></tr>
+                <tr><td>22 мая</td><td>Токио</td><td>Мэйдзи + TeamLab + Shibuya Sky</td><td>¥6260–7760</td><td class="rub-range-jpy" data-min="6260" data-max="7760">≈ 3130–3880 ₽</td></tr>
+                <tr><td>22 мая (А)</td><td>Токио</td><td>Disney (доп. для группы А)</td><td>+¥8400–9900</td><td class="rub-range-jpy" data-min="8400" data-max="9900">≈ 4200–4950 ₽</td></tr>
                 <tr><td>23 мая</td><td>Токио</td><td>Камакура + Эносима</td><td>¥4500–7000</td><td class="rub-range-jpy" data-min="4500" data-max="7000">≈ 2250–3500 ₽</td></tr>
-                <tr><td>24 мая</td><td>Токио</td><td>Синдзюку (со смотровыми опц.)</td><td>¥660–5860</td><td class="rub-range-jpy" data-min="660" data-max="5860">≈ 330–2930 ₽</td></tr>
-                <tr class="city-total"><td colspan="3" style="text-align: right;"><strong>ИТОГО Токио (диапазон):</strong></td><td><strong>¥12500–28000</strong></td><td class="rub-range-jpy" id="tokyo-total" data-min="12500" data-max="28000">≈ 6250–14000 ₽</td></tr>
+                <tr><td>24 мая</td><td>Токио</td><td>Свободный день (6 вариантов)</td><td>¥2000–5000</td><td class="rub-range-jpy" data-min="2000" data-max="5000">≈ 1000–2500 ₽</td></tr>
+                <tr><td>25 мая</td><td>Токио</td><td>Выезд в аэропорт Нарита</td><td>¥2790–3290</td><td class="rub-range-jpy" data-min="2790" data-max="3290">≈ 1395–1645 ₽</td></tr>
+                <tr class="city-total"><td colspan="3" style="text-align: right;"><strong>ИТОГО Токио (диапазон без Disney):</strong></td><td><strong>¥21890–29390</strong></td><td class="rub-range-jpy" id="tokyo-total" data-min="21890" data-max="29390">≈ 10945–14695 ₽</td></tr>
 
                 <!-- ШАНХАЙ (CNY) -->
                 <tr><td>25 мая</td><td>Шанхай</td><td>Камера хранения (за чемодан)</td><td>¥50</td><td class="rub-cny" data-cny="50">≈ 700 ₽</td></tr>
