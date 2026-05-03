@@ -293,7 +293,7 @@ a:hover {
     color: var(--text-secondary);
 }
 
-/* ----- УЛУЧШЕННЫЕ КАРТОЧКИ МАРШРУТОВ ----- */
+/* ----- УЛУЧШЕННЫЕ КАРТОЧКИ МАРШРУТОВ (КОМПАКТНЫЕ) ----- */
 .route-card {
     background-color: var(--bg-card);
     border: 1px solid var(--border-light);
@@ -313,24 +313,21 @@ a:hover {
     letter-spacing: -0.3px;
 }
 
+/* Подзаголовок этапа — теперь без фона, просто жирный текст */
 .route-stage {
-    font-weight: 600;
-    font-size: 1rem;
+    font-weight: 700;
+    font-size: 0.95rem;
     color: var(--accent-teal);
-    margin: 15px 0 8px;
-    padding: 6px 12px;
-    background-color: var(--card-hover);
-    border-radius: 6px;
-    display: inline-block;
+    margin: 12px 0 4px;
+    display: block;
 }
 
 .route-detail {
     display: flex;
     justify-content: space-between;
-    margin: 6px 0;
-    padding: 6px 10px;
+    margin: 4px 0;
+    padding: 4px 0;
     border-bottom: 1px dashed var(--border-light);
-    border-radius: 4px;
     transition: background-color 0.2s;
 }
 
@@ -342,7 +339,7 @@ a:hover {
     font-weight: 500;
     color: var(--text-primary);
     flex-shrink: 0;
-    margin-right: 15px;
+    margin-right: 10px;
 }
 
 .route-detail span:last-child {
@@ -352,14 +349,15 @@ a:hover {
     white-space: nowrap;
 }
 
+/* Итоговая строка */
 .route-detail.total {
     font-weight: 700;
     font-size: 1.05rem;
     background-color: #fff5f5;
     border: 1px solid #fecaca;
     border-radius: 8px;
-    margin-top: 12px;
-    padding: 10px 15px;
+    margin-top: 10px;
+    padding: 8px 12px;
 }
 
 body.dark-mode .route-detail.total {
@@ -374,35 +372,68 @@ body.dark-mode .route-detail.total {
     font-weight: 700;
 }
 
+/* Информация о поезде/местах — теперь без фона, простая табличка */
 .route-info-block {
-    background-color: var(--card-hover);
+    font-size: 0.9rem;
+    margin: 6px 0 6px 10px;
     border-left: 3px solid var(--accent-teal);
-    padding: 10px 15px;
-    margin: 10px 0;
-    border-radius: 6px;
-    font-size: 0.95rem;
+    padding-left: 12px;
 }
 
 .route-info-block p {
-    margin: 4px 0;
+    margin: 2px 0;
 }
 
 .route-info-block strong {
     color: var(--accent-teal);
+    font-weight: 600;
 }
 
+/* Тёмная тема */
 body.dark-mode .route-stage {
-    background-color: #1a2a2a;
     color: #4aa393;
 }
 
 body.dark-mode .route-info-block {
-    background-color: #1a2a2a;
     border-left-color: #4aa393;
 }
 
 body.dark-mode .route-info-block strong {
     color: #4aa393;
+}
+
+/* Мобильная адаптация — ещё компактнее */
+@media (max-width: 768px) {
+    .route-card {
+        padding: 12px;
+    }
+    .route-title {
+        font-size: 1rem;
+        margin-bottom: 10px;
+        padding-bottom: 6px;
+    }
+    .route-stage {
+        font-size: 0.85rem;
+        margin: 8px 0 2px;
+    }
+    .route-detail {
+        font-size: 0.85rem;
+        flex-wrap: wrap;
+    }
+    .route-detail span:first-child {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 2px;
+    }
+    .route-detail span:last-child {
+        width: 100%;
+        text-align: left;
+    }
+    .route-info-block {
+        font-size: 0.8rem;
+        margin-left: 5px;
+        padding-left: 8px;
+    }
 }
 
 .total-day {
@@ -1330,24 +1361,6 @@ body.dark-mode .city-total {
     ul, ol { padding-left: 18px !important; margin: 4px 0 !important; }
     li { margin-bottom: 2px !important; }
     .booking-ref { font-size: 0.7rem !important; padding: 2px 6px !important; }
-/* Улучшение читаемости route-card на мобильных */
-.route-stage {
-    font-size: 0.85rem;
-    padding: 4px 8px;
-    display: block;
-    margin: 8px 0 4px;
-}
-.route-info-block {
-    font-size: 0.8rem;
-    padding: 8px 10px;
-}
-.route-info-block p {
-    margin: 2px 0;
-}
-.route-detail {
-    flex-wrap: wrap;
-    padding:
-}
 }
 
 @media (max-width: 600px) {
@@ -1424,4 +1437,4 @@ body.dark-mode .city-total {
     .header-subtitle {
         font-size: 0.75rem;
     }
-  }
+}
