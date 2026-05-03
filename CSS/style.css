@@ -1348,6 +1348,7 @@ body.dark-mode .city-total {
     flex-wrap: wrap;
     padding:
 }
+}
 
 @media (max-width: 600px) {
     .timer-box {
