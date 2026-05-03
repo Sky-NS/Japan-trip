@@ -217,8 +217,8 @@
     <script>
         // Прогресс-бар путешествия
         function updateProgress() {
-            const start = new Date(2026, 5, 1);
-            const end = new Date(2026, 5, 26);
+            const start = new Date(2026, 4, 1);
+            const end = new Date(2026, 4, 26);
             const today = new Date();
             
             if (today < start) {
@@ -249,7 +249,7 @@
                 statusText = '⏰ До начала путешествия';
             } else if (now >= startDate && now <= endDate) {
                 targetDate = endDate;
-                statusText = '🧳 Путешествие началось! Осталось до возвращения:';
+                statusText = '🧳 Путешествие началось!';
             } else {
                 // Если поездка уже закончилась
                 document.getElementById('trip-timer').innerHTML = '<div class="timer-unit">🎉 Поездка завершена!</div>';
