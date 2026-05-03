@@ -329,6 +329,8 @@ a:hover {
     padding: 4px 0;
     border-bottom: 1px dashed var(--border-light);
     transition: background-color 0.2s;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .route-detail:hover {
@@ -340,6 +342,8 @@ a:hover {
     color: var(--text-primary);
     flex-shrink: 0;
     margin-right: 10px;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .route-detail span:last-child {
@@ -347,6 +351,8 @@ a:hover {
     text-align: right;
     font-weight: 600;
     white-space: nowrap;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 /* Итоговая строка */
@@ -378,6 +384,8 @@ body.dark-mode .route-detail.total {
     margin: 6px 0 6px 10px;
     border-left: 3px solid var(--accent-teal);
     padding-left: 12px;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .route-info-block p {
@@ -424,10 +432,16 @@ body.dark-mode .route-info-block strong {
         width: 100%;
         margin-right: 0;
         margin-bottom: 2px;
+        white-space: normal;
+        word-break: break-word;
+        overflow-wrap: break-word;
     }
     .route-detail span:last-child {
         width: 100%;
         text-align: left;
+        white-space: normal;
+        word-break: break-word;
+        overflow-wrap: break-word;
     }
     .route-info-block {
         font-size: 0.8rem;
