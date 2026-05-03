@@ -1330,6 +1330,23 @@ body.dark-mode .city-total {
     ul, ol { padding-left: 18px !important; margin: 4px 0 !important; }
     li { margin-bottom: 2px !important; }
     .booking-ref { font-size: 0.7rem !important; padding: 2px 6px !important; }
+/* Улучшение читаемости route-card на мобильных */
+.route-stage {
+    font-size: 0.85rem;
+    padding: 4px 8px;
+    display: block;
+    margin: 8px 0 4px;
+}
+.route-info-block {
+    font-size: 0.8rem;
+    padding: 8px 10px;
+}
+.route-info-block p {
+    margin: 2px 0;
+}
+.route-detail {
+    flex-wrap: wrap;
+    padding:
 }
 
 @media (max-width: 600px) {
