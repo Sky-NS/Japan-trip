@@ -50,13 +50,13 @@
 
         <h1>🗾 Пердящее путешествие</h1>
         <div style="text-align: center; font-size: 1.2rem; margin-bottom: 20px; color: #4a4a4a;">
-            Японский трип • 11–26 мая 2026
+            Японский трип • 10–26 мая 2026
         </div>
 
         <!-- Прогресс-бар путешествия -->
         <div class="progress-container">
             <div class="progress-labels">
-                <span>🗾 11 мая</span>
+                <span>🗾 10 мая</span>
                 <span>🌆 Осака</span>
                 <span>🗻 Фудзи</span>
                 <span>🗼 Токио</span>
@@ -210,20 +210,20 @@
         </div>
 
         <div class="footer">
-            <p>11–26 мая 2026 · 6 гайдзинов · 10 городов</p>
+            <p>10–26 мая 2026 · 6 гайдзинов</p>
         </div>
     </div>
 
     <script>
         // Прогресс-бар путешествия
         function updateProgress() {
-            const start = new Date(2026, 4, 1);
+            const start = new Date(2026, 4, 10);
             const end = new Date(2026, 4, 26);
             const today = new Date();
             
             if (today < start) {
                 document.getElementById('trip-progress').style.width = '0%';
-                document.getElementById('progress-text').textContent = '⏳ Путешествие начнётся 11 мая 2026';
+                document.getElementById('progress-text').textContent = '⏳ Путешествие начнётся 10 мая 2026';
             } else if (today > end) {
                 document.getElementById('trip-progress').style.width = '100%';
                 document.getElementById('progress-text').textContent = '✅ Путешествие завершено! 🎉';
@@ -239,7 +239,7 @@
         updateProgress();
                 // Таймер до поездки
         function updateTimer() {
-            const startDate = new Date(2026, 4, 1); // 11 мая 2026 (месяцы с 0)
+            const startDate = new Date(2026, 4, 10); // 10 мая 2026 (месяцы с 0)
             const endDate = new Date(2026, 4, 26);   // 26 мая 2026
             const now = new Date();
         
