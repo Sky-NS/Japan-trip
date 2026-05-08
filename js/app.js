@@ -189,10 +189,12 @@ let deferredPrompt;
 let installBtn;
 
 function initInstallButton() {
-    // Плавающая кнопка установки (внизу)
+    const isIOS = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+    const alreadyInstalled = localStorage.getItem('pwa-installed') === 'true';
+
+    // Плавающая кнопка (внизу) — показываем только если не установлено и есть поддержка
     installBtn = document.createElement('button');
     installBtn.id = 'pwa-install-btn';
-    installBtn.textContent = '📱 Установить приложение';
     installBtn.style.cssText = `
         position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%);
         background-color: #b03e3e; color: white; border: none; border-radius: 30px;
@@ -204,37 +206,47 @@ function initInstallButton() {
         if (deferredPrompt) {
             deferredPrompt.prompt();
             const { outcome } = await deferredPrompt.userChoice;
-            console.log(`User response to install prompt: ${outcome}`);
+            if (outcome === 'accepted') {
+                console.log('Установка принята');
+                installBtn.style.display = 'none';
+                localStorage.setItem('pwa-installed', 'true');
+            }
             deferredPrompt = null;
-            installBtn.style.display = 'none';
-            localStorage.setItem('pwa-installed', 'true');
+        } else {
+            if (isIOS) {
+                alert('Нажмите кнопку "Поделиться" и выберите "На экран Домой"');
+            } else {
+                alert('Используйте пункт "Установить" в меню или дождитесь появления кнопки установки браузера.');
+            }
         }
     };
     document.body.appendChild(installBtn);
 
-    // Проверяем, не установлено ли уже приложение
-    if (localStorage.getItem('pwa-installed') === 'true') return;
-
-    // Для iOS: показать кнопку с инструкцией
-    const isIOS = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
-    if (isIOS && !navigator.standalone) {
-        installBtn.textContent = '📱 Нажмите "Поделиться" → "На экран Домой"';
-        installBtn.style.display = 'block';
-        setTimeout(() => {
-            if (!navigator.standalone) {
-                installBtn.style.display = 'none';
+    // Если уже установлено — плавающую кнопку не показываем
+    if (alreadyInstalled) {
+        installBtn.style.display = 'none';
+    } else {
+        // Для iOS сразу показываем инструкцию на 10 секунд
+        if (isIOS && !navigator.standalone) {
+            installBtn.textContent = '📱 Нажмите "Поделиться" → "На экран Домой"';
+            installBtn.style.display = 'block';
+            setTimeout(() => {
+                if (!navigator.standalone && !localStorage.getItem('pwa-installed')) {
+                    installBtn.style.display = 'none';
+                }
+            }, 10000);
+        }
+        // Для Android ждём beforeinstallprompt
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            if (!alreadyInstalled) {
+                installBtn.style.display = 'block';
             }
-        }, 10000);
-        return;
+        });
     }
 
-    // Слушаем beforeinstallprompt (Android/Chrome)
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        installBtn.style.display = 'block';
-    });
-
+    // Обработчик установки
     window.addEventListener('appinstalled', () => {
         installBtn.style.display = 'none';
         localStorage.setItem('pwa-installed', 'true');
@@ -249,17 +261,19 @@ function initInstallButton() {
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((choiceResult) => {
                     if (choiceResult.outcome === 'accepted') {
-                        console.log('Установка принята из меню');
+                        console.log('Установка из меню');
+                        installBtn.style.display = 'none';
+                        localStorage.setItem('pwa-installed', 'true');
                     }
                     deferredPrompt = null;
-                    if (installBtn) installBtn.style.display = 'none';
-                    localStorage.setItem('pwa-installed', 'true');
                 });
             } else {
                 if (isIOS) {
-                    alert('Нажмите кнопку "Поделиться" (iOS) и выберите "На экран Домой"');
+                    alert('Нажмите кнопку "Поделиться" и выберите "На экран Домой"');
+                } else if (localStorage.getItem('pwa-installed') === 'true') {
+                    alert('Приложение уже установлено!');
                 } else {
-                    alert('Приложение уже установлено или ваш браузер не поддерживает быструю установку. Используйте кнопку "Установить" внизу экрана.');
+                    alert('Нажмите кнопку "Установить" внизу экрана или дождитесь появления установки в браузере.');
                 }
             }
         });
