@@ -149,7 +149,6 @@ let floatingMenuBtn = null;
 let floatingMenuPanel = null;
 
 function initFloatingMenuButton() {
-    // Кнопка меню
     floatingMenuBtn = document.createElement('button');
     floatingMenuBtn.id = 'floating-menu-btn';
     floatingMenuBtn.setAttribute('aria-label', 'Меню');
@@ -185,7 +184,6 @@ function initFloatingMenuButton() {
     };
     document.body.appendChild(floatingMenuBtn);
     
-    // Панель меню (выпадает вниз)
     floatingMenuPanel = document.createElement('div');
     floatingMenuPanel.id = 'floating-menu-panel';
     floatingMenuPanel.style.cssText = `
@@ -203,7 +201,6 @@ function initFloatingMenuButton() {
         backdrop-filter: blur(8px);
     `;
     
-    // Копируем ссылки из оригинального меню
     const originalMenuList = document.querySelector('.menu-box');
     if (originalMenuList) {
         const links = originalMenuList.querySelectorAll('a');
@@ -236,6 +233,77 @@ function initFloatingMenuButton() {
     });
 }
 
+// ===== КНОПКА УСТАНОВКИ ПРИЛОЖЕНИЯ (PWA) =====
+let deferredPrompt;
+let installBtn;
+
+function initInstallButton() {
+    // Создаём кнопку установки (скрыта по умолчанию)
+    installBtn = document.createElement('button');
+    installBtn.id = 'pwa-install-btn';
+    installBtn.textContent = '📱 Установить приложение';
+    installBtn.style.cssText = `
+        position: fixed;
+        bottom: 90px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #b03e3e;
+        color: white;
+        border: none;
+        border-radius: 30px;
+        padding: 12px 24px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 1002;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+        display: none;
+        transition: all 0.2s;
+        white-space: nowrap;
+    `;
+    installBtn.onclick = async () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`User response to install prompt: ${outcome}`);
+            deferredPrompt = null;
+            installBtn.style.display = 'none';
+            localStorage.setItem('pwa-installed', 'true');
+        }
+    };
+    document.body.appendChild(installBtn);
+
+    // Проверяем, не установлено ли уже приложение
+    if (localStorage.getItem('pwa-installed') === 'true') return;
+
+    // Для iOS: показать кнопку с инструкцией (события beforeinstallprompt нет)
+    const isIOS = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+    if (isIOS && !navigator.standalone) {
+        installBtn.textContent = '📱 Нажмите "Поделиться" → "На экран Домой"';
+        installBtn.style.display = 'block';
+        // Скрыть через 10 секунд, чтобы не мешала
+        setTimeout(() => {
+            if (!navigator.standalone) {
+                installBtn.style.display = 'none';
+            }
+        }, 10000);
+        return;
+    }
+
+    // Слушаем событие beforeinstallprompt (Android/Chrome)
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        installBtn.style.display = 'block';
+    });
+
+    // Скрываем кнопку после установки
+    window.addEventListener('appinstalled', () => {
+        installBtn.style.display = 'none';
+        localStorage.setItem('pwa-installed', 'true');
+    });
+}
+
 // Инициализация
 document.addEventListener('DOMContentLoaded', () => {
     initBackToTop();
@@ -244,4 +312,5 @@ document.addEventListener('DOMContentLoaded', () => {
     addRateLoadingIndicator();
     initThemeToggle();
     initFloatingMenuButton();
+    initInstallButton();
 });
