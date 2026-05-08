@@ -11,31 +11,18 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-// Кнопка "Наверх" (полупрозрачная, появляется при прокрутке > 100px)
+// Кнопка "Наверх"
 function initBackToTop() {
     const btn = document.createElement('button');
     btn.innerHTML = '⬆️';
     btn.id = 'back-to-top';
     btn.setAttribute('aria-label', 'Наверх');
     btn.style.cssText = `
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background-color: rgba(176, 62, 62, 0.7);
-        backdrop-filter: blur(4px);
-        color: white;
-        border: none;
-        font-size: 1.5rem;
-        cursor: pointer;
-        display: none;
-        z-index: 1000;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        transition: all 0.2s;
-        align-items: center;
-        justify-content: center;
+        position: fixed; bottom: 20px; right: 20px; width: 50px; height: 50px; border-radius: 50%;
+        background-color: rgba(176, 62, 62, 0.7); backdrop-filter: blur(4px); color: white;
+        border: none; font-size: 1.5rem; cursor: pointer; display: none; z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2); transition: all 0.2s;
+        align-items: center; justify-content: center;
     `;
     btn.onmouseenter = () => {
         btn.style.backgroundColor = 'rgba(176, 62, 62, 1)';
@@ -94,31 +81,18 @@ const spinStyle = document.createElement('style');
 spinStyle.textContent = '@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }';
 document.head.appendChild(spinStyle);
 
-// ===== КНОПКА СМЕНЫ ТЕМЫ (слева вверху) =====
+// Кнопка смены темы
 let themeBtn = null;
 function initThemeToggle() {
     themeBtn = document.createElement('button');
     themeBtn.id = 'theme-toggle';
     themeBtn.setAttribute('aria-label', 'Переключить тему');
     themeBtn.style.cssText = `
-        position: fixed;
-        top: 20px;
-        left: 20px;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background-color: rgba(176, 62, 62, 0.7);
-        backdrop-filter: blur(4px);
-        color: white;
-        border: none;
-        font-size: 1.5rem;
-        cursor: pointer;
-        z-index: 1001;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        transition: all 0.2s;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        position: fixed; top: 20px; left: 20px; width: 50px; height: 50px; border-radius: 50%;
+        background-color: rgba(176, 62, 62, 0.7); backdrop-filter: blur(4px); color: white;
+        border: none; font-size: 1.5rem; cursor: pointer; z-index: 1001;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2); transition: all 0.2s;
+        display: flex; align-items: center; justify-content: center;
     `;
     themeBtn.onmouseenter = () => {
         themeBtn.style.backgroundColor = 'rgba(176, 62, 62, 1)';
@@ -144,7 +118,7 @@ function initThemeToggle() {
     });
 }
 
-// ===== ПЛАВАЮЩАЯ КНОПКА БУРГЕР-МЕНЮ (справа вверху) =====
+// Плавающая кнопка бургер-меню
 let floatingMenuBtn = null;
 let floatingMenuPanel = null;
 
@@ -154,25 +128,11 @@ function initFloatingMenuButton() {
     floatingMenuBtn.setAttribute('aria-label', 'Меню');
     floatingMenuBtn.innerHTML = '☰';
     floatingMenuBtn.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background-color: rgba(176, 62, 62, 0.7);
-        backdrop-filter: blur(4px);
-        color: white;
-        border: none;
-        font-size: 1.8rem;
-        font-weight: normal;
-        cursor: pointer;
-        z-index: 1001;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        transition: all 0.2s;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        position: fixed; top: 20px; right: 20px; width: 50px; height: 50px; border-radius: 50%;
+        background-color: rgba(176, 62, 62, 0.7); backdrop-filter: blur(4px); color: white;
+        border: none; font-size: 1.8rem; font-weight: normal; cursor: pointer; z-index: 1001;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2); transition: all 0.2s;
+        display: flex; align-items: center; justify-content: center;
     `;
     floatingMenuBtn.onmouseenter = () => {
         floatingMenuBtn.style.backgroundColor = 'rgba(176, 62, 62, 1)';
@@ -187,18 +147,9 @@ function initFloatingMenuButton() {
     floatingMenuPanel = document.createElement('div');
     floatingMenuPanel.id = 'floating-menu-panel';
     floatingMenuPanel.style.cssText = `
-        position: fixed;
-        top: 80px;
-        right: 20px;
-        border-radius: 16px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-        padding: 12px 0;
-        min-width: 180px;
-        z-index: 1000;
-        display: none;
-        flex-direction: column;
-        gap: 4px;
-        backdrop-filter: blur(8px);
+        position: fixed; top: 80px; right: 20px; border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.15); padding: 12px 0; min-width: 180px;
+        z-index: 1000; display: none; flex-direction: column; gap: 4px; backdrop-filter: blur(8px);
     `;
     
     const originalMenuList = document.querySelector('.menu-box');
@@ -233,33 +184,21 @@ function initFloatingMenuButton() {
     });
 }
 
-// ===== КНОПКА УСТАНОВКИ ПРИЛОЖЕНИЯ (PWA) =====
+// Кнопка установки приложения (PWA) + пункт в меню
 let deferredPrompt;
 let installBtn;
 
 function initInstallButton() {
-    // Создаём кнопку установки (скрыта по умолчанию)
+    // Плавающая кнопка установки (внизу)
     installBtn = document.createElement('button');
     installBtn.id = 'pwa-install-btn';
     installBtn.textContent = '📱 Установить приложение';
     installBtn.style.cssText = `
-        position: fixed;
-        bottom: 90px;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: #b03e3e;
-        color: white;
-        border: none;
-        border-radius: 30px;
-        padding: 12px 24px;
-        font-size: 1rem;
-        font-weight: bold;
-        cursor: pointer;
-        z-index: 1002;
-        box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-        display: none;
-        transition: all 0.2s;
-        white-space: nowrap;
+        position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%);
+        background-color: #b03e3e; color: white; border: none; border-radius: 30px;
+        padding: 12px 24px; font-size: 1rem; font-weight: bold; cursor: pointer;
+        z-index: 1002; box-shadow: 0 4px 16px rgba(0,0,0,0.3); display: none;
+        transition: all 0.2s; white-space: nowrap;
     `;
     installBtn.onclick = async () => {
         if (deferredPrompt) {
@@ -276,12 +215,11 @@ function initInstallButton() {
     // Проверяем, не установлено ли уже приложение
     if (localStorage.getItem('pwa-installed') === 'true') return;
 
-    // Для iOS: показать кнопку с инструкцией (события beforeinstallprompt нет)
+    // Для iOS: показать кнопку с инструкцией
     const isIOS = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
     if (isIOS && !navigator.standalone) {
         installBtn.textContent = '📱 Нажмите "Поделиться" → "На экран Домой"';
         installBtn.style.display = 'block';
-        // Скрыть через 10 секунд, чтобы не мешала
         setTimeout(() => {
             if (!navigator.standalone) {
                 installBtn.style.display = 'none';
@@ -290,18 +228,42 @@ function initInstallButton() {
         return;
     }
 
-    // Слушаем событие beforeinstallprompt (Android/Chrome)
+    // Слушаем beforeinstallprompt (Android/Chrome)
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
         installBtn.style.display = 'block';
     });
 
-    // Скрываем кнопку после установки
     window.addEventListener('appinstalled', () => {
         installBtn.style.display = 'none';
         localStorage.setItem('pwa-installed', 'true');
     });
+
+    // Обработчик для пункта меню "📱 Установить"
+    const menuInstallBtn = document.getElementById('menu-install-btn');
+    if (menuInstallBtn) {
+        menuInstallBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('Установка принята из меню');
+                    }
+                    deferredPrompt = null;
+                    if (installBtn) installBtn.style.display = 'none';
+                    localStorage.setItem('pwa-installed', 'true');
+                });
+            } else {
+                if (isIOS) {
+                    alert('Нажмите кнопку "Поделиться" (iOS) и выберите "На экран Домой"');
+                } else {
+                    alert('Приложение уже установлено или ваш браузер не поддерживает быструю установку. Используйте кнопку "Установить" внизу экрана.');
+                }
+            }
+        });
+    }
 }
 
 // Инициализация
