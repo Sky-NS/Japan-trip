@@ -1365,6 +1365,18 @@ body.dark-mode #pwa-install-btn:hover {
     background-color: #b04a4a;
 }
 
+/* Пункт меню установки приложения */
+#menu-install-btn {
+    background-color: var(--accent-red);
+    color: white !important;
+    border-radius: 8px;
+    margin: 5px 10px;
+    text-align: center;
+}
+#menu-install-btn:hover {
+    background-color: var(--accent-red-hover);
+}
+
 /* ----- АДАПТИВНОСТЬ (MOBILE) ----- */
 @media (max-width: 768px) {
     body { padding: 10px; }
