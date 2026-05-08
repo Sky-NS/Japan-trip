@@ -45,18 +45,19 @@
                 <li><a href="visa.html">🛂 Всё для визы</a></li>
                 <li><a href="contacts.html">📞 Контакты</a></li>
                 <li><a href="glossary.html">📖 Глоссарий</a></li>
+                <li><a href="#" id="menu-install-btn">📱 Установить</a></li>
             </ul>
         </div>
 
         <h1>🗾 Пердящее путешествие</h1>
         <div style="text-align: center; font-size: 1.2rem; margin-bottom: 20px; color: #4a4a4a;">
-            Японский трип • 10–26 мая 2026
+            Японский трип • 11–26 мая 2026
         </div>
 
         <!-- Прогресс-бар путешествия -->
         <div class="progress-container">
             <div class="progress-labels">
-                <span>🗾 10 мая</span>
+                <span>🗾 11 мая</span>
                 <span>🌆 Осака</span>
                 <span>🗻 Фудзи</span>
                 <span>🗼 Токио</span>
@@ -210,23 +211,20 @@
         </div>
 
         <div class="footer">
-            <p>10–26 мая 2026 · 6 гайдзинов</p>
+            <p>11–26 мая 2026 · 6 гайдзинов · 10 городов</p>
         </div>
     </div>
-
-<!-- Кнопка установки приложения (будет показана/скрыта через JS) -->
-<button id="pwa-install-btn" style="display:none;">📱 Установить приложение</button>
 
     <script>
         // Прогресс-бар путешествия
         function updateProgress() {
-            const start = new Date(2026, 4, 10);
-            const end = new Date(2026, 4, 26);
+            const start = new Date(2026, 5, 11);
+            const end = new Date(2026, 5, 26);
             const today = new Date();
             
             if (today < start) {
                 document.getElementById('trip-progress').style.width = '0%';
-                document.getElementById('progress-text').textContent = '⏳ Путешествие начнётся 10 мая 2026';
+                document.getElementById('progress-text').textContent = '⏳ Путешествие начнётся 11 мая 2026';
             } else if (today > end) {
                 document.getElementById('trip-progress').style.width = '100%';
                 document.getElementById('progress-text').textContent = '✅ Путешествие завершено! 🎉';
@@ -242,7 +240,7 @@
         updateProgress();
                 // Таймер до поездки
         function updateTimer() {
-            const startDate = new Date(2026, 4, 10); // 10 мая 2026 (месяцы с 0)
+            const startDate = new Date(2026, 4, 11); // 11 мая 2026 (месяцы с 0)
             const endDate = new Date(2026, 4, 26);   // 26 мая 2026
             const now = new Date();
         
@@ -252,9 +250,8 @@
                 statusText = '⏰ До начала путешествия';
             } else if (now >= startDate && now <= endDate) {
                 targetDate = endDate;
-                statusText = '🧳 Путешествие началось!';
+                statusText = '🧳 Путешествие началось! Осталось до возвращения:';
             } else {
-                // Если поездка уже закончилась
                 document.getElementById('trip-timer').innerHTML = '<div class="timer-unit">🎉 Поездка завершена!</div>';
                 document.getElementById('timer-status').textContent = 'Спасибо за воспоминания!';
                 return;
@@ -262,7 +259,6 @@
         
             const diff = targetDate - now;
             if (diff <= 0) {
-                // Небольшая защита от отрицательного времени
                 if (now >= startDate && now <= endDate) {
                     document.getElementById('timer-status').textContent = '🧳 Путешествие в самом разгаре!';
                 } else {
@@ -283,11 +279,10 @@
             document.getElementById('timer-status').textContent = statusText;
         }
         
-        // Запускаем таймер каждую секунду
         setInterval(updateTimer, 1000);
-        updateTimer(); // сразу отобразить
+        updateTimer();
     </script>
     <script src="js/currency.js"></script>
     <script src="js/app.js"></script>
 </body>
-                                            </html>
+</html>
