@@ -1331,6 +1331,40 @@ body.dark-mode .city-total {
     background-color: var(--card-hover) !important;
 }
 
+/* ----- КНОПКА УСТАНОВКИ PWA ----- */
+#pwa-install-btn {
+    font-family: 'Inter', sans-serif;
+    background-color: #b03e3e;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    z-index: 1002;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    transition: all 0.2s;
+    white-space: nowrap;
+    animation: floatBtn 0.3s ease-out;
+}
+#pwa-install-btn:hover {
+    background-color: #8c2e2e;
+    transform: translateX(-50%) scale(1.05);
+}
+@keyframes floatBtn {
+    from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* Тёмная тема */
+body.dark-mode #pwa-install-btn {
+    background-color: #d96c6c;
+}
+body.dark-mode #pwa-install-btn:hover {
+    background-color: #b04a4a;
+}
+
 /* ----- АДАПТИВНОСТЬ (MOBILE) ----- */
 @media (max-width: 768px) {
     body { padding: 10px; }
