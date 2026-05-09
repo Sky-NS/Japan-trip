@@ -1,5 +1,5 @@
-// Service Worker для кэширования и offline-режима
-const CACHE_NAME = 'japan-trip-v1';
+// Service Worker для PWA
+const CACHE_NAME = 'japan-trip-v2';
 const urlsToCache = [
   './',
   './index.html',
@@ -14,49 +14,32 @@ const urlsToCache = [
   './js/currency.js'
 ];
 
-// Установка Service Worker
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('Opened cache');
-        return cache.addAll(urlsToCache);
-      })
-      .catch(err => console.error('Cache addAll error:', err))
+      .then(cache => cache.addAll(urlsToCache))
+      .then(() => self.skipWaiting())
+      .catch(err => console.error('Cache error:', err))
   );
-  self.skipWaiting();
 });
 
-// Очистка старых кэшей при активации
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cacheName => {
           if (cacheName !== CACHE_NAME) {
-            console.log('Deleting old cache:', cacheName);
             return caches.delete(cacheName);
           }
         })
       );
-    })
+    }).then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
-// Стратегия: сначала сеть, при ошибке — кэш
 self.addEventListener('fetch', event => {
   event.respondWith(
-    fetch(event.request)
-      .then(response => {
-        const responseClone = response.clone();
-        caches.open(CACHE_NAME).then(cache => {
-          cache.put(event.request, responseClone);
-        });
-        return response;
-      })
-      .catch(() => {
-        return caches.match(event.request);
-      })
+    caches.match(event.request)
+      .then(cachedResponse => cachedResponse || fetch(event.request))
   );
 });
