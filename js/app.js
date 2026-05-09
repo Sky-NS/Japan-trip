@@ -184,7 +184,7 @@ function initFloatingMenuButton() {
     });
 }
 
-// Кнопка установки приложения (PWA) + пункт в меню
+// Кнопка установки приложения (PWA) теперь в верхнем ряду
 let deferredPrompt;
 let installBtn;
 
@@ -192,15 +192,18 @@ function initInstallButton() {
     const isIOS = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
     const alreadyInstalled = localStorage.getItem('pwa-installed') === 'true';
 
-    // Плавающая кнопка (внизу) — показываем только если не установлено и есть поддержка
+    // Создаём кнопку установки (в верхнем ряду между темой и меню)
     installBtn = document.createElement('button');
     installBtn.id = 'pwa-install-btn';
+    installBtn.setAttribute('aria-label', 'Установить приложение');
+    installBtn.innerHTML = '📱';  // только иконка, чтобы вписаться в ряд
     installBtn.style.cssText = `
-        position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%);
-        background-color: #b03e3e; color: white; border: none; border-radius: 30px;
-        padding: 12px 24px; font-size: 1rem; font-weight: bold; cursor: pointer;
-        z-index: 1002; box-shadow: 0 4px 16px rgba(0,0,0,0.3); display: none;
-        transition: all 0.2s; white-space: nowrap;
+        position: fixed; top: 20px; left: calc(20px + 50px + 10px); /* между левой кнопкой (тема) и правой (меню) */
+        width: 50px; height: 50px; border-radius: 50%;
+        background-color: rgba(176, 62, 62, 0.7); backdrop-filter: blur(4px); color: white;
+        border: none; font-size: 1.5rem; cursor: pointer; z-index: 1001;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2); transition: all 0.2s;
+        display: none; align-items: center; justify-content: center;
     `;
     installBtn.onclick = async () => {
         if (deferredPrompt) {
@@ -222,37 +225,36 @@ function initInstallButton() {
     };
     document.body.appendChild(installBtn);
 
-    // Если уже установлено — плавающую кнопку не показываем
+    // Если уже установлено — не показываем
     if (alreadyInstalled) {
         installBtn.style.display = 'none';
     } else {
-        // Для iOS сразу показываем инструкцию на 10 секунд
+        // Для iOS показываем сразу (т.к. beforeinstallprompt не срабатывает)
         if (isIOS && !navigator.standalone) {
-            installBtn.textContent = '📱 Нажмите "Поделиться" → "На экран Домой"';
-            installBtn.style.display = 'block';
+            installBtn.style.display = 'flex';
             setTimeout(() => {
                 if (!navigator.standalone && !localStorage.getItem('pwa-installed')) {
                     installBtn.style.display = 'none';
                 }
-            }, 10000);
+            }, 15000); // показываем 15 секунд
         }
-        // Для Android ждём beforeinstallprompt
+        // Для Android ждём события
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            if (!alreadyInstalled) {
-                installBtn.style.display = 'block';
+            if (!localStorage.getItem('pwa-installed')) {
+                installBtn.style.display = 'flex';
             }
         });
     }
 
-    // Обработчик установки
+    // После установки скрываем
     window.addEventListener('appinstalled', () => {
         installBtn.style.display = 'none';
         localStorage.setItem('pwa-installed', 'true');
     });
 
-    // Обработчик для пункта меню "📱 Установить"
+    // Пункт меню "📱 Установить" (если есть)
     const menuInstallBtn = document.getElementById('menu-install-btn');
     if (menuInstallBtn) {
         menuInstallBtn.addEventListener('click', (e) => {
@@ -273,7 +275,7 @@ function initInstallButton() {
                 } else if (localStorage.getItem('pwa-installed') === 'true') {
                     alert('Приложение уже установлено!');
                 } else {
-                    alert('Нажмите кнопку "Установить" внизу экрана или дождитесь появления установки в браузере.');
+                    alert('Нажмите кнопку "📱" вверху экрана или дождитесь появления установки браузера.');
                 }
             }
         });
