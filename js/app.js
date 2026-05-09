@@ -184,7 +184,7 @@ function initFloatingMenuButton() {
     });
 }
 
-// Кнопка установки приложения (PWA) теперь в верхнем ряду
+// Кнопка установки приложения (PWA) — теперь без сдвигов
 let deferredPrompt;
 let installBtn;
 
@@ -192,27 +192,50 @@ function initInstallButton() {
     const isIOS = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
     const alreadyInstalled = localStorage.getItem('pwa-installed') === 'true';
 
-    // Создаём кнопку установки (в верхнем ряду между темой и меню)
+    // Создаём кнопку
     installBtn = document.createElement('button');
     installBtn.id = 'pwa-install-btn';
     installBtn.setAttribute('aria-label', 'Установить приложение');
-    installBtn.innerHTML = '📱';  // только иконка, чтобы вписаться в ряд
-    installBtn.style.cssText = `
-        position: fixed; top: 20px; left: calc(20px + 50px + 10px); /* между левой кнопкой (тема) и правой (меню) */
-        width: 50px; height: 50px; border-radius: 50%;
-        background-color: rgba(176, 62, 62, 0.7); backdrop-filter: blur(4px); color: white;
-        border: none; font-size: 1.5rem; cursor: pointer; z-index: 1001;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.2); transition: all 0.2s;
-        display: none; align-items: center; justify-content: center;
-    `;
-    installBtn.onclick = async () => {
+    installBtn.innerHTML = '📱';
+    installBtn.style.display = 'none'; // всё остальное в CSS
+    document.body.appendChild(installBtn);
+
+    // Функция показа
+    function showInstallButton() {
+        if (!localStorage.getItem('pwa-installed')) {
+            installBtn.style.display = 'flex';
+        }
+    }
+
+    // Функция скрытия
+    function hideInstallButton() {
+        installBtn.style.display = 'none';
+        localStorage.setItem('pwa-installed', 'true');
+    }
+
+    // Если уже установлено — не показываем
+    if (alreadyInstalled) {
+        return;
+    }
+
+    // iOS: показываем сразу с инструкцией
+    if (isIOS && !navigator.standalone) {
+        installBtn.style.display = 'flex';
+        setTimeout(() => {
+            if (!navigator.standalone && !localStorage.getItem('pwa-installed')) {
+                installBtn.style.display = 'none';
+            }
+        }, 15000);
+    }
+
+    // Обработчик клика
+    installBtn.addEventListener('click', async () => {
         if (deferredPrompt) {
             deferredPrompt.prompt();
             const { outcome } = await deferredPrompt.userChoice;
             if (outcome === 'accepted') {
                 console.log('Установка принята');
-                installBtn.style.display = 'none';
-                localStorage.setItem('pwa-installed', 'true');
+                hideInstallButton();
             }
             deferredPrompt = null;
         } else {
@@ -222,39 +245,21 @@ function initInstallButton() {
                 alert('Используйте пункт "Установить" в меню или дождитесь появления кнопки установки браузера.');
             }
         }
-    };
-    document.body.appendChild(installBtn);
-
-    // Если уже установлено — не показываем
-    if (alreadyInstalled) {
-        installBtn.style.display = 'none';
-    } else {
-        // Для iOS показываем сразу (т.к. beforeinstallprompt не срабатывает)
-        if (isIOS && !navigator.standalone) {
-            installBtn.style.display = 'flex';
-            setTimeout(() => {
-                if (!navigator.standalone && !localStorage.getItem('pwa-installed')) {
-                    installBtn.style.display = 'none';
-                }
-            }, 15000); // показываем 15 секунд
-        }
-        // Для Android ждём события
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            if (!localStorage.getItem('pwa-installed')) {
-                installBtn.style.display = 'flex';
-            }
-        });
-    }
-
-    // После установки скрываем
-    window.addEventListener('appinstalled', () => {
-        installBtn.style.display = 'none';
-        localStorage.setItem('pwa-installed', 'true');
     });
 
-    // Пункт меню "📱 Установить" (если есть)
+    // Перехватываем событие beforeinstallprompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        showInstallButton();
+    });
+
+    // Событие установки
+    window.addEventListener('appinstalled', () => {
+        hideInstallButton();
+    });
+
+    // Обработчик пункта меню "📱 Установить"
     const menuInstallBtn = document.getElementById('menu-install-btn');
     if (menuInstallBtn) {
         menuInstallBtn.addEventListener('click', (e) => {
@@ -264,8 +269,7 @@ function initInstallButton() {
                 deferredPrompt.userChoice.then((choiceResult) => {
                     if (choiceResult.outcome === 'accepted') {
                         console.log('Установка из меню');
-                        installBtn.style.display = 'none';
-                        localStorage.setItem('pwa-installed', 'true');
+                        hideInstallButton();
                     }
                     deferredPrompt = null;
                 });
