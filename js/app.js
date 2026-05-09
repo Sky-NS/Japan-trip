@@ -185,6 +185,7 @@ function initFloatingMenuButton() {
 }
 
 // Кнопка установки приложения (PWA) + пункт в меню
+localStorage.removeItem('pwa-installed');
 let deferredPrompt;
 let installBtn;
 
