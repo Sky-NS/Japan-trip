@@ -184,7 +184,7 @@ function initFloatingMenuButton() {
     });
 }
 
-// Кнопка установки приложения (PWA) — без пункта меню
+// Кнопка установки приложения (PWA) — показываем всегда, с инструкциями
 let deferredPrompt;
 let installBtn;
 
@@ -192,9 +192,7 @@ function initInstallButton() {
     const isIOS = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
     const alreadyInstalled = localStorage.getItem('pwa-installed') === 'true';
 
-    console.log('initInstallButton: isIOS =', isIOS, ', alreadyInstalled =', alreadyInstalled);
-
-    // Создаём кнопку (просто иконка, без лишней вёрстки)
+    // Создаём кнопку
     installBtn = document.createElement('button');
     installBtn.id = 'pwa-install-btn';
     installBtn.setAttribute('aria-label', 'Установить приложение');
@@ -202,23 +200,10 @@ function initInstallButton() {
     installBtn.style.display = 'none';
     document.body.appendChild(installBtn);
 
-    function showInstallButton() {
-        if (!localStorage.getItem('pwa-installed')) {
-            console.log('Показываем кнопку установки');
-            installBtn.style.display = 'flex';
-        }
-    }
-
-    function hideInstallButton() {
-        console.log('Скрываем кнопку установки');
-        installBtn.style.display = 'none';
-        localStorage.setItem('pwa-installed', 'true');
-    }
-
-    // Если уже установлено — выходим
+    // Если уже установлено – не показываем
     if (alreadyInstalled) return;
 
-    // На iOS показываем кнопку с инструкцией (15 секунд)
+    // iOS: показываем кнопку на 15 секунд с инструкцией
     if (isIOS && !navigator.standalone) {
         installBtn.style.display = 'flex';
         setTimeout(() => {
@@ -226,37 +211,46 @@ function initInstallButton() {
                 installBtn.style.display = 'none';
             }
         }, 15000);
+
+        installBtn.addEventListener('click', () => {
+            alert('Нажмите кнопку "Поделиться" и выберите "На экран Домой"');
+        });
         return;
     }
 
-    // На Android (и других) ждём beforeinstallprompt
+    // Для Android и других – всегда показываем кнопку (без ожидания beforeinstallprompt)
+    installBtn.style.display = 'flex';
+
+    // Обработчик клика с инструкцией
+    installBtn.addEventListener('click', () => {
+        // На всякий случай проверяем, может быть, событие всё-таки сработало и сохранено в deferredPrompt
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('PWA установлено');
+                    installBtn.style.display = 'none';
+                    localStorage.setItem('pwa-installed', 'true');
+                }
+                deferredPrompt = null;
+            });
+        } else {
+            alert('Чтобы установить приложение, откройте меню браузера (⋮ или ≡) и выберите "Добавить на главный экран" или "Установить приложение".');
+        }
+    });
+
+    // На случай, если beforeinstallprompt всё же сработает — используем его для более удобной установки
     window.addEventListener('beforeinstallprompt', (e) => {
         console.log('beforeinstallprompt сработало!');
         e.preventDefault();
         deferredPrompt = e;
-        showInstallButton();
+        // Не меняем отображение кнопки, она уже видна
     });
 
-    // Обработчик клика по кнопке
-    installBtn.addEventListener('click', async () => {
-        if (deferredPrompt) {
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            if (outcome === 'accepted') {
-                console.log('PWA установлено');
-                hideInstallButton();
-            }
-            deferredPrompt = null;
-        } else {
-            // На всякий случай, если вызвали без события
-            alert('Чтобы установить приложение, дождитесь появления кнопки установки в браузере.');
-        }
-    });
-
-    // Скрываем кнопку после установки
     window.addEventListener('appinstalled', () => {
         console.log('appinstalled сработало');
-        hideInstallButton();
+        installBtn.style.display = 'none';
+        localStorage.setItem('pwa-installed', 'true');
     });
 }
 
