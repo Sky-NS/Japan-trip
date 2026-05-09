@@ -184,17 +184,16 @@ function initFloatingMenuButton() {
     });
 }
 
-// Кнопка установки приложения (PWA) — теперь без обработчика меню
+// Кнопка установки приложения (PWA) — без пункта меню
 let deferredPrompt;
 let installBtn;
 
+localStorage.removeItem('pwa-installed');
 function initInstallButton() {
     const isIOS = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
-    const alreadyInstalled =
-localStorage.removeItem('pwa-installed');
-localStorage.getItem('pwa-installed') === 'true';
+    const alreadyInstalled = localStorage.getItem('pwa-installed') === 'true';
 
-    // Создаём кнопку
+    // Создаём кнопку (просто иконка, без лишней вёрстки)
     installBtn = document.createElement('button');
     installBtn.id = 'pwa-install-btn';
     installBtn.setAttribute('aria-label', 'Установить приложение');
@@ -213,9 +212,10 @@ localStorage.getItem('pwa-installed') === 'true';
         localStorage.setItem('pwa-installed', 'true');
     }
 
+    // Если уже установлено — выходим
     if (alreadyInstalled) return;
 
-    // iOS: показываем сразу с инструкцией
+    // На iOS показываем кнопку с инструкцией (15 секунд)
     if (isIOS && !navigator.standalone) {
         installBtn.style.display = 'flex';
         setTimeout(() => {
@@ -223,35 +223,33 @@ localStorage.getItem('pwa-installed') === 'true';
                 installBtn.style.display = 'none';
             }
         }, 15000);
+        return;
     }
 
-    // Обработчик клика
-    installBtn.addEventListener('click', async () => {
-        if (deferredPrompt) {
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            if (outcome === 'accepted') {
-                console.log('Установка принята');
-                hideInstallButton();
-            }
-            deferredPrompt = null;
-        } else {
-            if (isIOS) {
-                alert('Нажмите кнопку "Поделиться" и выберите "На экран Домой"');
-            } else {
-                alert('Используйте кнопку "📱" вверху экрана или дождитесь появления установки браузера.');
-            }
-        }
-    });
-
-    // Перехватываем beforeinstallprompt
+    // На Android (и других) ждём beforeinstallprompt
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
         showInstallButton();
     });
 
-    // Событие установки
+    // Обработчик клика по кнопке
+    installBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === 'accepted') {
+                console.log('PWA установлено');
+                hideInstallButton();
+            }
+            deferredPrompt = null;
+        } else {
+            // На всякий случай, если вызвали без события
+            alert('Чтобы установить приложение, дождитесь появления кнопки установки в браузере.');
+        }
+    });
+
+    // Скрываем кнопку после установки
     window.addEventListener('appinstalled', () => {
         hideInstallButton();
     });
