@@ -2,12 +2,12 @@
 // Общие функции для всего сайта
 // ==============================
 
-// Регистрация Service Worker (относительный путь, работает и в подпапке)
+// Регистрация Service Worker с корректной областью
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
-            .then(registration => console.log('ServiceWorker registered'))
-            .catch(err => console.log('ServiceWorker error:', err));
+        navigator.serviceWorker.register('./sw.js', { scope: './' })
+            .then(registration => console.log('SW registered, scope:', registration.scope))
+            .catch(err => console.log('SW error:', err));
     });
 }
 
