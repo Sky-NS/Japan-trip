@@ -1,17 +1,16 @@
 // Service Worker для PWA
 const CACHE_NAME = 'japan-trip-v2';
 const urlsToCache = [
-  './',
-  './index.html',
-  './osaka.html',
-  './fuji.html',
-  './tokyo.html',
-  './shanghai.html',
-  './budget.html',
-  './toilet-map.html',
-  './visa.html',
-  './CSS/style.css',
-  './js/currency.js'
+  'index.html',
+  'osaka.html',
+  'fuji.html',
+  'tokyo.html',
+  'shanghai.html',
+  'budget.html',
+  'toilet-map.html',
+  'visa.html',
+  'CSS/style.css',
+  'js/currency.js'
 ];
 
 self.addEventListener('install', event => {
