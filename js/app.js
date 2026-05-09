@@ -2,10 +2,10 @@
 // Общие функции для всего сайта
 // ==============================
 
-// Регистрация Service Worker с корректной областью
+// Регистрация Service Worker с абсолютным путём
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js', { scope: './' })
+        navigator.serviceWorker.register('/Japan-trip/sw.js', { scope: '/Japan-trip/' })
             .then(registration => console.log('SW registered, scope:', registration.scope))
             .catch(err => console.log('SW error:', err));
     });
@@ -184,7 +184,7 @@ function initFloatingMenuButton() {
     });
 }
 
-// Кнопка установки приложения (упрощённая, всегда показывает инструкцию, но на Android пытается вызвать установку через Intent)
+// Кнопка установки приложения (PWA) — показываем всегда, с инструкциями
 let deferredPrompt;
 let installBtn;
 
@@ -192,6 +192,7 @@ function initInstallButton() {
     const isIOS = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
     const alreadyInstalled = localStorage.getItem('pwa-installed') === 'true';
 
+    // Создаём кнопку
     installBtn = document.createElement('button');
     installBtn.id = 'pwa-install-btn';
     installBtn.setAttribute('aria-label', 'Установить приложение');
@@ -199,9 +200,10 @@ function initInstallButton() {
     installBtn.style.display = 'none';
     document.body.appendChild(installBtn);
 
+    // Если уже установлено – не показываем
     if (alreadyInstalled) return;
 
-    // iOS: инструкция
+    // iOS: показываем кнопку на 15 секунд с инструкцией
     if (isIOS && !navigator.standalone) {
         installBtn.style.display = 'flex';
         setTimeout(() => {
@@ -216,10 +218,10 @@ function initInstallButton() {
         return;
     }
 
-    // Android и другие: всегда показываем кнопку
+    // Для Android и других – всегда показываем кнопку (без ожидания beforeinstallprompt)
     installBtn.style.display = 'flex';
 
-    // При клике: если есть deferredPrompt — используем его, иначе открываем Intent URL
+    // Обработчик клика с инструкцией
     installBtn.addEventListener('click', () => {
         if (deferredPrompt) {
             deferredPrompt.prompt();
@@ -232,17 +234,11 @@ function initInstallButton() {
                 deferredPrompt = null;
             });
         } else {
-            // Пробуем открыть страницу установки Chrome (работает во многих версиях)
-            const installUrl = 'intent://sky-ns.github.io/Japan-trip/#Intent;scheme=https;package=com.android.chrome;end;';
-            window.location.href = installUrl;
-            // Резервная инструкция, если не сработало
-            setTimeout(() => {
-                alert('Не удалось установить автоматически. Откройте меню браузера (⋮ или ≡) и выберите "Добавить на главный экран" или "Установить приложение".');
-            }, 1000);
+            alert('Чтобы установить приложение, откройте меню браузера (⋮ или ≡) и выберите "Добавить на главный экран" или "Установить приложение".');
         }
     });
 
-    // Слушаем beforeinstallprompt на случай, если браузер всё-таки решит его вызвать
+    // На случай, если beforeinstallprompt всё же сработает — используем его для более удобной установки
     window.addEventListener('beforeinstallprompt', (e) => {
         console.log('beforeinstallprompt сработало!');
         e.preventDefault();
