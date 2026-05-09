@@ -2,7 +2,7 @@
   "name": "Пердящее путешествие",
   "short_name": "Japan Trip",
   "description": "Маршрут по Японии и Шанхаю для группы из 6 человек",
-  "start_url": "./",
+  "start_url": "index.html",
   "display": "standalone",
   "background_color": "#faf8f5",
   "theme_color": "#b03e3e",
