@@ -2,10 +2,10 @@
 // Общие функции для всего сайта
 // ==============================
 
-// Регистрация Service Worker
+// Регистрация Service Worker (относительный путь, работает и в подпапке)
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
+        navigator.serviceWorker.register('./sw.js')
             .then(registration => console.log('ServiceWorker registered'))
             .catch(err => console.log('ServiceWorker error:', err));
     });
@@ -223,7 +223,6 @@ function initInstallButton() {
 
     // Обработчик клика с инструкцией
     installBtn.addEventListener('click', () => {
-        // На всякий случай проверяем, может быть, событие всё-таки сработало и сохранено в deferredPrompt
         if (deferredPrompt) {
             deferredPrompt.prompt();
             deferredPrompt.userChoice.then((choiceResult) => {
@@ -244,7 +243,6 @@ function initInstallButton() {
         console.log('beforeinstallprompt сработало!');
         e.preventDefault();
         deferredPrompt = e;
-        // Не меняем отображение кнопки, она уже видна
     });
 
     window.addEventListener('appinstalled', () => {
