@@ -1,17 +1,17 @@
 // Service Worker для кэширования и offline-режима
 const CACHE_NAME = 'japan-trip-v1';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/osaka.html',
-  '/fuji.html',
-  '/tokyo.html',
-  '/shanghai.html',
-  '/budget.html',
-  '/toilet-map.html',
-  '/visa.html',
-  '/CSS/style.css',
-  '/js/currency.js'
+  './',
+  './index.html',
+  './osaka.html',
+  './fuji.html',
+  './tokyo.html',
+  './shanghai.html',
+  './budget.html',
+  './toilet-map.html',
+  './visa.html',
+  './CSS/style.css',
+  './js/currency.js'
 ];
 
 // Установка Service Worker
@@ -49,7 +49,6 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     fetch(event.request)
       .then(response => {
-        // Клонируем ответ, чтобы сохранить в кэш
         const responseClone = response.clone();
         caches.open(CACHE_NAME).then(cache => {
           cache.put(event.request, responseClone);
