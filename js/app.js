@@ -188,10 +188,11 @@ function initFloatingMenuButton() {
 let deferredPrompt;
 let installBtn;
 
-localStorage.removeItem('pwa-installed');
 function initInstallButton() {
     const isIOS = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
     const alreadyInstalled = localStorage.getItem('pwa-installed') === 'true';
+
+    console.log('initInstallButton: isIOS =', isIOS, ', alreadyInstalled =', alreadyInstalled);
 
     // Создаём кнопку (просто иконка, без лишней вёрстки)
     installBtn = document.createElement('button');
@@ -203,11 +204,13 @@ function initInstallButton() {
 
     function showInstallButton() {
         if (!localStorage.getItem('pwa-installed')) {
+            console.log('Показываем кнопку установки');
             installBtn.style.display = 'flex';
         }
     }
 
     function hideInstallButton() {
+        console.log('Скрываем кнопку установки');
         installBtn.style.display = 'none';
         localStorage.setItem('pwa-installed', 'true');
     }
@@ -228,6 +231,7 @@ function initInstallButton() {
 
     // На Android (и других) ждём beforeinstallprompt
     window.addEventListener('beforeinstallprompt', (e) => {
+        console.log('beforeinstallprompt сработало!');
         e.preventDefault();
         deferredPrompt = e;
         showInstallButton();
@@ -251,6 +255,7 @@ function initInstallButton() {
 
     // Скрываем кнопку после установки
     window.addEventListener('appinstalled', () => {
+        console.log('appinstalled сработало');
         hideInstallButton();
     });
 }
