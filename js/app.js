@@ -190,7 +190,9 @@ let installBtn;
 
 function initInstallButton() {
     const isIOS = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
-    const alreadyInstalled = localStorage.getItem('pwa-installed') === 'true';
+    const alreadyInstalled =
+localStorage.removeItem('pwa-installed');
+localStorage.getItem('pwa-installed') === 'true';
 
     // Создаём кнопку
     installBtn = document.createElement('button');
