@@ -52,31 +52,37 @@
         <div style="text-align: center; font-size: 1.2rem; margin-bottom: 20px; color: #4a4a4a;">
             Японский трип • 10–26 мая 2026
         </div>
-        <!-- Прогресс-бар путешествия -->
-        <div class="progress-container">
-            <div class="progress-labels">
-                <span>🗾 10 мая</span>
-                <span>🌆 Осака</span>
-                <span>🗻 Фудзи</span>
-                <span>🗼 Токио</span>
-                <span>🏙 Шанхай</span>
-                <span>✈️ 26 мая</span>
+
+        <!-- Объединённый блок прогресса и таймера -->
+        <div class="timer-progress-block">
+            <div class="progress-container">
+                <div class="progress-labels">
+                    <span>🗾 10 мая</span>
+                    <span>🌆 Осака</span>
+                    <span>🗻 Фудзи</span>
+                    <span>🗼 Токио</span>
+                    <span>🏙 Шанхай</span>
+                    <span>✈️ 26 мая</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="trip-progress"></div>
+                </div>
+                <div class="progress-text" id="progress-text"></div>
             </div>
-            <div class="progress-bar-bg">
-                <div class="progress-bar-fill" id="trip-progress"></div>
+
+            <div class="timer-container">
+                <div class="timer-title">⏳ Обратный отсчёт</div>
+                <div class="timer-box" id="trip-timer">
+                    <div class="timer-unit"><span id="days">00</span><span>дней</span></div>
+                    <div class="timer-unit"><span id="hours">00</span><span>часов</span></div>
+                    <div class="timer-unit"><span id="minutes">00</span><span>минут</span></div>
+                    <div class="timer-unit"><span id="seconds">00</span><span>секунд</span></div>
+                </div>
+                <div class="timer-status" id="timer-status"></div>
             </div>
         </div>
-        <!-- Таймер до поездки -->
-        <div class="timer-container">
-            <div class="timer-title">⏳ Обратный отсчёт</div>
-            <div class="timer-box" id="trip-timer">
-                <div class="timer-unit"><span id="days">00</span><span>дней</span></div>
-                <div class="timer-unit"><span id="hours">00</span><span>часов</span></div>
-                <div class="timer-unit"><span id="minutes">00</span><span>минут</span></div>
-                <div class="timer-unit"><span id="seconds">00</span><span>секунд</span></div>
-            </div>
-        </div>
-        <!-- Блок городов-баз (перемещён между таймером и вылетами) -->
+
+        <!-- Блок городов-баз -->
         <h2>🏙 Наши города-базы</h2>
         <p style="color: #6b5a4a; margin-bottom: 20px;">Нажми на город, чтобы увидеть детальный план по дням</p>
         
@@ -211,72 +217,78 @@
     </div>
 
     <script>
-        // Прогресс-бар путешествия (исправлены даты: 10 мая = new Date(2026, 4, 10))
+        // Единые параметры путешествия
+        const TRIP_START = new Date(2026, 4, 10); // 10 мая 2026
+        const TRIP_END = new Date(2026, 4, 26);   // 26 мая 2026
+
+        // Прогресс-бар
         function updateProgress() {
-            const start = new Date(2026, 4, 10);
-            const end = new Date(2026, 4, 26);
-            const today = new Date();
-            
-            if (today < start) {
-                document.getElementById('trip-progress').style.width = '0%';
-                document.getElementById('progress-text').textContent = '⏳ Путешествие начнётся 10 мая 2026';
-            } else if (today > end) {
-                document.getElementById('trip-progress').style.width = '100%';
-                document.getElementById('progress-text').textContent = '✅ Путешествие завершено! 🎉';
+            const now = new Date();
+            const progressBar = document.getElementById('trip-progress');
+            const progressText = document.getElementById('progress-text');
+
+            if (now < TRIP_START) {
+                progressBar.style.width = '0%';
+                progressText.textContent = '⏳ Путешествие начнётся 10 мая 2026';
+            } else if (now > TRIP_END) {
+                progressBar.style.width = '100%';
+                progressText.textContent = '✅ Путешествие завершено! 🎉';
             } else {
-                const total = end - start;
-                const elapsed = today - start;
-                const percent = (elapsed / total) * 100;
-                document.getElementById('trip-progress').style.width = percent + '%';
-                const daysLeft = Math.ceil((end - today) / (1000 * 60 * 60 * 24));
-                document.getElementById('progress-text').textContent = `📅 До конца путешествия осталось ${daysLeft} дней`;
+                const totalDuration = TRIP_END - TRIP_START;
+                const elapsed = now - TRIP_START;
+                const percent = Math.min(100, Math.max(0, (elapsed / totalDuration) * 100));
+                progressBar.style.width = percent + '%';
+                const daysLeft = Math.ceil((TRIP_END - now) / (1000 * 60 * 60 * 24));
+                progressText.textContent = `📅 До конца путешествия осталось ${daysLeft} ${getDaysWord(daysLeft)}`;
             }
         }
-        updateProgress();
-        
-        // Таймер до поездки (исправлены даты: 10 мая = new Date(2026, 4, 10))
+
+        // Таймер
         function updateTimer() {
-            const startDate = new Date(2026, 4, 10);
-            const endDate = new Date(2026, 4, 26);
             const now = new Date();
-        
-            let targetDate, statusText;
-            if (now < startDate) {
-                targetDate = startDate;
-                statusText = '⏰ До начала путешествия';
-            } else if (now >= startDate && now <= endDate) {
-                targetDate = endDate;
-                statusText = '🧳 Путешествие началось! Осталось до возвращения:';
+            const daysEl = document.getElementById('days');
+            const hoursEl = document.getElementById('hours');
+            const minutesEl = document.getElementById('minutes');
+            const secondsEl = document.getElementById('seconds');
+            const statusEl = document.getElementById('timer-status');
+            const timerBox = document.getElementById('trip-timer');
+
+            if (now < TRIP_START) {
+                const diff = TRIP_START - now;
+                setTimerValues(diff, daysEl, hoursEl, minutesEl, secondsEl);
+                statusEl.textContent = '⏰ До начала путешествия';
+            } else if (now >= TRIP_START && now <= TRIP_END) {
+                const diff = TRIP_END - now;
+                setTimerValues(diff, daysEl, hoursEl, minutesEl, secondsEl);
+                statusEl.textContent = '🧳 Путешествие началось! Осталось до возвращения:';
             } else {
-                document.getElementById('trip-timer').innerHTML = '<div class="timer-unit">🎉 Поездка завершена!</div>';
-                document.getElementById('timer-status').textContent = 'Спасибо за воспоминания!';
-                return;
+                timerBox.innerHTML = '<div class="timer-unit">🎉 Поездка завершена!</div>';
+                statusEl.textContent = 'Спасибо за воспоминания!';
             }
-        
-            const diff = targetDate - now;
-            if (diff <= 0) {
-                if (now >= startDate && now <= endDate) {
-                    document.getElementById('timer-status').textContent = '🧳 Путешествие в самом разгаре!';
-                } else {
-                    document.getElementById('timer-status').textContent = '🎉 Поездка завершена!';
-                }
-                return;
-            }
-        
+        }
+
+        function setTimerValues(diff, daysEl, hoursEl, minutesEl, secondsEl) {
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff % (86400000)) / (3600000));
             const minutes = Math.floor((diff % 3600000) / 60000);
             const seconds = Math.floor((diff % 60000) / 1000);
-        
-            document.getElementById('days').textContent = days.toString().padStart(2, '0');
-            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-            document.getElementById('timer-status').textContent = statusText;
+
+            daysEl.textContent = days.toString().padStart(2, '0');
+            hoursEl.textContent = hours.toString().padStart(2, '0');
+            minutesEl.textContent = minutes.toString().padStart(2, '0');
+            secondsEl.textContent = seconds.toString().padStart(2, '0');
         }
-        
-        setInterval(updateTimer, 1000);
+
+        function getDaysWord(count) {
+            if (count % 10 === 1 && count % 100 !== 11) return 'день';
+            if (count % 10 >= 2 && count % 10 <= 4 && (count % 100 < 10 || count % 100 >= 20)) return 'дня';
+            return 'дней';
+        }
+
+        // Запуск
+        updateProgress();
         updateTimer();
+        setInterval(updateTimer, 1000);
     </script>
     <script src="js/currency.js"></script>
     <script src="js/app.js"></script>
