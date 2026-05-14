@@ -6,7 +6,7 @@
     <title>Пердящее путешествие: Япония + Шанхай</title>
     
     <!-- PWA -->
-    <link rel="manifest" href="/Japan-trip/manifest.json">
+    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#b03e3e">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -81,6 +81,7 @@
             <div class="timer-status" id="timer-status"></div>
         </div>
 
+        <!-- Блок городов-баз (перемещён между таймером и вылетами) -->
         <h2>🏙 Наши города-базы</h2>
         <p style="color: #6b5a4a; margin-bottom: 20px;">Нажми на город, чтобы увидеть детальный план по дням</p>
         
@@ -108,6 +109,7 @@
                 <div class="city-name">Шанхай</div>
                 <div class="city-dates">25–26 мая · 1 ночь</div>
             </a>
+        </div>
 
         <h2>✈️ Оля-Никита-Иван</h2>
         <div class="flight-badge">
@@ -155,35 +157,6 @@
                 <span><strong>Шанхай (PVG)</strong> → Москва (SVO)</span>
                 <span>MU-247</span>
             </div>
-        </div>
-
-        <h2>🏙 Наши города-базы</h2>
-        <p style="color: #6b5a4a; margin-bottom: 20px;">Нажми на город, чтобы увидеть детальный план по дням</p>
-        
-        <div class="city-grid">
-            <a href="osaka.html" class="city-card">
-                <div class="city-icon">🌆</div>
-                <div class="city-name">Осака</div>
-                <div class="city-dates">11–18 мая · 7 ночей</div>
-            </a>
-            
-            <a href="fuji.html" class="city-card">
-                <div class="city-icon">🗻</div>
-                <div class="city-name">Фудзи</div>
-                <div class="city-dates">18–20 мая · 2 ночи</div>
-            </a>
-            
-            <a href="tokyo.html" class="city-card">
-                <div class="city-icon">🗼</div>
-                <div class="city-name">Токио</div>
-                <div class="city-dates">20–25 мая · 5 ночей</div>
-            </a>
-            
-            <a href="shanghai.html" class="city-card">
-                <div class="city-icon">🏙</div>
-                <div class="city-name">Шанхай</div>
-                <div class="city-dates">25–26 мая · 1 ночь</div>
-            </a>
         </div>
 
         <h2>🏨 Все проживания</h2>
@@ -243,7 +216,7 @@
     </div>
 
     <script>
-        // Прогресс-бар путешествия
+        // Прогресс-бар путешествия (исправлены даты: 10 мая = new Date(2026, 4, 10))
         function updateProgress() {
             const start = new Date(2026, 4, 10);
             const end = new Date(2026, 4, 26);
@@ -265,10 +238,11 @@
             }
         }
         updateProgress();
-                // Таймер до поездки
+        
+        // Таймер до поездки (исправлены даты: 10 мая = new Date(2026, 4, 10))
         function updateTimer() {
-            const startDate = new Date(2026, 4, 10); // 10 мая 2026 (месяцы с 0)
-            const endDate = new Date(2026, 4, 26);   // 26 мая 2026
+            const startDate = new Date(2026, 4, 10);
+            const endDate = new Date(2026, 4, 26);
             const now = new Date();
         
             let targetDate, statusText;
