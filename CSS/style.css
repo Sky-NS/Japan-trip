@@ -1,4 +1,4 @@
-/* ===== ЯПОНСКИЙ МИНИМАЛИЗМ с поддержкой тёмной темы ===== */
+ну/* ===== ЯПОНСКИЙ МИНИМАЛИЗМ с поддержкой тёмной темы ===== */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&display=swap');
 
@@ -1460,7 +1460,7 @@ body.dark-mode #pwa-install-btn:hover {
     .timer-unit span:first-child { font-size: 1.4rem; }
     .big-action-button { width: 100%; font-size: 1.1rem; padding: 15px 20px; }
     .two-columns { grid-template-columns: 1fr; }
-    .phrase-grid { grid-template-columns: 1fr; }
+    .phrase-grid { grid-template-columns: repeat(2, 1fr); }
     .contacts-grid { grid-template-columns: 1fr; }
     .map-container iframe { height: 300px; }
     .checklist-block ul { columns: 1; }
