@@ -191,10 +191,11 @@ a:hover {
     font-size: 1.1rem;
 }
 
-/* ----- СЕТКА КНОПОК ДНЕЙ ----- */
+/* ----- СЕТКА КНОПОК ДНЕЙ (строго 3 в ряд, центрирование последней строки) ----- */
 .day-nav-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 12px;
     margin: 30px 0;
     padding: 20px;
@@ -204,6 +205,8 @@ a:hover {
 }
 
 .day-nav-card {
+    flex: 0 0 calc(33.333% - 12px);
+    max-width: calc(33.333% - 12px);
     background-color: var(--bg-card);
     border: 1px solid var(--border-light);
     border-radius: 10px;
@@ -215,6 +218,7 @@ a:hover {
     color: inherit;
     display: block;
     cursor: pointer;
+    box-sizing: border-box;
 }
 
 .day-nav-card:hover {
