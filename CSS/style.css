@@ -1,4 +1,4 @@
-ну/* ===== ЯПОНСКИЙ МИНИМАЛИЗМ с поддержкой тёмной темы ===== */
+/* ===== ЯПОНСКИЙ МИНИМАЛИЗМ с поддержкой тёмной темы ===== */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&display=swap');
 
@@ -164,9 +164,9 @@ a:hover {
     padding: 25px 20px;
     text-align: center;
     transition: all 0.3s ease;
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     text-decoration: none;
-    color: inherit;
+    color: var(--text-primary);
     display: block;
 }
 .city-card:hover {
@@ -191,6 +191,15 @@ a:hover {
     font-size: 1.1rem;
 }
 
+/* ----- ЕДИНАЯ ПЛАШКА ДЛЯ ПРОГРЕСС-БАРА И ТАЙМЕРА ----- */
+.unified-progress-timer {
+    background: var(--card-hover);
+    border-radius: 20px;
+    padding: 20px;
+    margin: 30px 0;
+    border: 1px solid var(--border-light);
+}
+
 /* ----- СЕТКА КНОПОК ДНЕЙ (строго 3 в ряд, центрирование последней строки) ----- */
 .day-nav-grid {
     display: flex;
@@ -202,6 +211,7 @@ a:hover {
     background: var(--card-hover);
     border-radius: 12px;
     border: 1px solid var(--border-light);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .day-nav-card {
@@ -213,9 +223,9 @@ a:hover {
     padding: 14px 10px;
     text-align: center;
     transition: all 0.25s ease;
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     text-decoration: none;
-    color: inherit;
+    color: var(--text-primary);
     display: block;
     cursor: pointer;
     box-sizing: border-box;
@@ -290,14 +300,6 @@ a:hover {
     padding: 20px;
     background: var(--card-hover);
     border-radius: 12px;
-}
-/* Объединённый блок таймера и прогресса */
-.timer-progress-block {
-    background: var(--card-hover);
-    border-radius: 20px;
-    padding: 20px;
-    margin: 30px 0;
-    border: 1px solid var(--border-light);
 }
 .progress-labels {
     display: flex;
@@ -1061,7 +1063,7 @@ body.dark-mode .phrase-box {
 }
 .phrase-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 15px;
     margin-top: 15px;
 }
@@ -1117,14 +1119,6 @@ body.dark-mode .culture-tip {
     padding: 20px;
     margin: 20px 0;
     text-align: center;
-    border: 1px solid var(--border-light);
-}
-/* Единая плашка для прогресс-бара и таймера */
-.unified-progress-timer {
-    background: var(--card-hover);
-    border-radius: 20px;
-    padding: 20px;
-    margin: 30px 0;
     border: 1px solid var(--border-light);
 }
 .timer-title {
@@ -1441,11 +1435,6 @@ body.dark-mode #pwa-install-btn:hover {
     h1 { font-size: 2rem !important; margin: 0 0 10px 0 !important; }
     h2 { font-size: 1.4rem !important; margin: 20px 0 10px !important; padding-left: 10px !important; }
     .city-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 8px !important; }
-    .day-nav-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 8px !important; padding: 12px !important; }
-    .day-nav-card { padding: 10px 6px !important; }
-    .day-nav-icon { font-size: 1.5rem !important; margin-bottom: 2px !important; }
-    .day-nav-date { font-size: 0.7rem !important; }
-    .day-nav-title { font-size: 0.7rem !important; }
     .city-card { padding: 10px 6px !important; }
     .city-icon { font-size: 2.2rem !important; margin-bottom: 3px !important; }
     .city-name { font-size: 1rem !important; }
